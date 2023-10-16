@@ -1,3 +1,11 @@
+import Carousel from 'components/Carousel';
+import PostList from 'components/PostList';
+
 export default function HomePage() {
-  return <h1>Home Page</h1>;
+  return (
+    <>
+      <Carousel />
+      <PostList />
+    </>
+  );
 }

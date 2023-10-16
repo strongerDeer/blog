@@ -1,0 +1,6 @@
+$maxW: 1200;
+$maxWidth: $maxW + 'rem';
+
+@function fcSize($min, $max) {
+  @return clamp($min * 0.1rem, (100vw / $maxW) * $max, $max * 0.1rem);
+}

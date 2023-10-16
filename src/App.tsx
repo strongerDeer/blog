@@ -1,8 +1,14 @@
-import './App.css';
-import Router from './components/Router';
+import 'styles/reset.scss';
+
+import Layout from 'components/Layout';
+import Router from 'components/Router';
 
 function App() {
-  return <Router />;
+  return (
+    <Layout>
+      <Router />
+    </Layout>
+  );
 }
 
 export default App;

@@ -1,9 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import HomePage from '../pages/home';
-import PostListPage from '../pages/posts';
-import PostDetailPage from '../pages/posts/detail';
-import PostCreatePage from '../pages/posts/create';
-import PostEditPage from '../pages/posts/edit';
+import PostListPage from '../pages/post';
+import PostDetailPage from '../pages/post/detail';
+import PostCreatePage from '../pages/post/create';
+import PostEditPage from '../pages/post/edit';
 import ProfilePage from '../pages/profile';
 import LoginPage from '../pages/login';
 import SignupPage from '../pages/signup';

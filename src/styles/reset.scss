@@ -1,0 +1,60 @@
+@import 'styles/var.scss';
+
+/* reset ---------------------*/
+body,
+ol,
+ul,
+li,
+button {
+  padding: 0;
+  margin: 0;
+}
+ol,
+ul,
+li {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input {
+  color: inherit;
+  font: inherit;
+}
+button {
+  background: none;
+  border: 0;
+
+  &:enabled {
+    cursor: pointer;
+  }
+}
+
+/* font ---------------------*/
+html {
+  font-size: 62.5%;
+}
+body {
+  font-size: fcSize(14, 16);
+}
+
+/* common ---------------------*/
+.a11y-hidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+}
