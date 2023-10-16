@@ -1,4 +1,8 @@
+import { Link, useParams } from 'react-router-dom';
+
 export default function PostDetail() {
+  const id = useParams().id;
+
   return (
     <main className="post__detail">
       <h3 className="post__title">게시글</h3>
@@ -18,9 +22,9 @@ export default function PostDetail() {
       </p>
 
       <div className="post__button">
-        <button type="button" className="post__edit">
+        <Link to={`/post/edit/${id}`} className="post__edit">
           수정
-        </button>
+        </Link>
         <button type="button" className="post__delete">
           삭제
         </button>

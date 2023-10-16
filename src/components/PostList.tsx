@@ -1,16 +1,34 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import styles from './PostList.module.scss';
 interface PostListProps {
   hasNavigation?: boolean;
 }
 export default function PostList({ hasNavigation = true }: PostListProps) {
+  const [activeTab, setActiveTab] = useState(0);
+
+  const tabList = ['전체', '나의글'];
+
+  const changeTab = (e: any) => {
+    setActiveTab(Number(e.target.value));
+  };
   return (
     <>
       {hasNavigation && (
-        <div className="post__navigation">
-          <button type="button" className="post__navigation--active">
-            전체
-          </button>
-          <button type="button">나의 글</button>
+        <div className={styles['post__navigation']}>
+          {tabList.map((tab, index) => (
+            <button
+              key={index}
+              type="button"
+              className={
+                activeTab === index ? styles['post__navigation--active'] : ''
+              }
+              value={index}
+              onClick={changeTab}>
+              {tab}
+            </button>
+          ))}
         </div>
       )}
       <ul className="post__list">

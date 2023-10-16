@@ -1,0 +1,11 @@
+@import 'styles/var.scss';
+
+.post__navigation {
+  button {
+    padding: 1rem;
+  }
+}
+.post__navigation--active {
+  color: royalblue;
+  font-weight: bold;
+}

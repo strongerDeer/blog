@@ -26,7 +26,8 @@ a {
 }
 
 button,
-input {
+input,
+textarea {
   color: inherit;
   font: inherit;
 }
@@ -37,6 +38,9 @@ button {
   &:enabled {
     cursor: pointer;
   }
+}
+textarea {
+  resize: none;
 }
 
 /* font ---------------------*/
