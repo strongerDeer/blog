@@ -3,12 +3,13 @@ import Footer from './Footer';
 import Header from './Header';
 
 type LayoutProps = {
+  isAuthenticated: boolean;
   children: ReactNode;
 };
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ isAuthenticated, children }: LayoutProps) {
   return (
     <>
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
       {children}
       <Footer />
     </>
