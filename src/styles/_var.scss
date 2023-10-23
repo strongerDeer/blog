@@ -1,3 +1,12 @@
+@use 'sass:map';
+
+$color: (
+  'primary': royalblue,
+  'text': black,
+  'background': white,
+  'gray': #eee,
+);
+
 $maxW: 1200;
 $maxWidth: $maxW + 'rem';
 
