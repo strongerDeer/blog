@@ -1,5 +1,10 @@
-import FormSet from 'components/organisms/FormSet';
+import { toast } from 'react-toastify';
+
+import { app } from 'firebaseApp';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
+
+import FormSet from 'components/organisms/FormSet';
 
 export default function SignupTemp() {
   const [email, setEmail] = useState<string>('');
@@ -52,6 +57,22 @@ export default function SignupTemp() {
     console.log(error);
   };
 
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth(app);
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success('회원가입 성공🥳');
+    } catch (error: any) {
+      let errorMsg = error?.code;
+
+      if ((errorMsg = 'auth/email-already-in-use')) {
+        errorMsg = '이미 사용중인 이메일입니다.';
+      }
+      toast.error(errorMsg);
+    }
+  };
+
   return (
     <FormSet
       email={email}
@@ -59,6 +80,7 @@ export default function SignupTemp() {
       passwordConfirm={passwordConfirm}
       error={error}
       onChange={onChange}
+      onSubmit={onSubmit}
       signup
     />
   );

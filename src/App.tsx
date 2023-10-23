@@ -1,10 +1,18 @@
 import 'styles/reset.scss';
 
-import Layout from 'components/Layout';
-import Router from 'components/Router';
 import { useState } from 'react';
+
+// toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// firebase
 import { app } from 'firebaseApp';
 import { getAuth } from 'firebase/auth';
+
+// components
+import Layout from 'components/Layout';
+import Router from 'components/Router';
 
 function App() {
   const auth = getAuth(app);
@@ -13,9 +21,12 @@ function App() {
   );
 
   return (
-    <Layout>
-      <Router isAuthenticated={isAuthenticated} />
-    </Layout>
+    <>
+      <ToastContainer />
+      <Layout>
+        <Router isAuthenticated={isAuthenticated} />
+      </Layout>
+    </>
   );
 }
 
