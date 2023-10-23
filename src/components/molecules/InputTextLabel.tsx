@@ -2,12 +2,14 @@ import styles from './InputTextLabel.module.scss';
 
 interface InputTextLabelProps {
   id?: string;
+  type?: string;
   label?: string;
   value?: string;
   onChange?: any;
 }
 export default function InputTextLabel({
   id,
+  type,
   label,
   value,
   onChange,
@@ -19,7 +21,7 @@ export default function InputTextLabel({
       </label>
       <input
         className={styles.input}
-        type="text"
+        type={type ?? 'text'}
         id={id}
         name={id}
         value={value}
