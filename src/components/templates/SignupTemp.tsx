@@ -1,9 +1,13 @@
-import { toast } from 'react-toastify';
-
-import { app } from 'firebaseApp';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 
+// toastify
+import { toast } from 'react-toastify';
+
+// firebase
+import { app } from 'firebaseApp';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
+
+// components
 import FormSet from 'components/organisms/FormSet';
 
 export default function SignupTemp() {
@@ -53,8 +57,6 @@ export default function SignupTemp() {
         }
         break;
     }
-
-    console.log(error);
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
