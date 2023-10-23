@@ -59,7 +59,9 @@ export default function FormSet({
         <Button
           type="submit"
           disabled={
-            (email === '' || password === '' || passwordConfirm === ''
+            (email === '' ||
+            password === '' ||
+            (passwordConfirm && passwordConfirm === '')
               ? true
               : undefined) || (error ? error?.length > 0 : undefined)
           }>
