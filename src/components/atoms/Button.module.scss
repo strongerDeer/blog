@@ -1,0 +1,24 @@
+@import 'styles/var.scss';
+button {
+  color: inherit;
+  font: inherit;
+  border: none;
+  background: none;
+
+  &:enabled {
+    cursor: pointer;
+  }
+}
+.button {
+  background-color: map-get($color, 'primary');
+  color: #fff;
+  padding: 0 2rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 3.2rem;
+
+  &:disabled {
+    background-color: map-get($color, 'gray');
+  }
+}

@@ -1,0 +1,16 @@
+// reset
+input {
+  color: inherit;
+  font: inherit;
+  border: none;
+}
+.wrap {
+  display: flex;
+  gap: 1rem;
+}
+.label {
+  width: 5em;
+}
+.input {
+  border: 1px solid #ddd;
+}
