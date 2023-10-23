@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
-export default function Header() {
+type HeadertProps = {
+  isAuthenticated: boolean;
+};
+
+export default function Header({ isAuthenticated }: HeadertProps) {
   return (
     <header>
       <h1>
@@ -8,11 +12,18 @@ export default function Header() {
       </h1>
 
       <nav>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
-        <Link to="/post/new">Write</Link>
-        <Link to="/profile">Profile</Link>
-        <Link to="/post">Posts</Link>
+        {isAuthenticated ? (
+          <>
+            <Link to="/post/new">Write</Link>
+            <Link to="/profile">Profile</Link>
+            <Link to="/post">Posts</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Signup</Link>
+          </>
+        )}
       </nav>
     </header>
   );
