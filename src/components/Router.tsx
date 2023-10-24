@@ -5,7 +5,8 @@ import PostDetailPage from '../pages/post/detail';
 import PostCreatePage from '../pages/post/create';
 import PostEditPage from '../pages/post/edit';
 import ProfilePage from '../pages/profile';
-import LoginPage from '../pages/login';
+
+import SigninPage from '../pages/signin';
 import SignupPage from '../pages/signup';
 
 interface RouterProps {
@@ -28,9 +29,9 @@ export default function Router({ isAuthenticated }: RouterProps) {
           </>
         ) : (
           <>
-            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signin" element={<SigninPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route path="*" element={<LoginPage />} />
+            <Route path="*" element={<SigninPage />} />
           </>
         )}
       </Routes>

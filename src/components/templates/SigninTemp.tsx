@@ -11,7 +11,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 // components
 import FormSet from 'components/organisms/FormSet';
 
-export default function LoginTemp() {
+export default function SigninTemp() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');

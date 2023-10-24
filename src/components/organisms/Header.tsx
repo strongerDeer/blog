@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 
+import styles from './Header.module.scss';
+
 type HeadertProps = {
   isAuthenticated: boolean;
 };
 
 export default function Header({ isAuthenticated }: HeadertProps) {
   return (
-    <header>
+    <header className={styles.header}>
       <h1>
         <Link to="/">My Blog</Link>
       </h1>

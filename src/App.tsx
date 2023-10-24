@@ -11,7 +11,7 @@ import { app } from 'firebaseApp';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // components
-import Layout from 'components/Layout';
+import Layout from 'components/organisms/Layout';
 import Router from 'components/Router';
 import Loader from 'components/molecules/Loader';
 
