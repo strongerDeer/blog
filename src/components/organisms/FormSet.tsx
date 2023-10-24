@@ -1,6 +1,8 @@
 import Button from 'components/atoms/Button';
 import InputTextLabel from '../molecules/InputTextLabel';
 
+import styles from './FormSet.module.scss';
+
 interface FormSetProps {
   email: string;
   password: string;
@@ -23,10 +25,10 @@ export default function FormSet({
   const text = signup ? '회원가입' : '로그인';
 
   return (
-    <>
-      <h2>{text}</h2>
+    <div className={styles['form-wrap']}>
+      <h2 className={styles.title}>{text}</h2>
       {error && error?.length > 0 && <p>{error}</p>}
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles['sign-form']}>
         <div>
           <InputTextLabel
             label="아이디"
@@ -68,6 +70,6 @@ export default function FormSet({
           {text}
         </Button>
       </form>
-    </>
+    </div>
   );
 }

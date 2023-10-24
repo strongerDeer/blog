@@ -16,9 +16,11 @@ button {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  height: 3.2rem;
+
+  height: $inputHeight;
+  border-radius: $borderRadius;
 
   &:disabled {
-    background-color: map-get($color, 'gray');
+    background-color: rgba(map-get($color, 'primary'), 0.6);
   }
 }

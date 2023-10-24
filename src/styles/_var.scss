@@ -1,14 +1,21 @@
 @use 'sass:map';
 
 $color: (
-  'primary': royalblue,
+  'primary': #7165e4,
   'text': black,
-  'background': white,
+  'background': #f5f6f9,
+  'background2': #fff,
   'gray': #eee,
+  'grayLv1': #f5f6f9,
 );
 
 $maxW: 1200;
 $maxWidth: $maxW + 'rem';
+$borderRadius: 0.4em;
+
+// 로그인/회원가입
+$signWidth: 40rem;
+$inputHeight: 4.8rem;
 
 @function fcSize($min, $max) {
   @return clamp($min * 0.1rem, (100vw / $maxW) * $max, $max * 0.1rem);

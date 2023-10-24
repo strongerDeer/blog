@@ -1,0 +1,23 @@
+@import 'styles/var.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: map-get($color, 'background2');
+  padding: 0 2rem;
+
+  h1 {
+    font-size: fcSize(16, 24);
+  }
+  nav {
+    display: flex;
+    gap: 0.8rem;
+    a {
+      display: inline-flex;
+      align-items: center;
+      height: 2.8rem;
+      padding: 0 1rem;
+    }
+  }
+}

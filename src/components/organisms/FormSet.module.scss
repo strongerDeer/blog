@@ -1,0 +1,16 @@
+@import 'styles/var.scss';
+
+.form-wrap {
+  width: $signWidth;
+  margin: auto;
+
+  .title {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .sign-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
