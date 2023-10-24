@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // toastify
 import { toast } from 'react-toastify';
@@ -14,6 +15,7 @@ export default function LoginTemp() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -51,6 +53,7 @@ export default function LoginTemp() {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
       toast.success('로그인 성공🥳');
+      navigate('/');
     } catch (error: any) {
       console.log(error?.code);
       let errorMsg = error?.code;

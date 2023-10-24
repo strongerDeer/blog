@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // toastify
 import { toast } from 'react-toastify';
@@ -15,6 +16,7 @@ export default function SignupTemp() {
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -65,6 +67,7 @@ export default function SignupTemp() {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(auth, email, password);
       toast.success('회원가입 성공🥳');
+      navigate('/');
     } catch (error: any) {
       let errorMsg = error?.code;
 
