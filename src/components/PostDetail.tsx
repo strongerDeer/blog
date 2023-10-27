@@ -1,34 +1,54 @@
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from 'firebaseApp';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { PostProps } from './PostList';
+import Loader from './molecules/Loader';
 
 export default function PostDetail() {
-  const id = useParams().id;
+  const [post, setPost] = useState<PostProps | null>(null);
+  const params = useParams();
+
+  const getPost = async (id: string) => {
+    if (id) {
+      const docRef = doc(db, 'posts', id);
+      const docSnap = await getDoc(docRef);
+
+      setPost({ id: docSnap.id, ...(docSnap.data() as PostProps) });
+    }
+  };
+
+  useEffect(() => {
+    if (params?.id) getPost(params?.id);
+  }, [params?.id]);
 
   return (
     <main className="post__detail">
-      <h3 className="post__title">게시글</h3>
+      {post ? (
+        <>
+          <h3 className="post__title">{post?.title}</h3>
 
-      <div className="post__profile-box">
-        <p className="post__author">
-          <img src="" alt="" />
-          stronger.Deer
-        </p>
-        <time className="post__datte">2023.10.16 토요일</time>
-      </div>
-      <p className="post__content">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-        necessitatibus quod repudiandae autem illum! Doloribus eum consectetur a
-        eaque reprehenderit! Atque officia inventore natus temporibus dolorem
-        delectus ea! Eaque, magni?
-      </p>
+          <div className="post__profile-box">
+            <p className="post__author">
+              <img src="" alt="" />
+              stronger.Deer
+            </p>
+            <time className="post__datte">{post?.createAt}</time>
+          </div>
+          <p className="post__content">{post?.content}</p>
 
-      <div className="post__button">
-        <Link to={`/post/edit/${id}`} className="post__edit">
-          수정
-        </Link>
-        <button type="button" className="post__delete">
-          삭제
-        </button>
-      </div>
+          <div className="post__button">
+            <Link to={`/post/edit/${params?.id}`} className="post__edit">
+              수정
+            </Link>
+            <button type="button" className="post__delete">
+              삭제
+            </button>
+          </div>
+        </>
+      ) : (
+        <Loader />
+      )}
     </main>
   );
 }

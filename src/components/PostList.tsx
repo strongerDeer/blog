@@ -1,18 +1,46 @@
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './PostList.module.scss';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from 'firebaseApp';
+import AuthContext from 'context/AuthContext';
+
 interface PostListProps {
   hasNavigation?: boolean;
 }
-export default function PostList({ hasNavigation = true }: PostListProps) {
-  const [activeTab, setActiveTab] = useState(0);
 
-  const tabList = ['전체', '나의글'];
+export interface PostProps {
+  id?: string;
+  title: string;
+  email: string;
+  summary: string;
+  content: string;
+  createAt: string;
+}
+
+const tabList = ['전체', '나의글'];
+
+export default function PostList({ hasNavigation = true }: PostListProps) {
+  const { user } = useContext(AuthContext);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const [posts, setPosts] = useState<PostProps[]>([]);
 
   const changeTab = (e: any) => {
-    setActiveTab(Number(e.target.value));
+    setActiveTab(e.target.value);
   };
+
+  const getPosts = async () => {
+    const datas = await getDocs(collection(db, 'posts'));
+    datas.forEach((doc) => {
+      const dataObj = { ...doc.data(), id: doc.id };
+      setPosts((prev) => [...prev, dataObj as PostProps]);
+    });
+  };
+  useEffect(() => {
+    getPosts();
+  }, []);
+
   return (
     <>
       {hasNavigation && (
@@ -32,37 +60,38 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
         </div>
       )}
       <ul className="post__list">
-        {[...Array(10)].map((e, index) => (
-          <li key={index} className="post__box">
-            <article>
-              <Link to={`/post/${index}`}>
-                <h3 className="post__title">게시글 {index}</h3>
+        {posts?.length > 0 ? (
+          posts?.map((post, index) => (
+            <li key={post && post?.id} className="post__box">
+              <article>
+                <Link to={`/post/${post?.id}`}>
+                  <h3 className="post__title">{post?.title}</h3>
+                  <div className="post__profile-box">
+                    <p className="post__author">
+                      <img src="" alt="" />
+                      {post?.email}
+                    </p>
+                    <time className="post__datte">{post?.createAt}</time>
+                  </div>
+                  <p className="post__content">{post?.content}</p>
+                </Link>
 
-                <div className="post__profile-box">
-                  <p className="post__author">
-                    <img src="" alt="" />
-                    stronger.Deer
-                  </p>
-                  <time className="post__datte">2023.10.16 토요일</time>
-                </div>
-                <p className="post__content">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta
-                  necessitatibus quod repudiandae autem illum! Doloribus eum
-                  consectetur a eaque reprehenderit! Atque officia inventore
-                  natus temporibus dolorem delectus ea! Eaque, magni?
-                </p>
-              </Link>
-              <div className="post__button">
-                <button type="button" className="post__edit">
-                  수정
-                </button>
-                <button type="button" className="post__delete">
-                  삭제
-                </button>
-              </div>
-            </article>
-          </li>
-        ))}
+                {user?.email === post?.email && (
+                  <div className="post__button">
+                    <Link to={`/post/edit/${post?.id}`} className="post__edit">
+                      수정
+                    </Link>
+                    <button type="button" className="post__delete">
+                      삭제
+                    </button>
+                  </div>
+                )}
+              </article>
+            </li>
+          ))
+        ) : (
+          <p>게시글이 없습니다.</p>
+        )}
       </ul>
     </>
   );
