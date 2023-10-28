@@ -1,10 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from './PostList.module.scss';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from 'firebaseApp';
+
 import AuthContext from 'context/AuthContext';
+import BtnDeletePost from './atoms/BtnDeletePost';
+
+import styles from './PostList.module.scss';
 
 interface PostListProps {
   hasNavigation?: boolean;
@@ -17,6 +20,8 @@ export interface PostProps {
   summary: string;
   content: string;
   createAt: string;
+  updateAt: string;
+  uid: string;
 }
 
 const tabList = ['전체', '나의글'];
@@ -32,6 +37,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
 
   const getPosts = async () => {
     const datas = await getDocs(collection(db, 'posts'));
+    setPosts([]);
     datas.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostProps]);
@@ -81,9 +87,8 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                     <Link to={`/post/edit/${post?.id}`} className="post__edit">
                       수정
                     </Link>
-                    <button type="button" className="post__delete">
-                      삭제
-                    </button>
+
+                    <BtnDeletePost id={post?.id} getPosts={getPosts} />
                   </div>
                 )}
               </article>

@@ -1,9 +1,13 @@
-import { doc, getDoc } from 'firebase/firestore';
-import { db } from 'firebaseApp';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { PostProps } from './PostList';
+
+// firebase
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from 'firebaseApp';
+
+import BtnDeletePost from './atoms/BtnDeletePost';
 import Loader from './molecules/Loader';
+import { PostProps } from './PostList';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostProps | null>(null);
@@ -41,9 +45,7 @@ export default function PostDetail() {
             <Link to={`/post/edit/${params?.id}`} className="post__edit">
               수정
             </Link>
-            <button type="button" className="post__delete">
-              삭제
-            </button>
+            <BtnDeletePost id={params?.id} />
           </div>
         </>
       ) : (

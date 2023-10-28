@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 //toastify
 import { toast } from 'react-toastify';
 
 // firebase
 import { db } from 'firebaseApp';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
 import Button from './atoms/Button';
 import InputTextLabel from './molecules/InputTextLabel';
@@ -13,26 +13,51 @@ import TextareaLabel from './molecules/TextareaLabel';
 import AuthContext from 'context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-export default function PostCreate() {
+interface PostFormProps {
+  post?: any;
+}
+
+export default function PostForm({ post }: PostFormProps) {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [content, setContent] = useState<string>('');
-  const { user } = useContext(AuthContext);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setSummary(post.summary);
+      setContent(post.content);
+    }
+  }, [post]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
-      const docRef = await addDoc(collection(db, 'posts'), {
-        title: title,
-        summary: summary,
-        content: content,
-        createAt: new Date()?.toLocaleDateString(),
-        email: user?.email,
-      });
-      toast.success('게시글 작성 완료!');
-      navigate('/post');
+      if (post && post?.id) {
+        const postRef = doc(db, 'posts', post?.id);
+        await updateDoc(postRef, {
+          title: title,
+          summary: summary,
+          content: content,
+          updateAt: new Date()?.toLocaleDateString(),
+        });
+        toast.success('게시글 수정작성 완료!');
+        navigate(`/post/${post?.id}`);
+      } else {
+        await addDoc(collection(db, 'posts'), {
+          title: title,
+          summary: summary,
+          content: content,
+          createAt: new Date()?.toLocaleDateString(),
+          email: user?.email,
+          uid: user?.uid,
+        });
+        toast.success('게시글 작성 완료!');
+        navigate('/post');
+      }
 
       // fireabase로 데이터 생성
     } catch (error: any) {
@@ -80,7 +105,7 @@ export default function PostCreate() {
         onChange={onChange}
         value={content}
       />
-      <Button type="submit">제출</Button>
+      <Button type="submit">{post ? '수정' : '제출'}</Button>
     </form>
   );
 }
