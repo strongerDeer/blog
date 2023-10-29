@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
@@ -36,8 +36,10 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
   };
 
   const getPosts = async () => {
-    const datas = await getDocs(collection(db, 'posts'));
     setPosts([]);
+    let postsRef = collection(db, 'posts');
+    let postQuery = query(postsRef, orderBy('createAt', 'desc'));
+    const datas = await getDocs(postQuery);
     datas.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
       setPosts((prev) => [...prev, dataObj as PostProps]);
@@ -77,7 +79,7 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
                       <img src="" alt="" />
                       {post?.email}
                     </p>
-                    <time className="post__datte">{post?.createAt}</time>
+                    <time className="post__date">{post?.createAt}</time>
                   </div>
                   <p className="post__content">{post?.content}</p>
                 </Link>
