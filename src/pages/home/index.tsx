@@ -5,7 +5,7 @@ export default function HomePage() {
   return (
     <>
       <Carousel />
-      <PostList />
+      <PostList defaultTab="all" />
     </>
   );
 }

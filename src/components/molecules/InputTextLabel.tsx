@@ -7,6 +7,8 @@ interface InputTextLabelProps {
   value?: string;
   onChange?: any;
 }
+
+// required 추가
 export default function InputTextLabel({
   id,
   type,

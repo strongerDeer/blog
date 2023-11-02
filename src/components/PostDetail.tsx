@@ -40,7 +40,7 @@ export default function PostDetail() {
             <time className="post__datte">{post?.createAt}</time>
           </div>
           <p className="post__content">{post?.content}</p>
-
+          {post?.category && <p className="post__category">{post?.category}</p>}
           <div className="post__button">
             <Link to={`/post/edit/${params?.id}`} className="post__edit">
               수정

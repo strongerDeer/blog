@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { collection, getDocs, orderBy, query } from 'firebase/firestore';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
@@ -11,7 +11,17 @@ import styles from './PostList.module.scss';
 
 interface PostListProps {
   hasNavigation?: boolean;
+  defaultTab?: tabType | CategoryType;
 }
+type tabType = 'all' | 'my';
+
+export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
+export const CATEGORIES: CategoryType[] = [
+  'Frontend',
+  'Backend',
+  'Web',
+  'Native',
+];
 
 export interface PostProps {
   id?: string;
@@ -22,23 +32,42 @@ export interface PostProps {
   createAt: string;
   updateAt: string;
   uid: string;
+  category: CategoryType;
 }
 
-const tabList = ['전체', '나의글'];
-
-export default function PostList({ hasNavigation = true }: PostListProps) {
+export default function PostList({
+  hasNavigation = true,
+  defaultTab = 'all',
+}: PostListProps) {
   const { user } = useContext(AuthContext);
-  const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<tabType | CategoryType>(
+    defaultTab,
+  );
   const [posts, setPosts] = useState<PostProps[]>([]);
-
-  const changeTab = (e: any) => {
-    setActiveTab(e.target.value);
-  };
 
   const getPosts = async () => {
     setPosts([]);
     let postsRef = collection(db, 'posts');
-    let postQuery = query(postsRef, orderBy('createAt', 'desc'));
+    let postQuery;
+
+    if (activeTab === 'my' && user) {
+      // 나의글
+      postQuery = query(
+        postsRef,
+        where('uid', '==', user?.uid),
+        orderBy('createAt', 'desc'),
+      );
+    } else if (activeTab === 'all') {
+      // 전체
+      postQuery = query(postsRef, orderBy('createAt', 'desc'));
+    } else {
+      // 카테고리글 보여주기
+      postQuery = query(
+        postsRef,
+        where('category', '==', activeTab),
+        orderBy('createAt', 'desc'),
+      );
+    }
     const datas = await getDocs(postQuery);
     datas.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
@@ -47,22 +76,38 @@ export default function PostList({ hasNavigation = true }: PostListProps) {
   };
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [activeTab]);
 
   return (
     <>
       {hasNavigation && (
         <div className={styles['post__navigation']}>
-          {tabList.map((tab, index) => (
+          <button
+            type="button"
+            className={
+              activeTab === 'all' ? styles['post__navigation--active'] : ''
+            }
+            onClick={() => setActiveTab('all')}>
+            전체
+          </button>
+          <button
+            type="button"
+            className={
+              activeTab === 'my' ? styles['post__navigation--active'] : ''
+            }
+            onClick={() => setActiveTab('my')}>
+            나의 글
+          </button>
+
+          {CATEGORIES.map((category, index) => (
             <button
               key={index}
               type="button"
               className={
-                activeTab === index ? styles['post__navigation--active'] : ''
+                activeTab === category ? styles['post__navigation--active'] : ''
               }
-              value={index}
-              onClick={changeTab}>
-              {tab}
+              onClick={() => setActiveTab(category)}>
+              {category}
             </button>
           ))}
         </div>

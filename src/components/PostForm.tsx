@@ -12,6 +12,7 @@ import InputTextLabel from './molecules/InputTextLabel';
 import TextareaLabel from './molecules/TextareaLabel';
 import AuthContext from 'context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { CATEGORIES, CategoryType } from './PostList';
 
 interface PostFormProps {
   post?: any;
@@ -23,12 +24,14 @@ export default function PostForm({ post }: PostFormProps) {
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [content, setContent] = useState<string>('');
+  const [category, setCategory] = useState<CategoryType>('Frontend');
 
   useEffect(() => {
     if (post) {
       setTitle(post.title);
       setSummary(post.summary);
       setContent(post.content);
+      setCategory(post.categoty);
     }
   }, [post]);
 
@@ -47,6 +50,7 @@ export default function PostForm({ post }: PostFormProps) {
             minute: '2-digit',
             second: '2-digit',
           }),
+          category: category,
         });
         toast.success('게시글 수정작성 완료!');
         navigate(`/post/${post?.id}`);
@@ -62,6 +66,7 @@ export default function PostForm({ post }: PostFormProps) {
           }),
           email: user?.email,
           uid: user?.uid,
+          category: category,
         });
         toast.success('게시글 작성 완료!');
         navigate('/post');
@@ -74,7 +79,9 @@ export default function PostForm({ post }: PostFormProps) {
     }
   };
   const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const {
       target: { name, value },
@@ -91,6 +98,9 @@ export default function PostForm({ post }: PostFormProps) {
     if (name === 'postContent') {
       setContent(value);
     }
+    if (name === 'postCategory') {
+      setCategory(value as CategoryType);
+    }
   };
 
   return (
@@ -101,6 +111,17 @@ export default function PostForm({ post }: PostFormProps) {
         onChange={onChange}
         value={title}
       />
+
+      <div>
+        <label htmlFor="postCategory">카테고리</label>
+        <select id="postCategory" name="postCategory" onChange={onChange}>
+          <option value="">카테고리를 선택해 주세요</option>
+          {CATEGORIES.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
+      </div>
+
       <InputTextLabel
         label="요약"
         id="postSummary"
