@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
+import BtnTheme from 'components/atoms/BtnTheme';
 
 type HeadertProps = {
   isAuthenticated: boolean;
@@ -27,6 +28,8 @@ export default function Header({ isAuthenticated }: HeadertProps) {
           </>
         )}
       </nav>
+
+      <BtnTheme />
     </header>
   );
 }

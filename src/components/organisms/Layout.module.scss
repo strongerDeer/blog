@@ -1,6 +1,16 @@
+[data-theme='light'] {
+  color: #000;
+  background-color: #fff;
+}
+[data-theme='dark'] {
+  color: #fff;
+  background-color: #333;
+}
+
 .layout {
   display: flex;
   flex-direction: column;
+  height: 1000px;
   min-height: 100vh;
 
   .content {
