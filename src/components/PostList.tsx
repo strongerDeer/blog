@@ -23,6 +23,13 @@ export const CATEGORIES: CategoryType[] = [
   'Native',
 ];
 
+export interface CommentsInterface {
+  content: string;
+  uid: string;
+  email: string;
+  createAt: string;
+}
+
 export interface PostProps {
   id?: string;
   title: string;
@@ -33,6 +40,7 @@ export interface PostProps {
   updateAt: string;
   uid: string;
   category: CategoryType;
+  comments: CommentsInterface[];
 }
 
 export default function PostList({
@@ -74,6 +82,7 @@ export default function PostList({
       setPosts((prev) => [...prev, dataObj as PostProps]);
     });
   };
+
   useEffect(() => {
     getPosts();
   }, [activeTab]);
