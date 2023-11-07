@@ -2,7 +2,7 @@
 
 .form-wrap {
   width: $signWidth;
-  margin: auto;
+  margin: fcSize(50, 100) auto;
 
   .title {
     text-align: center;
@@ -13,4 +13,8 @@
     flex-direction: column;
     gap: 2rem;
   }
+}
+
+.errorMsg {
+  color: map-get($color, 'error');
 }

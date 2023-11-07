@@ -1,6 +1,8 @@
+@import 'styles/var.scss';
+
 [data-theme='light'] {
   color: #000;
-  background-color: #fff;
+  background-color: map-get($color, background);
 }
 [data-theme='dark'] {
   color: #fff;

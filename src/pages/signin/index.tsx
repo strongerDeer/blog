@@ -1,5 +1,9 @@
-import SignTemp from 'components/templates/SigninTemp';
+import SignForm from 'components/organisms/SignForm';
 
 export default function SigninPage() {
-  return <SignTemp />;
+  return (
+    <>
+      <SignForm />;
+    </>
+  );
 }

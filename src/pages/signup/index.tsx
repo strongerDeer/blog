@@ -1,5 +1,5 @@
-import SignupTemp from 'components/templates/SignupTemp';
+import SignForm from 'components/organisms/SignForm';
 
 export default function SignupPage() {
-  return <SignupTemp />;
+  return <SignForm signup />;
 }

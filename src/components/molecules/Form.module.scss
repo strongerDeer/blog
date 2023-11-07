@@ -1,18 +1,23 @@
 @import 'styles/var.scss';
+
 // reset
+textarea,
+select,
 input {
-  color: inherit;
-  font: inherit;
-  border: none;
+  border: 0;
 }
+
 .wrap {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
+
   .label {
     font-size: fcSize(12, 14);
     color: rgba(map-get($color, 'text'), 0.5);
   }
+  .textarea,
+  .select,
   .input {
     background-color: map-get($color, 'background2');
     box-shadow: 5px 5px 2rem 0 rgba(0, 0, 0, 0.05);
@@ -21,5 +26,11 @@ input {
     padding: 0 1rem;
     height: $inputHeight;
     border-radius: $borderRadius;
+  }
+
+  .select {
+  }
+  .textarea {
+    height: fcSize(260, 400);
   }
 }

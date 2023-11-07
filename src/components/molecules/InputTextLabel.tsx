@@ -1,4 +1,4 @@
-import styles from './InputTextLabel.module.scss';
+import styles from './Form.module.scss';
 
 interface InputTextLabelProps {
   id?: string;

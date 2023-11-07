@@ -1,4 +1,5 @@
 import 'styles/reset.scss';
+import 'styles/global.scss';
 
 import { useEffect, useState } from 'react';
 
@@ -12,7 +13,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // components
 import Layout from 'components/organisms/Layout';
-import Router from 'components/Router';
+import Router from 'router/Router';
 import Loader from 'components/molecules/Loader';
 
 function App() {

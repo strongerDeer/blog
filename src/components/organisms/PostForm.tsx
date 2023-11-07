@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 //toastify
 import { toast } from 'react-toastify';
@@ -7,12 +8,16 @@ import { toast } from 'react-toastify';
 import { db } from 'firebaseApp';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
-import Button from './atoms/Button';
-import InputTextLabel from './molecules/InputTextLabel';
-import TextareaLabel from './molecules/TextareaLabel';
+// components
+import Button from '../atoms/Button';
+import InputTextLabel from '../molecules/InputTextLabel';
+import TextareaLabel from '../molecules/TextareaLabel';
+
+// utils
 import AuthContext from 'context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import { CATEGORIES, CategoryType } from './PostList';
+
+import { CATEGORIES, CategoryType } from '../PostList';
+import SelectLabel from 'components/molecules/SelectLabel';
 
 interface PostFormProps {
   post?: any;
@@ -112,15 +117,13 @@ export default function PostForm({ post }: PostFormProps) {
         value={title}
       />
 
-      <div>
-        <label htmlFor="postCategory">카테고리</label>
-        <select id="postCategory" name="postCategory" onChange={onChange}>
-          <option value="">카테고리를 선택해 주세요</option>
-          {CATEGORIES.map((category) => (
-            <option value={category}>{category}</option>
-          ))}
-        </select>
-      </div>
+      <SelectLabel
+        label="카테고리"
+        id="postCategory"
+        onChange={onChange}
+        options={CATEGORIES}
+        text="카테고리를 선택해 주세요"
+      />
 
       <InputTextLabel
         label="요약"

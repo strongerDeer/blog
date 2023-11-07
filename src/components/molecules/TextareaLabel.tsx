@@ -1,4 +1,4 @@
-import styles from './InputTextLabel.module.scss';
+import styles from './Form.module.scss';
 
 interface TextareaLabelProps {
   id?: string;
@@ -19,7 +19,7 @@ export default function TextareaLabel({
         {label}
       </label>
       <textarea
-        className={styles.input}
+        className={styles.textarea}
         id={id}
         name={id}
         value={value}
