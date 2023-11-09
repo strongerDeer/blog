@@ -7,6 +7,7 @@ import { app } from 'firebaseApp';
 import { toast } from 'react-toastify';
 import AuthContext from 'context/AuthContext';
 import PostList from './PostList';
+import PostCardList from './organisms/PostCardList';
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
@@ -22,14 +23,14 @@ export default function Profile() {
     }
   };
   return (
-    <div className="profile__section">
+    <section className="profile__section max-width">
       <img src="" alt="" />
       <p>{user?.email}</p>
       <p>{user?.displayName || '사용자'}</p>
       <button onClick={onSignOut} type="button">
         로그아웃
       </button>
-      <PostList hasNavigation={false} />
-    </div>
+      <PostList />
+    </section>
   );
 }

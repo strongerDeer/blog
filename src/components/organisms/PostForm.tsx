@@ -16,8 +16,15 @@ import TextareaLabel from '../molecules/TextareaLabel';
 // utils
 import AuthContext from 'context/AuthContext';
 
-import { CATEGORIES, CategoryType } from '../PostList';
 import SelectLabel from 'components/molecules/SelectLabel';
+
+export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
+export const CATEGORIES: CategoryType[] = [
+  'Frontend',
+  'Backend',
+  'Web',
+  'Native',
+];
 
 interface PostFormProps {
   post?: any;

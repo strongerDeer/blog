@@ -1,11 +1,14 @@
 @import 'styles/var.scss';
 
-.post__navigation {
-  button {
-    padding: 1rem;
+.post__list {
+  li {
+    background-color: map-get($color, background2);
+    box-shadow: $boxShadow;
+    padding: 2rem;
+    border-radius: 1rem;
+
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
   }
-}
-.post__navigation--active {
-  color: royalblue;
-  font-weight: bold;
 }

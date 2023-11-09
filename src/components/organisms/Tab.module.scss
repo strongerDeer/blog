@@ -1,0 +1,21 @@
+@import 'styles/var.scss';
+.tabWrap {
+  display: flex;
+  gap: 1em;
+  margin: 2rem auto;
+
+  justify-content: center;
+
+  button {
+    padding: 0.5em 1em;
+    border: 1px solid #ddd;
+    border-radius: 2em;
+    transition: all 0.3s;
+  }
+}
+
+.active {
+  background-color: map-get($color, primary);
+  border-color: map-get($color, primary);
+  color: #fff;
+}

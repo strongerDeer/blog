@@ -17,7 +17,6 @@ export default function SelectLabel({
   onChange,
   text,
 }: SelectLabelProps) {
-  console.log(options);
   return (
     <div className={styles.wrap}>
       <label className={styles.label} htmlFor={id}>
