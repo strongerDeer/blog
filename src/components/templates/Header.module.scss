@@ -1,0 +1,29 @@
+@import 'styles/var.scss';
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  // background-color: map-get($color, 'background2');
+  padding: 0 2rem;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.profile {
+  display: block;
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 1rem;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

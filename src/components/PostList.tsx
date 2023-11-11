@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
 
-import styles from './PostList.module.scss';
 import PostCardList from './organisms/PostCardList';
 
 import Tab from './organisms/Tab';

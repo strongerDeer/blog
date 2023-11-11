@@ -1,0 +1,34 @@
+@import 'styles/var.scss';
+button {
+  color: inherit;
+  font: inherit;
+  border: none;
+  background: none;
+
+  &:enabled {
+    cursor: pointer;
+  }
+}
+
+.btn {
+  background-color: map-get($color, 'primary');
+  color: #fff;
+  padding: 0 2rem;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+
+  height: $inputHeight;
+  border-radius: $borderRadius;
+  font-size: fcSize(12, 14);
+
+  &:disabled {
+    background-color: rgba(map-get($color, 'primary'), 0.6);
+  }
+  &.bgNone {
+    background: none;
+    color: map-get($color, 'text');
+  }
+}
