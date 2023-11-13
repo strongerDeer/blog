@@ -1,4 +1,4 @@
-import BtnDeletePost from 'components/atoms/BtnDeletePost';
+import BtnDeletePost from 'components/atoms/Button/DeletePostBtn';
 import AuthContext from 'context/AuthContext';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';

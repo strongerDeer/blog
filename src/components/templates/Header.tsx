@@ -1,12 +1,17 @@
 import { Link } from 'react-router-dom';
 
 import styles from './Header.module.scss';
-import BtnTheme from 'components/atoms/BtnTheme';
-import SVGLogo from 'components/atoms/SVG/SVGLogo';
 
-import Btn from 'components/atoms/Btn';
+// components
+import Btn from 'components/atoms/Button/Btn';
+import SignoutBtn from 'components/atoms/Button/SignoutBtn';
+import ThemeBtn from 'components/atoms/Button/ThemeBtn';
+
+// svg
+import SVGLogo from 'components/atoms/SVG/SVGLogo';
 import SVGWrite from 'components/atoms/SVG/SVGWrite';
-import SVGLogout from 'components/atoms/SVG/SVGLogout';
+import SVGSignin from 'components/atoms/SVG/SVGSignin';
+import SVGSignup from 'components/atoms/SVG/SVGSignup';
 
 type HeadertProps = {
   isAuthenticated: boolean;
@@ -37,19 +42,23 @@ export default function Header({ isAuthenticated }: HeadertProps) {
               <SVGWrite fill="#fff" />
               Write
             </Btn>
-            <Btn type="button" bgNone>
-              <SVGLogout />
-              Logout
-            </Btn>
+
+            <SignoutBtn />
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Btn href="/login" bgNone>
+              <SVGSignin />
+              Signin
+            </Btn>
+            <Btn href="/signup" bgNone>
+              <SVGSignup />
+              Signup
+            </Btn>
           </>
         )}
 
-        <BtnTheme />
+        <ThemeBtn />
       </div>
     </header>
   );

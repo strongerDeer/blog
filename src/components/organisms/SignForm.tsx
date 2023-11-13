@@ -13,11 +13,12 @@ import {
 import { toast } from 'react-toastify';
 
 // components
-import Button from 'components/atoms/Button';
+
 import InputTextLabel from '../molecules/InputTextLabel';
 
 // style
 import styles from './SignForm.module.scss';
+import Btn from 'components/atoms/Button/Btn';
 
 interface SignFormProps {
   signup?: boolean;
@@ -141,7 +142,7 @@ export default function SignForm({ signup }: SignFormProps) {
             />
           </div>
         )}
-        <Button
+        <Btn
           type="submit"
           disabled={
             (email === '' ||
@@ -151,7 +152,7 @@ export default function SignForm({ signup }: SignFormProps) {
               : undefined) || (error ? error?.length > 0 : undefined)
           }>
           {text}
-        </Button>
+        </Btn>
       </form>
     </div>
   );

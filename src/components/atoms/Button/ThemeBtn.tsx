@@ -1,12 +1,12 @@
 import ThemeContext from 'context/ThemeContext';
 import { useContext } from 'react';
 
-import SVGThemeLight from './SVG/SVGThemeLight';
-import SVGThemeDark from './SVG/SVGThemeDark';
+import SVGThemeLight from '../SVG/SVGThemeLight';
+import SVGThemeDark from '../SVG/SVGThemeDark';
 
-import styles from './BtnTheme.module.scss';
+import styles from './ThemeBtn.module.scss';
 
-export default function BtnTheme() {
+export default function ThemeBtn() {
   const { theme, toggleMode } = useContext(ThemeContext);
 
   return (

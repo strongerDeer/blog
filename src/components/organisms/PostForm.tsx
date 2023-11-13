@@ -9,7 +9,6 @@ import { db } from 'firebaseApp';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
 // components
-import Button from '../atoms/Button';
 import InputTextLabel from '../molecules/InputTextLabel';
 import TextareaLabel from '../molecules/TextareaLabel';
 
@@ -17,6 +16,8 @@ import TextareaLabel from '../molecules/TextareaLabel';
 import AuthContext from 'context/AuthContext';
 
 import SelectLabel from 'components/molecules/SelectLabel';
+import Btn from 'components/atoms/Button/Btn';
+import InputFileLabel from 'components/molecules/InputFileLabel';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -35,6 +36,7 @@ export default function PostForm({ post }: PostFormProps) {
   const { user } = useContext(AuthContext);
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
+  const [thumbnail, setThumbnail] = useState<string | null>(null);
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<CategoryType>('Frontend');
 
@@ -52,6 +54,7 @@ export default function PostForm({ post }: PostFormProps) {
 
     try {
       if (post && post?.id) {
+        // 수정
         const postRef = doc(db, 'posts', post?.id);
         await updateDoc(postRef, {
           title: title,
@@ -67,6 +70,7 @@ export default function PostForm({ post }: PostFormProps) {
         toast.success('게시글 수정작성 완료!');
         navigate(`/post/${post?.id}`);
       } else {
+        // 작성
         await addDoc(collection(db, 'posts'), {
           title: title,
           summary: summary,
@@ -80,8 +84,9 @@ export default function PostForm({ post }: PostFormProps) {
           uid: user?.uid,
           category: category,
         });
+
         toast.success('게시글 작성 완료!');
-        navigate('/post');
+        // navigate('/post');
       }
 
       // fireabase로 데이터 생성
@@ -90,6 +95,7 @@ export default function PostForm({ post }: PostFormProps) {
       toast.error(error?.code);
     }
   };
+
   const onChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -115,6 +121,10 @@ export default function PostForm({ post }: PostFormProps) {
     }
   };
 
+  const handleDeleteThumbnail = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setThumbnail(null);
+  };
+
   return (
     <form onSubmit={onSubmit}>
       <InputTextLabel
@@ -138,13 +148,29 @@ export default function PostForm({ post }: PostFormProps) {
         onChange={onChange}
         value={summary}
       />
+
+      <InputFileLabel
+        label="썸네일"
+        id="postThumbnail"
+        setValue={setThumbnail}
+        accept="images/*"
+      />
+      {thumbnail && (
+        <>
+          <img src={thumbnail} alt="이미지 미리보기" />
+          <button type="button" onClick={handleDeleteThumbnail}>
+            삭제
+          </button>
+        </>
+      )}
+
       <TextareaLabel
         label="내용"
         id="postContent"
         onChange={onChange}
         value={content}
       />
-      <Button type="submit">{post ? '수정' : '제출'}</Button>
+      <Btn type="submit">{post ? '수정' : '제출'}</Btn>
     </form>
   );
 }

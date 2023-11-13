@@ -29,6 +29,7 @@ button {
   }
   &.bgNone {
     background: none;
+    border: 1px solid rgba(map-get($color, 'text'), 0.05);
     color: map-get($color, 'text');
   }
 }

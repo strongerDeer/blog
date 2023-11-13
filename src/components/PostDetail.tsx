@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
-import BtnDeletePost from './atoms/BtnDeletePost';
+import BtnDeletePost from './atoms/Button/DeletePostBtn';
 import Loader from './molecules/Loader';
 import { PostProps } from './PostList';
 import Comments from './organisms/Comments';

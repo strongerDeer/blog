@@ -2,6 +2,7 @@ import { initializeApp, FirebaseApp, getApp } from 'firebase/app';
 import 'firebase/auth';
 
 import { getFirestore } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 export let app: FirebaseApp;
 
@@ -25,5 +26,6 @@ const firebaseApp = initializeApp(firebaseConfig);
 
 // Initialize Cloud Firestore and get a reference to the service
 export const db = getFirestore(app);
+export const storage = getStorage(app);
 
 export default firebaseApp;

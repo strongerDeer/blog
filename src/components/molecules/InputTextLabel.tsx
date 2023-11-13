@@ -6,15 +6,16 @@ interface InputTextLabelProps {
   label?: string;
   value?: string;
   onChange?: any;
+  required?: boolean;
 }
 
-// required 추가
 export default function InputTextLabel({
   id,
   type,
   label,
   value,
   onChange,
+  required,
 }: InputTextLabelProps) {
   return (
     <div className={styles.wrap}>
@@ -28,6 +29,7 @@ export default function InputTextLabel({
         name={id}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </div>
   );

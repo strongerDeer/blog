@@ -1,6 +1,6 @@
 import SVG from './SVG';
 
-export default function SVGLogout({ fill = '#28303F' }: { fill?: string }) {
+export default function SVGSignout({ fill = '#28303F' }: { fill?: string }) {
   return (
     <SVG width={20} fill={fill}>
       <path
