@@ -16,13 +16,19 @@ export default function SelectLabel({
   options,
   onChange,
   text,
+  value,
 }: SelectLabelProps) {
   return (
     <div className={styles.wrap}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
-      <select id={id} name={id} onChange={onChange} className={styles.select}>
+      <select
+        id={id}
+        name={id}
+        onChange={onChange}
+        className={styles.select}
+        value={value}>
         {<option value="">{text}</option>}
         {options.map((option: string, index: number) => (
           <option key={index} value={option}>

@@ -42,11 +42,14 @@ export default function PostDetail() {
           </div>
           <p className="post__content">{post?.content}</p>
           {post?.category && <p className="post__category">{post?.category}</p>}
+          {post?.imgUrl && (
+            <img src={post?.imgUrl} alt="" className="post__img" />
+          )}
           <div className="post__button">
             <Link to={`/post/edit/${params?.id}`} className="post__edit">
               수정
             </Link>
-            <BtnDeletePost id={params?.id} />
+            <BtnDeletePost id={params?.id} imgUrl={post?.imgUrl} />
           </div>
           <Comments post={post} getPost={getPost} />
         </>

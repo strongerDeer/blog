@@ -28,6 +28,7 @@ export interface PostProps {
   uid: string;
   category: CategoryType;
   comments: CommentsInterface[];
+  imgUrl: string;
 }
 
 const ALL_POST = 'all';

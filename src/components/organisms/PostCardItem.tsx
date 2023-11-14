@@ -31,7 +31,11 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
               수정
             </Link>
 
-            <BtnDeletePost id={post?.id} getPosts={getPosts} />
+            <BtnDeletePost
+              id={post?.id}
+              imgUrl={post?.imgUrl}
+              getPosts={getPosts}
+            />
           </div>
         )}
       </article>

@@ -1,22 +1,28 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-//toastify
-import { toast } from 'react-toastify';
-
 // firebase
-import { db } from 'firebaseApp';
+import { db, storage } from 'firebaseApp';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadString,
+} from 'firebase/storage';
 
-// components
-import InputTextLabel from '../molecules/InputTextLabel';
-import TextareaLabel from '../molecules/TextareaLabel';
+// lib
+import { toast } from 'react-toastify';
+import { v4 as uuidv4 } from 'uuid';
 
 // utils
 import AuthContext from 'context/AuthContext';
 
-import SelectLabel from 'components/molecules/SelectLabel';
+// components
 import Btn from 'components/atoms/Button/Btn';
+import InputTextLabel from '../molecules/InputTextLabel';
+import TextareaLabel from '../molecules/TextareaLabel';
+import SelectLabel from 'components/molecules/SelectLabel';
 import InputFileLabel from 'components/molecules/InputFileLabel';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
@@ -36,9 +42,10 @@ export default function PostForm({ post }: PostFormProps) {
   const { user } = useContext(AuthContext);
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
-  const [thumbnail, setThumbnail] = useState<string | null>(null);
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
-  const [category, setCategory] = useState<CategoryType>('Frontend');
+  const [category, setCategory] = useState<CategoryType | null>(null);
 
   useEffect(() => {
     if (post) {
@@ -46,15 +53,33 @@ export default function PostForm({ post }: PostFormProps) {
       setSummary(post.summary);
       setContent(post.content);
       setCategory(post.categoty);
+      setPreviewImg(post.imgUrl);
+      setCategory(post.category);
     }
   }, [post]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    setIsSubmitting(true);
+    const imgKey = `${user?.uid}/${uuidv4()}`;
+    const storageRef = ref(storage, imgKey);
     e.preventDefault();
 
     try {
       if (post && post?.id) {
         // 수정
+        let imgUrl = '';
+        if (post?.imgUrl && post?.imgUrl !== previewImg) {
+          // 다른이미지 업로드 했다면 : 기존이미지 삭제
+          const imageRef = ref(storage, post?.imgUrl);
+          await deleteObject(imageRef).catch((error) => {
+            console.log(error);
+          });
+        }
+        if (previewImg) {
+          const data = await uploadString(storageRef, previewImg, 'data_url');
+          imgUrl = await getDownloadURL(data?.ref);
+        }
+
         const postRef = doc(db, 'posts', post?.id);
         await updateDoc(postRef, {
           title: title,
@@ -66,11 +91,20 @@ export default function PostForm({ post }: PostFormProps) {
             second: '2-digit',
           }),
           category: category,
+          imgUrl: imgUrl,
         });
+
         toast.success('게시글 수정작성 완료!');
         navigate(`/post/${post?.id}`);
       } else {
         // 작성
+        // 이미지 우선 업로드
+        let imgUrl = '';
+        if (previewImg) {
+          const data = await uploadString(storageRef, previewImg, 'data_url');
+          imgUrl = await getDownloadURL(data?.ref);
+        }
+
         await addDoc(collection(db, 'posts'), {
           title: title,
           summary: summary,
@@ -83,12 +117,14 @@ export default function PostForm({ post }: PostFormProps) {
           email: user?.email,
           uid: user?.uid,
           category: category,
+          imgUrl: imgUrl,
         });
 
         toast.success('게시글 작성 완료!');
-        // navigate('/post');
+        navigate('/post');
       }
-
+      setPreviewImg(null);
+      setIsSubmitting(false);
       // fireabase로 데이터 생성
     } catch (error: any) {
       console.log(error);
@@ -121,8 +157,8 @@ export default function PostForm({ post }: PostFormProps) {
     }
   };
 
-  const handleDeleteThumbnail = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setThumbnail(null);
+  const handleDeletePreviewImg = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setPreviewImg(null);
   };
 
   return (
@@ -139,6 +175,7 @@ export default function PostForm({ post }: PostFormProps) {
         id="postCategory"
         onChange={onChange}
         options={CATEGORIES}
+        value={category ? category : ''}
         text="카테고리를 선택해 주세요"
       />
 
@@ -152,13 +189,15 @@ export default function PostForm({ post }: PostFormProps) {
       <InputFileLabel
         label="썸네일"
         id="postThumbnail"
-        setValue={setThumbnail}
+        setValue={setPreviewImg}
         accept="images/*"
+        isSubmitting={isSubmitting}
       />
-      {thumbnail && (
+
+      {previewImg && (
         <>
-          <img src={thumbnail} alt="이미지 미리보기" />
-          <button type="button" onClick={handleDeleteThumbnail}>
+          <img src={previewImg} alt="이미지 미리보기" />
+          <button type="button" onClick={handleDeletePreviewImg}>
             삭제
           </button>
         </>

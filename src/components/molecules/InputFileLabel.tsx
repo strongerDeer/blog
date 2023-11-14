@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState } from 'react';
 import styles from './Form.module.scss';
 
 interface InputFileLabelProps {
@@ -9,6 +9,7 @@ interface InputFileLabelProps {
   required?: boolean;
   setValue?: any;
   accept?: string;
+  isSubmitting: boolean;
 }
 
 // required 추가
@@ -18,6 +19,7 @@ export default function InputFileLabel({
   required,
   setValue,
   accept,
+  isSubmitting,
 }: InputFileLabelProps) {
   const onChange = (e: any) => {
     const {
@@ -31,8 +33,6 @@ export default function InputFileLabel({
       const { result } = e?.currentTarget;
       setValue(result);
     };
-
-    // setValue();
   };
   return (
     <div className={styles.wrap}>
@@ -47,6 +47,7 @@ export default function InputFileLabel({
         required={required}
         accept={accept}
         onChange={onChange}
+        disabled={isSubmitting}
       />
     </div>
   );
