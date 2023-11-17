@@ -67,17 +67,20 @@ export default function PostForm({ post }: PostFormProps) {
     try {
       if (post && post?.id) {
         // 수정
-        let imgUrl = '';
-        if (post?.imgUrl && post?.imgUrl !== previewImg) {
-          // 다른이미지 업로드 했다면 : 기존이미지 삭제
+        let imgUrl = null;
+        if (post?.imgUrl === previewImg) {
+          // 기존 이미지
+          imgUrl = previewImg;
+        } else if (post?.imgUrl && post?.imgUrl !== previewImg) {
+          // 다른이미지 교체 : 기존이미지 삭제
           const imageRef = ref(storage, post?.imgUrl);
           await deleteObject(imageRef).catch((error) => {
             console.log(error);
           });
-        }
-        if (previewImg) {
-          const data = await uploadString(storageRef, previewImg, 'data_url');
-          imgUrl = await getDownloadURL(data?.ref);
+          if (previewImg) {
+            const data = await uploadString(storageRef, previewImg, 'data_url');
+            imgUrl = await getDownloadURL(data?.ref);
+          }
         }
 
         const postRef = doc(db, 'posts', post?.id);
