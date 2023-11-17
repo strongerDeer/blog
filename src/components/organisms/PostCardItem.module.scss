@@ -1,0 +1,49 @@
+@mixin ellipse($num: 1) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+}
+
+.post {
+  background-color: white;
+
+  a {
+    display: block;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+}
+
+.post_thumbnail {
+  width: 100%;
+  aspect-ratio: 288/180;
+  object-fit: cover;
+}
+.post_text {
+  padding: 1.6rem 2.4rem;
+  line-height: 1.4;
+
+  .post_text_title {
+    @include ellipse();
+    font-size: fcSize(16, 18);
+  }
+  .post_text_profile {
+    font-size: 1.2rem;
+    color: #767676;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 0.8rem 0 1.6rem;
+  }
+
+  .post_text_author {
+  }
+  .post_text_date {
+  }
+  .post_text_content {
+    @include ellipse(3);
+    font-size: fcSize(12, 14);
+    color: #767676;
+  }
+}

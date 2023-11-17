@@ -1,7 +1,9 @@
-import BtnDeletePost from 'components/atoms/Button/DeletePostBtn';
-import AuthContext from 'context/AuthContext';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import styles from './PostCardItem.module.scss';
+import AuthContext from 'context/AuthContext';
+import BtnDeletePost from 'components/atoms/Button/DeletePostBtn';
 
 interface PostCardItemProps {
   post: any;
@@ -11,23 +13,32 @@ interface PostCardItemProps {
 export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
   const { user } = useContext(AuthContext);
   return (
-    <li key={post && post?.id} className="post__box">
-      <article>
+    <li key={post && post?.id}>
+      <article className={styles.post}>
         <Link to={`/post/${post?.id}`}>
-          <h3 className="post__title">{post?.title}</h3>
-          <div className="post__profile-box">
-            <p className="post__author">
-              <img src="" alt="" />
-              {post?.email}
-            </p>
-            <time className="post__date">{post?.createAt}</time>
+          <img src={post?.imgUrl} className={styles.post_thumbnail} />
+
+          <div className={styles.post_text}>
+            <h3 className={styles.post_text_title}>{post?.title}</h3>
+
+            <div className={styles.post_text_profile}>
+              <p className={styles.post_text_author}>
+                <img src="" alt="" />
+                {post?.email}
+              </p>
+              <time className={styles.post_text_date}>
+                {post?.createAt.split('. 오')[0]}
+              </time>
+            </div>
+            <p className={styles.post_text_content}>{post?.content}</p>
           </div>
-          <p className="post__content">{post?.content}</p>
         </Link>
 
         {user?.email === post?.email && (
-          <div className="post__button">
-            <Link to={`/post/edit/${post?.id}`} className="post__edit">
+          <div className={styles['post__button']}>
+            <Link
+              to={`/post/edit/${post?.id}`}
+              className={styles['post__edit']}>
               수정
             </Link>
 

@@ -1,0 +1,5 @@
+.post__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(28.8rem, auto));
+  gap: 2.4rem;
+}
