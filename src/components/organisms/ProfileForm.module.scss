@@ -1,24 +1,4 @@
-@import 'styles/var.scss';
 @import 'styles/global.scss';
-
-.form-wrap {
-  width: $signWidth;
-  margin: fcSize(50, 100) auto;
-
-  .title {
-    text-align: center;
-    margin-bottom: 4rem;
-  }
-  .sign-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-}
-
-.errorMsg {
-  color: map-get($color, 'error');
-}
 
 .profile {
   width: 12rem;

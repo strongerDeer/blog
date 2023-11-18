@@ -7,6 +7,7 @@ interface InputTextLabelProps {
   value?: string;
   onChange?: any;
   required?: boolean;
+  disabled?: boolean;
 }
 
 export default function InputTextLabel({
@@ -16,6 +17,7 @@ export default function InputTextLabel({
   value,
   onChange,
   required,
+  disabled,
 }: InputTextLabelProps) {
   return (
     <div className={styles.wrap}>
@@ -30,6 +32,7 @@ export default function InputTextLabel({
         value={value}
         onChange={onChange}
         required={required}
+        disabled={disabled}
       />
     </div>
   );

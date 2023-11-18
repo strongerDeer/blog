@@ -1,22 +1,47 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 // firebase
 
-import { app } from 'firebaseApp';
+import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
-import PostList from './PostList';
 
 import BtnLogout from './atoms/Button/SignoutBtn';
+import PostList from './PostList';
+import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 
+interface ProfileProps {
+  image?: string;
+  nickname?: string;
+  email?: string;
+  createAt?: string;
+  uid?: string;
+  id?: string;
+}
 export default function Profile() {
   const { user } = useContext(AuthContext);
+  const [profile, setProfile] = useState<ProfileProps>();
+
+  const getProfile = async () => {
+    let profileRef = collection(db, 'users');
+    let profileQuery = query(profileRef, where('uid', '==', user?.uid));
+    const datas = await getDocs(profileQuery);
+
+    datas.forEach((doc) => {
+      const dataObj = { ...doc.data(), id: doc.id };
+      setProfile(dataObj);
+    });
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
 
   return (
-    <section className="profile__section max-width">
-      <img src="" alt="" />
-      <p>{user?.email}</p>
-      <p>{user?.displayName || '사용자'}</p>
+    <section className="profile__section">
+      <img src={profile?.image} alt="" />
+      <p>{profile?.email}</p>
+      <p>{profile?.nickname}</p>
 
       <BtnLogout />
       <PostList />

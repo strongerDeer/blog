@@ -6,7 +6,9 @@ export default function HomePage() {
   return (
     <>
       <Carousel />
-      <PostList hasTab={true} />
+      <div className="max-width">
+        <PostList hasTab={true} />
+      </div>
     </>
   );
 }

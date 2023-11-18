@@ -59,10 +59,10 @@ export default function PostForm({ post }: PostFormProps) {
   }, [post]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     setIsSubmitting(true);
     const imgKey = `${user?.uid}/${uuidv4()}`;
     const storageRef = ref(storage, imgKey);
-    e.preventDefault();
 
     try {
       if (post && post?.id) {

@@ -16,9 +16,13 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
     <li key={post && post?.id}>
       <article className={styles.post}>
         <Link to={`/post/${post?.id}`}>
-          <img src={post?.imgUrl} className={styles.post_thumbnail} />
+          <img
+            src={post?.imgUrl ? post?.imgUrl : 'images/no-img.png'}
+            className={styles.post_thumbnail}
+          />
 
           <div className={styles.post_text}>
+            <p className={styles.post_text_category}>{post?.category}</p>
             <h3 className={styles.post_text_title}>{post?.title}</h3>
 
             <div className={styles.post_text_profile}>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styles from './Form.module.scss';
+import classNames from 'classnames';
 
 interface InputFileLabelProps {
   id?: string;
@@ -35,9 +36,9 @@ export default function InputFileLabel({
     };
   };
   return (
-    <div className={styles.wrap}>
+    <div className={classNames('file-wrap', styles.wrap)}>
       <label className={styles.label} htmlFor={id}>
-        {label}
+        <span>{label}</span>
       </label>
       <input
         id={id}
