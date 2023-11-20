@@ -10,6 +10,8 @@ import SigninPage from '../pages/signin';
 import SignupPage from '../pages/signup';
 import ProfileCreatePage from 'pages/profile/create';
 import ProfileEditPage from 'pages/profile/edit';
+import NotificationsPage from 'pages/notifications';
+import SearchPage from 'pages/search';
 
 interface RouterProps {
   isAuthenticated: boolean;
@@ -35,11 +37,8 @@ export default function Router({ isAuthenticated }: RouterProps) {
             <Route path="/profile/edit" element={<ProfileEditPage />} />
 
             {/* other */}
-            <Route
-              path="/notifications"
-              element={<h1 children={'알림페이지'} />}
-            />
-            <Route path="/search" element={<h1 children={'검색페이지'} />} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/search" element={<SearchPage />} />
 
             <Route path="*" element={<Navigate replace to="/" />} />
           </>

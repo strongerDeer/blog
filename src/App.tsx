@@ -12,7 +12,7 @@ import { app } from 'firebaseApp';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 // components
-import Layout from 'components/templates/Layout';
+import Layout from 'components/Layouts/Layout';
 import Router from 'router/Router';
 import Loader from 'components/molecules/Loader';
 
