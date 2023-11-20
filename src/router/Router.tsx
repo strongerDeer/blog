@@ -9,6 +9,7 @@ import ProfilePage from '../pages/profile';
 import SigninPage from '../pages/signin';
 import SignupPage from '../pages/signup';
 import ProfileCreatePage from 'pages/profile/create';
+import ProfileEditPage from 'pages/profile/edit';
 
 interface RouterProps {
   isAuthenticated: boolean;
@@ -21,14 +22,26 @@ export default function Router({ isAuthenticated }: RouterProps) {
         {isAuthenticated ? (
           <>
             <Route path="/" element={<HomePage />} />
+
+            {/* Post */}
             <Route path="/post" element={<PostListPage />} />
             <Route path="/post/:id" element={<PostDetailPage />} />
             <Route path="/post/new" element={<PostCreatePage />} />
             <Route path="/post/edit/:id" element={<PostEditPage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="*" element={<Navigate replace to="/" />} />
 
+            {/* Profile */}
+            <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/new" element={<ProfileCreatePage />} />
+            <Route path="/profile/edit" element={<ProfileEditPage />} />
+
+            {/* other */}
+            <Route
+              path="/notifications"
+              element={<h1 children={'알림페이지'} />}
+            />
+            <Route path="/search" element={<h1 children={'검색페이지'} />} />
+
+            <Route path="*" element={<Navigate replace to="/" />} />
           </>
         ) : (
           <>

@@ -1,9 +1,9 @@
 import Profile from 'components/Profile';
 
-export default function ProfilePage() {
+export default function ProfileEditPage() {
   return (
     <div className="max-width">
-      Profile Page
+      ProfileEditPage
       <Profile />
     </div>
   );
