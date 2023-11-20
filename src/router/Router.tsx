@@ -6,12 +6,12 @@ import PostCreatePage from '../pages/post/create';
 import PostEditPage from '../pages/post/edit';
 import ProfilePage from '../pages/profile';
 
-import SigninPage from '../pages/signin';
-import SignupPage from '../pages/signup';
 import ProfileCreatePage from 'pages/profile/create';
 import ProfileEditPage from 'pages/profile/edit';
 import NotificationsPage from 'pages/notifications';
 import SearchPage from 'pages/search';
+import SigninPage from 'pages/sign/Signin';
+import SignupPage from 'pages/sign/Signup';
 
 interface RouterProps {
   isAuthenticated: boolean;

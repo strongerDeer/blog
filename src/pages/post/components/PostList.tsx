@@ -5,31 +5,10 @@ import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
 
-import PostCardList from './organisms/PostCardList';
+import PostCardList from './PostCardList';
 
-import Tab from './organisms/Tab';
-import { CategoryType } from './organisms/PostTab';
-
-export interface CommentsInterface {
-  content: string;
-  uid: string;
-  email: string;
-  createAt: string;
-}
-
-export interface PostProps {
-  id?: string;
-  title: string;
-  email: string;
-  summary: string;
-  content: string;
-  createAt: string;
-  updateAt: string;
-  uid: string;
-  category: CategoryType;
-  comments: CommentsInterface[];
-  imgUrl: string;
-}
+import Tab from '../../../components/commons/tab/Tab';
+import { PostInterface } from 'types/Post';
 
 const ALL_POST = 'all';
 const MY_POST = 'my';
@@ -52,7 +31,7 @@ export default function PostList({
 }: PostListProps) {
   const { user } = useContext(AuthContext);
   const [activeTab, setActiveTab] = useState<string>(defaultTab);
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [posts, setPosts] = useState<PostInterface[]>([]);
 
   const getPosts = async () => {
     setPosts([]);
@@ -80,7 +59,7 @@ export default function PostList({
     const datas = await getDocs(postQuery);
     datas.forEach((doc) => {
       const dataObj = { ...doc.data(), id: doc.id };
-      setPosts((prev) => [...prev, dataObj as PostProps]);
+      setPosts((prev) => [...prev, dataObj as PostInterface]);
     });
   };
 

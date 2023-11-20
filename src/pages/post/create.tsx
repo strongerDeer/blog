@@ -1,4 +1,4 @@
-import PostForm from 'components/organisms/PostForm';
+import PostForm from 'pages/post/components/PostForm';
 
 export default function PostCreatePage() {
   return (

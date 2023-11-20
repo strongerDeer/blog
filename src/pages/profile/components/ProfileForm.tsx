@@ -1,5 +1,5 @@
-import InputFileLabel from 'components/molecules/InputFileLabel';
-import InputTextLabel from 'components/molecules/InputTextLabel';
+import InputFileLabel from 'components/commons/input/InputFileLabel';
+import InputTextLabel from 'components/commons/input/InputTextLabel';
 import AuthContext from 'context/AuthContext';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { db, storage } from 'firebaseApp';
@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
 import styles from './ProfileForm.module.scss';
-import Btn from 'components/atoms/Button/Btn';
+import Btn from 'components/commons/button/Btn';
 import { addDoc, collection } from 'firebase/firestore';
 
 export default function ProfileForm() {

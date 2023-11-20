@@ -19,11 +19,11 @@ import { v4 as uuidv4 } from 'uuid';
 import AuthContext from 'context/AuthContext';
 
 // components
-import Btn from 'components/atoms/Button/Btn';
-import InputTextLabel from '../molecules/InputTextLabel';
-import TextareaLabel from '../molecules/TextareaLabel';
-import SelectLabel from 'components/molecules/SelectLabel';
-import InputFileLabel from 'components/molecules/InputFileLabel';
+import Btn from 'components/commons/button/Btn';
+import InputTextLabel from '../../../components/commons/input/InputTextLabel';
+import TextareaLabel from '../../../components/commons/input/TextareaLabel';
+import SelectLabel from 'components/commons/input/SelectLabel';
+import InputFileLabel from 'components/commons/input/InputFileLabel';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [

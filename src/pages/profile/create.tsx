@@ -1,4 +1,4 @@
-import ProfileForm from 'components/organisms/ProfileForm';
+import ProfileForm from 'pages/profile/components/ProfileForm';
 
 export default function ProfileCreatePage() {
   return (

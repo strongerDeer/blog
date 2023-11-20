@@ -14,11 +14,11 @@ import { toast } from 'react-toastify';
 
 // components
 
-import InputTextLabel from '../molecules/InputTextLabel';
+import InputTextLabel from '../../../components/commons/input/InputTextLabel';
 
 // style
 import styles from './SignForm.module.scss';
-import Btn from 'components/atoms/Button/Btn';
+import Btn from 'components/commons/button/Btn';
 
 interface SignFormProps {
   signup?: boolean;

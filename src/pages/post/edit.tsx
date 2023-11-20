@@ -1,13 +1,14 @@
-import PostForm from 'components/organisms/PostForm';
-import { PostProps } from 'components/PostList';
+import PostForm from 'pages/post/components/PostForm';
+
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { PostInterface } from 'types/Post';
 
 export default function PostEditPage() {
-  const [post, setPost] = useState<PostProps | null>(null);
+  const [post, setPost] = useState<PostInterface | null>(null);
   const params = useParams();
 
   const getPost = async (id: string) => {
@@ -15,7 +16,7 @@ export default function PostEditPage() {
       const docRef = doc(db, 'posts', id);
       const docSnap = await getDoc(docRef);
 
-      setPost({ id: docSnap.id, ...(docSnap.data() as PostProps) });
+      setPost({ id: docSnap.id, ...(docSnap.data() as PostInterface) });
     }
   };
 

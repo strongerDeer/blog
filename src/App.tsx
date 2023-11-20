@@ -14,7 +14,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 // components
 import Layout from 'components/Layouts/Layout';
 import Router from 'router/Router';
-import Loader from 'components/molecules/Loader';
+import Loader from 'components/commons/loader/Loader';
 
 function App() {
   const auth = getAuth(app);

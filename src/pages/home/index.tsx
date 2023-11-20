@@ -1,6 +1,6 @@
-import Carousel from 'components/Carousel';
-import PostList from 'components/PostList';
-import PostTab from 'components/organisms/PostTab';
+import Carousel from 'pages/home/components/Carousel';
+import PostList from 'pages/post/components/PostList';
+import PostTab from 'pages/post/components/PostTab';
 
 export default function HomePage() {
   return (

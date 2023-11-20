@@ -1,4 +1,4 @@
-import PostList from 'components/PostList';
+import PostList from 'pages/post/components/PostList';
 
 export default function PostListPage() {
   return (

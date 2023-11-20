@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import styles from './PostCardItem.module.scss';
 import AuthContext from 'context/AuthContext';
-import BtnDeletePost from 'components/atoms/Button/DeletePostBtn';
+import BtnDeletePost from 'components/commons/button/DeletePostBtn';
 
 interface PostCardItemProps {
   post: any;

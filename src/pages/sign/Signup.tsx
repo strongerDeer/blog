@@ -1,4 +1,4 @@
-import SignForm from 'components/organisms/SignForm';
+import SignForm from 'pages/sign/components/SignForm';
 
 export default function SignupPage() {
   return <SignForm signup />;

@@ -5,13 +5,14 @@ import { Link, useParams } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
-import BtnDeletePost from './atoms/Button/DeletePostBtn';
-import Loader from './molecules/Loader';
-import { PostProps } from './PostList';
-import Comments from './organisms/Comments';
+import BtnDeletePost from '../../../components/commons/button/DeletePostBtn';
+import Loader from '../../../components/commons/loader/Loader';
+
+import Comments from '../../../components/commons/comments/Comments';
+import { PostInterface } from 'types/Post';
 
 export default function PostDetail() {
-  const [post, setPost] = useState<PostProps | null>(null);
+  const [post, setPost] = useState<PostInterface | null>(null);
   const params = useParams();
 
   const getPost = async (id: string) => {
@@ -19,7 +20,7 @@ export default function PostDetail() {
       const docRef = doc(db, 'posts', id);
       const docSnap = await getDoc(docRef);
 
-      setPost({ id: docSnap.id, ...(docSnap.data() as PostProps) });
+      setPost({ id: docSnap.id, ...(docSnap.data() as PostInterface) });
     }
   };
 

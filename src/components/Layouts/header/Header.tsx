@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 
 // components
-import Btn from 'components/atoms/Button/Btn';
-import SignoutBtn from 'components/atoms/Button/SignoutBtn';
-import ThemeBtn from 'components/atoms/Button/ThemeBtn';
+import Btn from 'components/commons/button/Btn';
+import SignoutBtn from 'components/commons/button/SignoutBtn';
+import ThemeBtn from 'components/commons/button/ThemeBtn';
 
 // svg
-import SVGLogo from 'components/atoms/SVG/SVGLogo';
-import SVGWrite from 'components/atoms/SVG/SVGWrite';
-import SVGSignin from 'components/atoms/SVG/SVGSignin';
-import SVGSignup from 'components/atoms/SVG/SVGSignup';
+import SVGLogo from 'components/commons/SVG/SVGLogo';
+import SVGWrite from 'components/commons/SVG/SVGWrite';
+import SVGSignin from 'components/commons/SVG/SVGSignin';
+import SVGSignup from 'components/commons/SVG/SVGSignup';
 
 type HeadertProps = {
   isAuthenticated: boolean;

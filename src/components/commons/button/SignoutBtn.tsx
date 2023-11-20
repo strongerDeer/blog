@@ -6,8 +6,8 @@ import { getAuth, signOut } from 'firebase/auth';
 import { toast } from 'react-toastify';
 
 // componenets
-import Btn from './Btn';
 import SVGSignout from '../SVG/SVGSignout';
+import Btn from './Btn';
 
 export default function SignoutBtn() {
   const onSignOut = async () => {

@@ -1,34 +1,13 @@
 import { useContext, useState } from 'react';
-import Tab from './Tab';
+import Tab from '../../../components/commons/tab/Tab';
 import AuthContext from 'context/AuthContext';
 import { collection } from 'firebase/firestore';
 import { db } from 'firebaseApp';
-
-export interface CommentsInterface {
-  content: string;
-  uid: string;
-  email: string;
-  createAt: string;
-}
-
-export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
-
-export interface PostProps {
-  id?: string;
-  title: string;
-  email: string;
-  summary: string;
-  content: string;
-  createAt: string;
-  updateAt: string;
-  uid: string;
-  category: CategoryType;
-  comments: CommentsInterface[];
-}
+import { PostInterface } from 'types/Post';
 
 export default function PostTab() {
   const { user } = useContext(AuthContext);
-  const [posts, setPosts] = useState<PostProps[]>([]);
+  const [posts, setPosts] = useState<PostInterface[]>([]);
 
   const defaultTabId = 'all';
   const tabList = [

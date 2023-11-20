@@ -1,13 +1,15 @@
 import { useContext, useState } from 'react';
 import styles from './Comments.module.scss';
-import { CommentsInterface, PostProps } from 'components/PostList';
+
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import AuthContext from 'context/AuthContext';
 import { toast } from 'react-toastify';
+import { PostInterface } from 'types/Post';
+import { CommentsInterface } from 'types/Comments';
 
 interface CommentProps {
-  post: PostProps;
+  post: PostInterface;
   getPost: (id: string) => Promise<void>;
 }
 

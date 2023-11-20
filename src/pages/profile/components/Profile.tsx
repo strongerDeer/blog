@@ -6,8 +6,8 @@ import { db } from 'firebaseApp';
 
 import AuthContext from 'context/AuthContext';
 
-import BtnLogout from './atoms/Button/SignoutBtn';
-import PostList from './PostList';
+import BtnLogout from '../../../components/commons/button/SignoutBtn';
+import PostList from '../../post/components/PostList';
 import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
 
 interface ProfileProps {
