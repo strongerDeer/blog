@@ -1,10 +1,13 @@
 import PostForm from 'pages/post/components/PostForm';
+import Today from './components/Today';
 
 export default function PostCreatePage() {
   return (
-    <section className="form-container">
-      <h1>Post Create Page</h1>
-      <PostForm />
-    </section>
+    <>
+      <Today />
+      <section className="form-container">
+        <PostForm />
+      </section>
+    </>
   );
 }
