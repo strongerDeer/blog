@@ -7,6 +7,9 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  GithubAuthProvider,
 } from 'firebase/auth';
 
 // toastify
@@ -108,6 +111,35 @@ export default function SignForm({ signup }: SignFormProps) {
     }
   };
 
+  const onClickSocialLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const {
+      currentTarget: { name },
+    } = e;
+
+    let provider;
+    const auth = getAuth(app);
+
+    if (name === 'google') {
+      provider = new GoogleAuthProvider();
+    }
+    if (name === 'github') {
+      provider = new GithubAuthProvider();
+    }
+
+    await signInWithPopup(
+      auth,
+      provider as GoogleAuthProvider | GithubAuthProvider,
+    )
+      .then((res) => {
+        toast.success('로그인 되었습니다.');
+      })
+      .catch((err) => {
+        console.log(err);
+        const errorMsg = err?.message;
+        toast?.error(errorMsg);
+      });
+  };
+
   return (
     <div className={styles['form-wrap']}>
       <h2 className={styles.title}>{text}</h2>
@@ -152,6 +184,15 @@ export default function SignForm({ signup }: SignFormProps) {
               : undefined) || (error ? error?.length > 0 : undefined)
           }>
           {text}
+        </Btn>
+
+        <p>or</p>
+
+        <Btn name="google" onClick={onClickSocialLogin}>
+          Google로 {signup ? '회원가입' : '로그인'}
+        </Btn>
+        <Btn name="github" onClick={onClickSocialLogin}>
+          GitHub으로 {signup ? '회원가입' : '로그인'}
         </Btn>
       </form>
     </div>
