@@ -215,7 +215,7 @@ export default function PostForm({ post }: PostFormProps) {
           )}
         </li>
         <li>
-          <BlogEditor ref={editorRef} value={content} />
+          <BlogEditor editorRef={editorRef} value={content} />
         </li>
       </ul>
       <Btn type="submit">{post ? '수정' : '제출'}</Btn>

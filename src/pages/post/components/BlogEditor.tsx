@@ -12,18 +12,18 @@ import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 
 interface BlogEditorProps {
-  ref: RefObject<Editor>;
+  editorRef: RefObject<Editor>;
   value: string;
 }
 
-export default function BlogEditor({ ref, value }: BlogEditorProps) {
+export default function BlogEditor({ editorRef, value }: BlogEditorProps) {
   return (
     <div className={styles.editorWrap}>
       <Editor
         previewStyle="vertical"
         initialEditType="markdown"
         initialValue={value}
-        ref={ref}
+        ref={editorRef}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         height="100%"
       />
