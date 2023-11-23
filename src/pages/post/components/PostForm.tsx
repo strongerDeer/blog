@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import styles from './PostForm.module.scss';
+
 // firebase
 import { db, storage } from 'firebaseApp';
 import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
@@ -220,7 +222,7 @@ export default function PostForm({ post }: PostFormProps) {
       </ul>
       <Btn type="submit">{post ? '수정' : '제출'}</Btn>
       <Btn type="reset">삭제</Btn>
-      <BtnBack />
+      <BtnBack className={styles.btnBack} />
     </form>
   );
 }

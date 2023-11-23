@@ -5,7 +5,7 @@ export default function PostCreatePage() {
   return (
     <>
       <Today />
-      <section className="form-container">
+      <section className="container">
         <PostForm />
       </section>
     </>

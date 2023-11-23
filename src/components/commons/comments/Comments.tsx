@@ -7,6 +7,8 @@ import AuthContext from 'context/AuthContext';
 import { toast } from 'react-toastify';
 import { PostInterface } from 'types/Post';
 import { CommentsInterface } from 'types/Comments';
+import TextareaLabel from '../input/TextareaLabel';
+import Btn from '../button/Btn';
 
 interface CommentProps {
   post: PostInterface;
@@ -80,16 +82,15 @@ export default function Comments({ post, getPost }: CommentProps) {
 
   return (
     <div className={styles.commentWrap}>
-      <form onSubmit={onSubmit}>
-        <label htmlFor="comment">댓글</label>
-        <textarea
+      <form onSubmit={onSubmit} className={styles.form}>
+        <TextareaLabel
           id="comment"
-          name="comment"
+          label="댓글"
           value={comment}
           onChange={onChange}
           required
         />
-        <button type="submit">입력</button>
+        <Btn type="submit">입력</Btn>
       </form>
 
       <ol className={styles.commentList}>

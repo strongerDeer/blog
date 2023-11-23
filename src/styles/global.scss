@@ -33,7 +33,7 @@ body {
   position: absolute;
 }
 
-.form-container {
+.container {
   width: 100rem;
   max-width: calc(100% - 6rem);
   margin: auto;
@@ -43,7 +43,7 @@ body {
   position: relative;
   background: #fff;
   border-radius: 2rem;
-  padding: fcSize(40, 100);
+  padding: fcSize(40, 60) fcSize(60, 100);
   box-sizing: border-box;
 }
 

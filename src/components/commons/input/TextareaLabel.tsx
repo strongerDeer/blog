@@ -6,6 +6,7 @@ interface TextareaLabelProps {
   value?: string;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  required?: boolean;
 }
 
 export default function TextareaLabel(props: TextareaLabelProps) {

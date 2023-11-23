@@ -1,3 +1,22 @@
+@import 'styles/global.scss';
+
 .commentWrap {
-  border: 1px solid #ddd;
+  margin-top: 4rem;
+  padding: 4rem 0;
+  border-top: 1px solid #ddd;
+}
+
+.form {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.6rem;
+
+  label {
+    @extend .a11y-hidden;
+  }
+  & > div {
+    flex-grow: 1;
+  }
+  button {
+  }
 }

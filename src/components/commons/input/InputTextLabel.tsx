@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import styles from './Form.module.scss';
 
 interface InputTextLabelProps {
@@ -8,19 +9,18 @@ interface InputTextLabelProps {
   onChange?: any;
   required?: boolean;
   disabled?: boolean;
+  className?: string;
 }
 
-export default function InputTextLabel({
-  id,
-  type,
-  label,
-  value,
-  onChange,
-  required,
-  disabled,
-}: InputTextLabelProps) {
+export default function InputTextLabel(props: InputTextLabelProps) {
+  const { id, type, label, className, ...rest } = props;
+
   return (
-    <div className={styles.wrap}>
+    <div
+      className={classNames(
+        id === 'postTitle' ? styles.post__title : '',
+        styles.wrap,
+      )}>
       <label className={styles.label} htmlFor={id}>
         {label}
       </label>
@@ -29,10 +29,8 @@ export default function InputTextLabel({
         type={type ?? 'text'}
         id={id}
         name={id}
-        value={value}
-        onChange={onChange}
-        required={required}
-        disabled={disabled}
+        placeholder={id === 'postTitle' ? 'Title' : ''}
+        {...rest}
       />
     </div>
   );
