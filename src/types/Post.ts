@@ -16,4 +16,5 @@ export interface PostInterface {
 
   like?: string;
   likeCount?: number;
+  hashTags?: string[];
 }

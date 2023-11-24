@@ -6,10 +6,12 @@ interface InputTextLabelProps {
   type?: string;
   label?: string;
   value?: string;
-  onChange?: any;
   required?: boolean;
   disabled?: boolean;
+  placeholder?: string;
   className?: string;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export default function InputTextLabel(props: InputTextLabelProps) {

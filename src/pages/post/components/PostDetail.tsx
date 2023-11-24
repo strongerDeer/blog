@@ -57,6 +57,11 @@ export default function PostDetail() {
             )}
 
             <div className={styles.post__content}>{post?.content}</div>
+            <p>
+              {post?.hashTags?.map((tag) => (
+                <span>{`#${tag}`}</span>
+              ))}
+            </p>
 
             <div className="post__button">
               <Link to={`/post/edit/${params?.id}`} className="post__edit">

@@ -27,6 +27,7 @@ import SelectLabel from 'components/commons/input/SelectLabel';
 import InputFileLabel from 'components/commons/input/InputFileLabel';
 import BtnBack from 'components/commons/button/BtnBack';
 import BlogEditor from './BlogEditor';
+import InputHashTag from 'components/commons/input/InputHashTag';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -50,6 +51,7 @@ export default function PostForm({ post }: PostFormProps) {
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [content, setContent] = useState<string>('Tell your story...');
   const [category, setCategory] = useState<CategoryType | null>(null);
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     if (post) {
@@ -59,6 +61,7 @@ export default function PostForm({ post }: PostFormProps) {
       setCategory(post.categoty);
       setPreviewImg(post.imgUrl);
       setCategory(post.category);
+      setTags(post.hashTags);
     }
   }, [post]);
 
@@ -99,6 +102,7 @@ export default function PostForm({ post }: PostFormProps) {
           }),
           category: category,
           imgUrl: imgUrl,
+          hashTags: tags,
         });
 
         toast.success('게시글 수정작성 완료!');
@@ -134,11 +138,13 @@ export default function PostForm({ post }: PostFormProps) {
           uid: user?.uid,
           category: category,
           imgUrl: imgUrl,
+          hashTags: tags,
         });
 
         toast.success('게시글 작성 완료!');
         navigate('/post');
       }
+      setTags([]);
       setPreviewImg(null);
       setIsSubmitting(false);
       // fireabase로 데이터 생성
@@ -218,6 +224,9 @@ export default function PostForm({ post }: PostFormProps) {
         </li>
         <li>
           <BlogEditor editorRef={editorRef} value={content} />
+        </li>
+        <li>
+          <InputHashTag tags={tags} setTags={setTags} />
         </li>
       </ul>
       <Btn type="submit">{post ? '수정' : '제출'}</Btn>
