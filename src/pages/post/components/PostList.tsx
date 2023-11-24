@@ -9,6 +9,7 @@ import PostCardList from './PostCardList';
 
 import Tab from '../../../components/commons/tab/Tab';
 import { PostInterface } from 'types/Post';
+import InputSearchLabel from 'components/commons/input/InputSearchLabel';
 
 const ALL_POST = 'all';
 const MY_POST = 'my';
@@ -77,6 +78,8 @@ export default function PostList({
       {hasTab && (
         <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
       )}
+
+      <InputSearchLabel setPost={setPosts} />
 
       <PostCardList posts={posts} getPosts={getPosts} />
     </>
