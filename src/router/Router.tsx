@@ -6,18 +6,22 @@ import PostCreatePage from '../pages/post/create';
 import PostEditPage from '../pages/post/edit';
 import ProfilePage from '../pages/profile';
 
-import ProfileCreatePage from 'pages/profile/create';
 import ProfileEditPage from 'pages/profile/edit';
 import NotificationsPage from 'pages/notifications';
 import SearchPage from 'pages/search';
 import SigninPage from 'pages/sign/Signin';
 import SignupPage from 'pages/sign/Signup';
+import { useContext } from 'react';
+import AuthContext from 'context/AuthContext';
 
 interface RouterProps {
   isAuthenticated: boolean;
 }
 
 export default function Router({ isAuthenticated }: RouterProps) {
+  const { user } = useContext(AuthContext);
+  const loginProvider = user?.providerData[0].providerId;
+
   return (
     <>
       <Routes>
@@ -33,8 +37,10 @@ export default function Router({ isAuthenticated }: RouterProps) {
 
             {/* Profile */}
             <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/new" element={<ProfileCreatePage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
+            {/* {!(
+              loginProvider === 'google.com' || loginProvider === 'github.com'
+            ) && <Route path="/profile/edit" element={<ProfileEditPage />} />} */}
 
             {/* other */}
             <Route path="/notifications" element={<NotificationsPage />} />

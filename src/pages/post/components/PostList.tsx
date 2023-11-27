@@ -76,10 +76,11 @@ export default function PostList({
   return (
     <>
       {hasTab && (
-        <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
+        <>
+          <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
+          <InputSearchLabel setPost={setPosts} />
+        </>
       )}
-
-      <InputSearchLabel setPost={setPosts} />
 
       <PostCardList posts={posts} getPosts={getPosts} />
     </>

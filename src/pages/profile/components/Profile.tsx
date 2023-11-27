@@ -1,14 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 // firebase
-
-import { db } from 'firebaseApp';
-
 import AuthContext from 'context/AuthContext';
 
 import BtnLogout from '../../../components/commons/button/SignoutBtn';
 import PostList from '../../post/components/PostList';
-import { collection, getDocs, orderBy, query, where } from 'firebase/firestore';
+import Btn from 'components/commons/button/Btn';
 
 interface ProfileProps {
   image?: string;
@@ -20,30 +17,21 @@ interface ProfileProps {
 }
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  const [profile, setProfile] = useState<ProfileProps>();
-
-  const getProfile = async () => {
-    let profileRef = collection(db, 'users');
-    let profileQuery = query(profileRef, where('uid', '==', user?.uid));
-    const datas = await getDocs(profileQuery);
-
-    datas.forEach((doc) => {
-      const dataObj = { ...doc.data(), id: doc.id };
-      setProfile(dataObj);
-    });
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
+  const loginProvider = user?.providerData[0].providerId;
 
   return (
     <section className="profile__section">
-      <img src={profile?.image} alt="" />
-      <p>{profile?.email}</p>
-      <p>{profile?.nickname}</p>
+      <img src={user?.photoURL ? user.photoURL : ''} alt="" />
+      <p>{user?.email}</p>
+      <p>{user?.displayName}</p>
 
       <BtnLogout />
+
+      {/* {!(loginProvider === 'google.com' || loginProvider === 'github.com') && (
+        <Btn href="/profile/edit">프로필 수정</Btn>
+      )} */}
+
+      <Btn href="/profile/edit">프로필 수정</Btn>
       <PostList />
     </section>
   );

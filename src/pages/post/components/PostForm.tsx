@@ -91,7 +91,9 @@ export default function PostForm({ post }: PostFormProps) {
             imgUrl = await getDownloadURL(data?.ref);
           }
         }
+
         const postRef = doc(db, 'posts', post?.id);
+
         await updateDoc(postRef, {
           title: title,
           summary: summary,
