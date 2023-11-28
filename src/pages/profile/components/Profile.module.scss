@@ -1,0 +1,44 @@
+@import 'styles/var.scss';
+
+.profile__section {
+  background-color: map-get($color, background2);
+  border-radius: 1rem;
+  padding: 4rem;
+
+  box-sizing: border-box;
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+
+  h3 {
+    text-decoration: underline;
+    text-transform: uppercase;
+    font-size: fcSize(12, 14);
+    margin-bottom: 2rem;
+  }
+}
+
+.user__img {
+  width: 8rem;
+  height: 8rem;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+}
+
+.user__name {
+  color: map-get($color, primary);
+  font-weight: bold;
+  margin: 1em;
+}
+
+.user__email {
+  color: map-get($color, gray);
+}
+
+.btn__group {
+  display: flex;
+  gap: 0.4rem;
+}

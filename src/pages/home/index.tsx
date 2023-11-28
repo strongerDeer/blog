@@ -1,12 +1,15 @@
 import Carousel from 'pages/home/components/Carousel';
 import PostList from 'pages/post/components/PostList';
-import PostTab from 'pages/post/components/PostTab';
 
+import Profile from 'pages/profile/components/Profile';
+
+import styles from './index.module.scss';
 export default function HomePage() {
   return (
     <>
       <Carousel />
-      <div className="max-width">
+      <div className={styles.wrap}>
+        <Profile />
         <PostList hasTab={true} />
       </div>
     </>

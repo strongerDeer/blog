@@ -74,7 +74,7 @@ export default function PostList({
   };
 
   return (
-    <>
+    <section className="post">
       {hasTab && (
         <>
           <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
@@ -83,6 +83,6 @@ export default function PostList({
       )}
 
       <PostCardList posts={posts} getPosts={getPosts} />
-    </>
+    </section>
   );
 }

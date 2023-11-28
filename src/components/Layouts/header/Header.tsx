@@ -12,12 +12,16 @@ import SVGLogo from 'components/commons/SVG/SVGLogo';
 import SVGWrite from 'components/commons/SVG/SVGWrite';
 import SVGSignin from 'components/commons/SVG/SVGSignin';
 import SVGSignup from 'components/commons/SVG/SVGSignup';
+import { useContext } from 'react';
+import AuthContext from 'context/AuthContext';
+import { noimg } from 'utils/constants';
 
 type HeadertProps = {
   isAuthenticated: boolean;
 };
 
 export default function Header({ isAuthenticated }: HeadertProps) {
+  const { user } = useContext(AuthContext);
   return (
     <header className={styles.header}>
       <h1>
@@ -35,7 +39,10 @@ export default function Header({ isAuthenticated }: HeadertProps) {
         {isAuthenticated ? (
           <>
             <Link to="/profile" className={styles.profile}>
-              <img src="/images/profile.png" alt="프로필 페이지" />
+              <img
+                src={user?.photoURL ? user.photoURL : noimg}
+                alt="프로필 페이지"
+              />
             </Link>
 
             <Btn href="/post/new">

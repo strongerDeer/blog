@@ -1,0 +1,21 @@
+.wrap {
+  width: 1224px;
+  margin: 0 auto;
+  max-width: calc(100% - 4rem);
+
+  display: flex;
+  align-items: flex-start;
+  gap: 2.4rem;
+
+  margin-top: 4rem;
+  position: relative;
+
+  [class^='profile'] {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 28.8rem;
+  }
+  [class^='post'] {
+    flex-grow: 1;
+  }
+}

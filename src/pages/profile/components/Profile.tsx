@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 
+import styles from './Profile.module.scss';
 // firebase
 import AuthContext from 'context/AuthContext';
 
 import BtnLogout from '../../../components/commons/button/SignoutBtn';
-import PostList from '../../post/components/PostList';
 import Btn from 'components/commons/button/Btn';
+import { noimg } from 'utils/constants';
+import classNames from 'classnames';
 
 interface ProfileProps {
   image?: string;
@@ -17,22 +19,33 @@ interface ProfileProps {
 }
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  const loginProvider = user?.providerData[0].providerId;
 
   return (
-    <section className="profile__section">
-      <img src={user?.photoURL ? user.photoURL : ''} alt="" />
-      <p>{user?.email}</p>
-      <p>{user?.displayName}</p>
+    <section className={classNames('profile', styles.profile__section)}>
+      <div>
+        <h3>About Me</h3>
+        <img
+          src={user?.photoURL ? user.photoURL : noimg}
+          alt=""
+          className={styles.user__img}
+        />
+        <p className={styles.user__name}>{user?.displayName}</p>
 
-      <BtnLogout />
+        <p className={styles.user__email}>{user?.email}</p>
+      </div>
 
-      {/* {!(loginProvider === 'google.com' || loginProvider === 'github.com') && (
+      <div>
+        <h3>Categories</h3>
+      </div>
+
+      <div>
+        <h3>Follow</h3>
+      </div>
+
+      <div className={styles.btn__group}>
+        <BtnLogout />
         <Btn href="/profile/edit">프로필 수정</Btn>
-      )} */}
-
-      <Btn href="/profile/edit">프로필 수정</Btn>
-      <PostList />
+      </div>
     </section>
   );
 }
