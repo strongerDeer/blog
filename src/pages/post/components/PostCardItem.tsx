@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './PostCardItem.module.scss';
 import AuthContext from 'context/AuthContext';
 import BtnDeletePost from 'components/commons/button/DeletePostBtn';
+import LikeBtn from 'components/commons/button/LikeBtn';
 
 interface PostCardItemProps {
   post: any;
@@ -37,7 +38,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
             <p className={styles.post_text_content}>{post?.content}</p>
           </div>
         </Link>
-
+        <LikeBtn post={post} />
         {user?.email === post?.email && (
           <div className={styles['post__button']}>
             <Link

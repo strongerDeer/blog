@@ -2,7 +2,7 @@ import PostCardItem from './PostCardItem';
 import styles from './PostCardList.module.scss';
 interface PostCardListProps {
   posts: any;
-  getPosts: any;
+  getPosts?: any;
 }
 
 export default function PostCardList({ posts, getPosts }: PostCardListProps) {

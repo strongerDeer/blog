@@ -1,10 +1,23 @@
+import Tab from 'components/commons/tab/Tab';
+import { ALL_POST, tabList } from 'pages/home';
 import PostList from 'pages/post/components/PostList';
+import { useState } from 'react';
 
 export default function PostListPage() {
+  const [activeTab, setActiveTab] = useState<string>(ALL_POST);
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const targetId = `${e.currentTarget.dataset.id}`;
+    setActiveTab(targetId);
+  };
+
   return (
     <div className="max-width">
       <h1>Post List Page</h1>
-      <PostList defaultTab="my" />
+
+      <div>
+        <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
+        <PostList activeTab={activeTab} />
+      </div>
     </div>
   );
 }
