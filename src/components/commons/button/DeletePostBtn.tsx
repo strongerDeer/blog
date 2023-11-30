@@ -7,6 +7,7 @@ import { deleteDoc, doc } from 'firebase/firestore';
 // toast
 import { toast } from 'react-toastify';
 import { deleteObject, ref } from 'firebase/storage';
+import SVGDelete from '../SVG/SVGDelete';
 
 export default function BtnDeletePost({ id, getPosts, imgUrl }: any) {
   const path = useLocation().pathname;
@@ -36,7 +37,7 @@ export default function BtnDeletePost({ id, getPosts, imgUrl }: any) {
   };
   return (
     <button type="button" className="post__delete" onClick={handleDelete}>
-      삭제
+      <SVGDelete /> 삭제
     </button>
   );
 }

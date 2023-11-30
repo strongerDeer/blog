@@ -2,7 +2,10 @@ import AuthContext from 'context/AuthContext';
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { useContext } from 'react';
+import SVGLike from '../SVG/SVGLike';
+import SVGLikeFill from '../SVG/SVGLikeFill';
 
+import styles from './LikeBtn.module.scss';
 export default function LikeBtn({ post }: any) {
   const { user } = useContext(AuthContext);
 
@@ -24,10 +27,20 @@ export default function LikeBtn({ post }: any) {
 
   return (
     <>
-      <button type="button" onClick={toggleLike}>
-        {user && post?.likes?.includes(user?.uid) ? '좋아요 취소' : '좋아요'}
+      <button type="button" onClick={toggleLike} className={styles.LikeBtn}>
+        {user && post?.likes?.includes(user?.uid) ? (
+          <>
+            <SVGLikeFill />
+            <span className="a11y-hidden">좋아요 취소</span>
+          </>
+        ) : (
+          <>
+            <SVGLike />
+            <span className="a11y-hidden">좋아요</span>
+          </>
+        )}
+        {post?.likeCount}
       </button>
-      {post?.likeCount}
     </>
   );
 }

@@ -15,7 +15,7 @@
     flex-shrink: 0;
     width: 28.8rem;
   }
-  [class^='post'] {
+  & > div {
     flex-grow: 1;
   }
 }

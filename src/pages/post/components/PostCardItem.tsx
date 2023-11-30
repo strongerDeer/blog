@@ -5,6 +5,11 @@ import styles from './PostCardItem.module.scss';
 import AuthContext from 'context/AuthContext';
 import BtnDeletePost from 'components/commons/button/DeletePostBtn';
 import LikeBtn from 'components/commons/button/LikeBtn';
+import Btn from 'components/commons/button/Btn';
+import SVGTalk from 'components/commons/SVG/SVGTalk';
+import TalkBtn from 'components/commons/button/TalkBtn';
+import SVGEdit from 'components/commons/SVG/SVGEdit';
+import { noimg } from 'utils/constants';
 
 interface PostCardItemProps {
   post: any;
@@ -28,8 +33,8 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
 
             <div className={styles.post_text_profile}>
               <p className={styles.post_text_author}>
-                <img src="" alt="" />
-                {post?.email}
+                <img src={user?.photoURL ? user.photoURL : noimg} alt="" />
+                {user?.displayName ? user.displayName : post?.email}
               </p>
               <time className={styles.post_text_date}>
                 {post?.createAt.split('. 오')[0]}
@@ -38,22 +43,27 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
             <p className={styles.post_text_content}>{post?.content}</p>
           </div>
         </Link>
-        <LikeBtn post={post} />
-        {user?.email === post?.email && (
-          <div className={styles['post__button']}>
-            <Link
-              to={`/post/edit/${post?.id}`}
-              className={styles['post__edit']}>
-              수정
-            </Link>
-
-            <BtnDeletePost
-              id={post?.id}
-              imgUrl={post?.imgUrl}
-              getPosts={getPosts}
-            />
+        <div className={styles['post__button']}>
+          <div className={styles.default__button}>
+            <LikeBtn post={post} />
+            <TalkBtn href={`/post/${post?.id}`} />
           </div>
-        )}
+          {user?.email === post?.email && (
+            <div>
+              <Link
+                to={`/post/edit/${post?.id}`}
+                className={styles['post__edit']}>
+                <SVGEdit /> 수정
+              </Link>
+
+              <BtnDeletePost
+                id={post?.id}
+                imgUrl={post?.imgUrl}
+                getPosts={getPosts}
+              />
+            </div>
+          )}
+        </div>
       </article>
     </li>
   );
