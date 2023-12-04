@@ -5,8 +5,6 @@ import styles from './PostCardItem.module.scss';
 import AuthContext from 'context/AuthContext';
 import BtnDeletePost from 'components/commons/button/DeletePostBtn';
 import LikeBtn from 'components/commons/button/LikeBtn';
-import Btn from 'components/commons/button/Btn';
-import SVGTalk from 'components/commons/SVG/SVGTalk';
 import TalkBtn from 'components/commons/button/TalkBtn';
 import SVGEdit from 'components/commons/SVG/SVGEdit';
 import { noimg } from 'utils/constants';
@@ -46,7 +44,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
         <div className={styles['post__button']}>
           <div className={styles.default__button}>
             <LikeBtn post={post} />
-            <TalkBtn href={`/post/${post?.id}`} />
+            <TalkBtn count={post?.commentsCount} href={`/post/${post?.id}`} />
           </div>
           {user?.email === post?.email && (
             <div>

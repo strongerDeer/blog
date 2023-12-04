@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import styles from './PostDetail.module.scss';
 
 // firebase
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
 import BtnDeletePost from '../../../components/commons/button/DeletePostBtn';
@@ -22,9 +22,10 @@ export default function PostDetail() {
   const getPost = async (id: string) => {
     if (id) {
       const docRef = doc(db, 'posts', id);
-      const docSnap = await getDoc(docRef);
 
-      setPost({ id: docSnap.id, ...(docSnap.data() as PostInterface) });
+      onSnapshot(docRef, (doc) => {
+        setPost({ id: doc.id, ...(doc.data() as PostInterface) });
+      });
     }
   };
 
@@ -70,7 +71,7 @@ export default function PostDetail() {
               <BtnDeletePost id={params?.id} imgUrl={post?.imgUrl} />
             </div>
 
-            <Comments post={post} getPost={getPost} />
+            <Comments post={post} />
           </>
         ) : (
           <Loader />

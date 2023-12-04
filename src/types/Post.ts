@@ -12,6 +12,7 @@ export interface PostInterface {
   uid: string;
   category: CategoryType;
   comments: CommentsInterface[];
+  commentsCount?: number;
   imgUrl: string;
 
   like?: string;
