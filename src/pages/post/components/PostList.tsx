@@ -24,6 +24,7 @@ export default function PostList({ activeTab }: PostListProps) {
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
+  console.log(activeTab);
   useEffect(() => {
     if (user) {
       let postsRef = collection(db, 'posts');

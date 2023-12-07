@@ -31,8 +31,8 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
 
             <div className={styles.post_text_profile}>
               <p className={styles.post_text_author}>
-                <img src={user?.photoURL ? user.photoURL : noimg} alt="" />
-                {user?.displayName ? user.displayName : post?.email}
+                <img src={post?.photoURL ? post.photoURL : noimg} alt="" />
+                {post?.displayName ? post.displayName : post?.email}
               </p>
               <time className={styles.post_text_date}>
                 {post?.createAt.split('. 오')[0]}

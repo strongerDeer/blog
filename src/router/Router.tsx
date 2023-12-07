@@ -13,6 +13,7 @@ import SigninPage from 'pages/sign/Signin';
 import SignupPage from 'pages/sign/Signup';
 import { useContext } from 'react';
 import AuthContext from 'context/AuthContext';
+import FollowingPostListPage from 'pages/followingpost';
 
 interface RouterProps {
   isAuthenticated: boolean;
@@ -20,7 +21,6 @@ interface RouterProps {
 
 export default function Router({ isAuthenticated }: RouterProps) {
   const { user } = useContext(AuthContext);
-  const loginProvider = user?.providerData[0].providerId;
 
   return (
     <>
@@ -38,11 +38,12 @@ export default function Router({ isAuthenticated }: RouterProps) {
             {/* Profile */}
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/profile/edit" element={<ProfileEditPage />} />
-            {/* {!(
-              loginProvider === 'google.com' || loginProvider === 'github.com'
-            ) && <Route path="/profile/edit" element={<ProfileEditPage />} />} */}
+            <Route path="/profile/:id" element={<>프로필 보기</>} />
 
             {/* other */}
+            <Route path="/follower" element={<>팔로우 리스트</>} />
+            <Route path="/following" element={<>팔로잉 리스트</>} />
+            <Route path="/followingpost" element={<FollowingPostListPage />} />
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/search" element={<SearchPage />} />
 

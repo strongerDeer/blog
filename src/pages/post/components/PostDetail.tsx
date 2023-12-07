@@ -14,6 +14,7 @@ import Comments from '../../../components/commons/comments/Comments';
 import { PostInterface } from 'types/Post';
 import Today from './Today';
 import classNames from 'classnames';
+import FollowBtn from 'components/commons/button/FollowBtn';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostInterface | null>(null);
@@ -45,6 +46,8 @@ export default function PostDetail() {
                 stronger.Deer
               </p>
               <time className={styles.post__date}>{post?.createAt}</time>
+
+              <FollowBtn uid={post?.uid} />
             </div>
 
             {post?.category && (

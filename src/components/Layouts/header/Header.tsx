@@ -32,7 +32,8 @@ export default function Header({ isAuthenticated }: HeadertProps) {
       </h1>
 
       <nav>
-        <Link to="/post">Posts</Link>
+        <Link to="/post">전체게시글</Link>
+        <Link to="/followingpost">팔로우중인 게시글(홈)</Link>
       </nav>
 
       <div className={styles.btnGroup}>

@@ -8,6 +8,7 @@ import BtnLogout from '../../../components/commons/button/SignoutBtn';
 import Btn from 'components/commons/button/Btn';
 import { noimg } from 'utils/constants';
 import classNames from 'classnames';
+import FollowBtn from 'components/commons/button/FollowBtn';
 
 interface ProfileProps {
   image?: string;
@@ -34,17 +35,29 @@ export default function Profile() {
         <p className={styles.user__email}>{user?.email}</p>
       </div>
 
+      <div className={styles.btn__group}>
+        게시글
+        <Btn href="/follower" bgNone={true}>
+          팔로우 00
+        </Btn>
+        <Btn href="/following" bgNone={true}>
+          팔로잉 00
+        </Btn>
+      </div>
+
       <div>
         <h3>Categories</h3>
       </div>
 
       <div>
-        <h3>Follow</h3>
+        <h3>Contact</h3>
       </div>
 
       <div className={styles.btn__group}>
         <BtnLogout />
         <Btn href="/profile/edit">프로필 수정</Btn>
+
+        <FollowBtn uid={user?.uid ? user.uid : ''} />
       </div>
     </section>
   );
