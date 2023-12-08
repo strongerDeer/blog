@@ -15,6 +15,8 @@ import SVGSignup from 'components/commons/SVG/SVGSignup';
 import { useContext } from 'react';
 import AuthContext from 'context/AuthContext';
 import { noimg } from 'utils/constants';
+import { useRecoilState } from 'recoil';
+import { languageState } from 'atom';
 
 type HeadertProps = {
   isAuthenticated: boolean;
@@ -22,6 +24,13 @@ type HeadertProps = {
 
 export default function Header({ isAuthenticated }: HeadertProps) {
   const { user } = useContext(AuthContext);
+
+  const [language, setLanguage] = useRecoilState(languageState);
+
+  const changeLanguage = () => {
+    setLanguage((language) => (language === 'ko' ? 'en' : 'ko'));
+    localStorage.setItem('language', language === 'ko' ? 'en' : 'ko');
+  };
   return (
     <header className={styles.header}>
       <h1>
@@ -37,6 +46,9 @@ export default function Header({ isAuthenticated }: HeadertProps) {
       </nav>
 
       <div className={styles.btnGroup}>
+        <Btn bgNone onClick={changeLanguage}>
+          {language}
+        </Btn>
         {isAuthenticated ? (
           <>
             <Link to="/profile" className={styles.profile}>

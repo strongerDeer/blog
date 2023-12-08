@@ -15,6 +15,7 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import Layout from 'components/Layouts/Layout';
 import Router from 'router/Router';
 import Loader from 'components/commons/loader/Loader';
+import { RecoilRoot } from 'recoil';
 
 function App() {
   const auth = getAuth(app);
@@ -38,12 +39,12 @@ function App() {
   }, [auth]);
 
   return (
-    <>
+    <RecoilRoot>
       <ToastContainer />
       <Layout isAuthenticated={isAuthenticated}>
         {init ? <Router isAuthenticated={isAuthenticated} /> : <Loader />}
       </Layout>
-    </>
+    </RecoilRoot>
   );
 }
 
