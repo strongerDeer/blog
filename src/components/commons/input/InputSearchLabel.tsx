@@ -40,7 +40,7 @@ export default function InputSearchLabel(props: InputSearchLabelProps) {
       let postsQuery = query(
         postsRef,
         where('hashTags', 'array-contains-any', [tagQuery]),
-        orderBy('createAt', 'desc'),
+        orderBy('createdAt', 'desc'),
       );
       onSnapshot(postsQuery, (snapShot) => {
         let dataObj = snapShot?.docs?.map((doc) => ({

@@ -7,7 +7,7 @@ export interface PostInterface {
   email: string;
   summary: string;
   content: string;
-  createAt: string;
+  createdAt: string;
   updateAt: string;
   uid: string;
   category: CategoryType;

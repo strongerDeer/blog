@@ -4,5 +4,5 @@ export interface CommentsInterface {
   email: string;
   nickname: string;
   profileURL: string;
-  createAt: string;
+  createdAt: string;
 }

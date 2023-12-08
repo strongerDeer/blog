@@ -45,7 +45,7 @@ export default function PostDetail() {
                 <img src="" alt="" />
                 stronger.Deer
               </p>
-              <time className={styles.post__date}>{post?.createAt}</time>
+              <time className={styles.post__date}>{post?.createdAt}</time>
 
               <FollowBtn uid={post?.uid} />
             </div>
@@ -62,8 +62,8 @@ export default function PostDetail() {
 
             <div className={styles.post__content}>{post?.content}</div>
             <p>
-              {post?.hashTags?.map((tag) => (
-                <span>{`#${tag}`}</span>
+              {post?.hashTags?.map((tag, index) => (
+                <span key={index}>{`#${tag}`}</span>
               ))}
             </p>
 

@@ -24,7 +24,6 @@ export default function PostList({ activeTab }: PostListProps) {
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
-  console.log(activeTab);
   useEffect(() => {
     if (user) {
       let postsRef = collection(db, 'posts');
@@ -33,27 +32,27 @@ export default function PostList({ activeTab }: PostListProps) {
 
       if (activeTab === ALL_POST) {
         // 전체
-        postQuery = query(postsRef, orderBy('createAt', 'desc'));
+        postQuery = query(postsRef, orderBy('createdAt', 'desc'));
       } else if (activeTab === MY_POST && user) {
         // 나의 글
         postQuery = query(
           postsRef,
           where('uid', '==', user?.uid),
-          orderBy('createAt', 'desc'),
+          orderBy('createdAt', 'desc'),
         );
       } else if (activeTab === 'like') {
         // 좋아요
         postQuery = query(
           postsRef,
           where('likes', 'array-contains', user?.uid),
-          orderBy('createAt', 'desc'),
+          orderBy('createdAt', 'desc'),
         );
       } else {
         // 카테고리글 보여주기
         postQuery = query(
           postsRef,
           where('category', '==', activeTab),
-          orderBy('createAt', 'desc'),
+          orderBy('createdAt', 'desc'),
         );
       }
 

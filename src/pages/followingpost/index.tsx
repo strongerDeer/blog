@@ -47,7 +47,7 @@ export default function FollowingPostListPage() {
       let followingQuery = query(
         postsRef,
         where('uid', 'in', followingIds),
-        orderBy('createAt', 'desc'),
+        orderBy('createdAt', 'desc'),
       );
 
       onSnapshot(followingQuery, (snapShot) => {

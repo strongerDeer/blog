@@ -35,7 +35,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
                 {post?.displayName ? post.displayName : post?.email}
               </p>
               <time className={styles.post_text_date}>
-                {post?.createAt.split('. 오')[0]}
+                {post?.createdAt.split('. 오')[0]}
               </time>
             </div>
             <p className={styles.post_text_content}>{post?.content}</p>

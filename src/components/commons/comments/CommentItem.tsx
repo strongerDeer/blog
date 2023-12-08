@@ -37,7 +37,7 @@ export default function CommentItem({ post, data }: CommentItemProps) {
     <li>
       <img src={data.profileURL} alt="" />
       <p>{data.content}</p>
-      <p>{data.createAt}</p>
+      <p>{data.createdAt}</p>
       <p>{data.email}</p>
       <p>{data.nickname}</p>
       {data.uid === user?.uid && (

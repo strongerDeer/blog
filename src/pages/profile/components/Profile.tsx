@@ -14,7 +14,7 @@ interface ProfileProps {
   image?: string;
   nickname?: string;
   email?: string;
-  createAt?: string;
+  createdAt?: string;
   uid?: string;
   id?: string;
 }

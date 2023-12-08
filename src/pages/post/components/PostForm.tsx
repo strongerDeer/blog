@@ -132,7 +132,7 @@ export default function PostForm({ post }: PostFormProps) {
           title: title,
           summary: summary,
           content: editorCont,
-          createAt: new Date()?.toLocaleDateString('ko', {
+          createdAt: new Date()?.toLocaleDateString('ko', {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
