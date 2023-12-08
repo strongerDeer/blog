@@ -3,7 +3,13 @@ import styles from './Comments.module.scss';
 import TextareaLabel from '../input/TextareaLabel';
 import { useContext, useState } from 'react';
 import AuthContext from 'context/AuthContext';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { toast } from 'react-toastify';
 import Btn from '../button/Btn';
@@ -16,6 +22,10 @@ export interface CommentProps {
 export default function CommentForm({ post }: CommentProps) {
   const [comment, setComment] = useState('');
   const { user } = useContext(AuthContext);
+
+  const truncate = (str: string) => {
+    return str?.length > 10 ? str.substring(0, 10) + '...' : str;
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const {
@@ -41,7 +51,7 @@ export default function CommentForm({ post }: CommentProps) {
             email: user.email,
             profileURL: user.photoURL,
             nickname: user?.displayName,
-            createAt: new Date()?.toLocaleDateString('ko', {
+            createdAt: new Date()?.toLocaleDateString('ko', {
               hour: '2-digit',
               minute: '2-digit',
               second: '2-digit',
@@ -59,6 +69,22 @@ export default function CommentForm({ post }: CommentProps) {
             commentsCount: post?.commentsCount ? post?.commentsCount + 1 : 1,
           });
         }
+      }
+
+      // 댓글 생성 알림 만들기
+      if (user?.uid !== post?.uid) {
+        await addDoc(collection(db, 'notifications'), {
+          createdAt: new Date()?.toLocaleDateString('ko', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+          uid: post?.uid,
+          isRead: false,
+          url: `/posts/${post?.id}`,
+          type: 'comment',
+          content: `${post?.title && truncate(post?.title)}`,
+        });
       }
       toast.success('댓글을 생성하였습니다.');
       setComment('');

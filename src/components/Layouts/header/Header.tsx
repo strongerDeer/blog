@@ -51,6 +51,10 @@ export default function Header({ isAuthenticated }: HeadertProps) {
               Write
             </Btn>
 
+            <Btn href="/notifications" bgNone>
+              알림
+            </Btn>
+
             <SignoutBtn />
           </>
         ) : (

@@ -4,8 +4,10 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 import AuthContext from 'context/AuthContext';
 import { db } from 'firebaseApp';
 import {
+  addDoc,
   arrayRemove,
   arrayUnion,
+  collection,
   doc,
   onSnapshot,
   setDoc,
@@ -22,34 +24,9 @@ interface UserProps {
 }
 
 export default function FollowBtn({ uid }: FollowingProps) {
-  console.log(uid);
   const { user } = useContext(AuthContext);
   const [followers, setFollowers] = useState<string[]>([]);
 
-  const onClickDeleteFollow = async (
-    e: React.MouseEvent<HTMLButtonElement>,
-  ) => {
-    e.preventDefault();
-
-    try {
-      if (user?.uid) {
-        // 로그인한 사용자
-        const followingRef = doc(db, 'following', user?.uid);
-        await updateDoc(followingRef, {
-          users: arrayRemove({ id: uid }),
-        });
-
-        // 팔로우 당하는 사람
-        const followerRef = doc(db, 'follower', uid);
-        await updateDoc(followerRef, {
-          users: arrayRemove({ id: user?.uid }),
-        });
-      }
-      toast.success('팔로우를 취소하였습니다');
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const onClickFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
 
@@ -77,7 +54,47 @@ export default function FollowBtn({ uid }: FollowingProps) {
           { merge: true },
         );
       }
+
+      // 팔로잉 알림 생성
+      await addDoc(collection(db, 'notifications'), {
+        createdAt: new Date()?.toLocaleDateString('ko', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
+        uid: uid,
+        isRead: false,
+        url: `/profile/${user?.uid}`,
+        type: 'following',
+        content: `${user?.displayName || user?.email}`,
+      });
+
       toast.success('팔로우 하였습니다');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onClickDeleteFollow = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    e.preventDefault();
+
+    try {
+      if (user?.uid) {
+        // 로그인한 사용자
+        const followingRef = doc(db, 'following', user?.uid);
+        await updateDoc(followingRef, {
+          users: arrayRemove({ id: uid }),
+        });
+
+        // 팔로우 당하는 사람
+        const followerRef = doc(db, 'follower', uid);
+        await updateDoc(followerRef, {
+          users: arrayRemove({ id: user?.uid }),
+        });
+      }
+      toast.success('팔로우를 취소하였습니다');
     } catch (error) {
       console.log(error);
     }
