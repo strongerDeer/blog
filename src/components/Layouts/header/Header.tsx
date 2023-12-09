@@ -17,6 +17,7 @@ import AuthContext from 'context/AuthContext';
 import { noimg } from 'utils/constants';
 import { useRecoilState } from 'recoil';
 import { languageState } from 'atom';
+import useTranslation from 'hooks/useTranslation';
 
 type HeadertProps = {
   isAuthenticated: boolean;
@@ -24,13 +25,14 @@ type HeadertProps = {
 
 export default function Header({ isAuthenticated }: HeadertProps) {
   const { user } = useContext(AuthContext);
-
   const [language, setLanguage] = useRecoilState(languageState);
+  const translation = useTranslation();
 
   const changeLanguage = () => {
     setLanguage((language) => (language === 'ko' ? 'en' : 'ko'));
     localStorage.setItem('language', language === 'ko' ? 'en' : 'ko');
   };
+
   return (
     <header className={styles.header}>
       <h1>
@@ -41,7 +43,7 @@ export default function Header({ isAuthenticated }: HeadertProps) {
       </h1>
 
       <nav>
-        <Link to="/post">전체게시글</Link>
+        <Link to="/post">{translation('MENU_POST')}</Link>
         <Link to="/followingpost">팔로우중인 게시글(홈)</Link>
       </nav>
 
