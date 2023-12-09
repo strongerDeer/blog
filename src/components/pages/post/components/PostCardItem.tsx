@@ -2,12 +2,12 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from './PostCardItem.module.scss';
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import BtnDeletePost from 'components/commons/button/DeletePostBtn';
 import LikeBtn from 'components/commons/button/LikeBtn';
 import TalkBtn from 'components/commons/button/TalkBtn';
 import SVGEdit from 'components/commons/SVG/SVGEdit';
-import { noimg } from 'utils/constants';
+import { NO_IMG } from 'constants/noimg';
 
 interface PostCardItemProps {
   post: any;
@@ -31,7 +31,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
 
             <div className={styles.post_text_profile}>
               <p className={styles.post_text_author}>
-                <img src={post?.photoURL ? post.photoURL : noimg} alt="" />
+                <img src={post?.photoURL ? post.photoURL : NO_IMG} alt="" />
                 {post?.displayName ? post.displayName : post?.email}
               </p>
               <time className={styles.post_text_date}>

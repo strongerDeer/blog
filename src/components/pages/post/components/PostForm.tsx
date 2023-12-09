@@ -18,7 +18,7 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 
 // utils
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 
 // components
 import Btn from 'components/commons/button/Btn';
@@ -28,6 +28,7 @@ import InputFileLabel from 'components/commons/input/InputFileLabel';
 import BtnBack from 'components/commons/button/BtnBack';
 import BlogEditor from './BlogEditor';
 import InputHashTag from 'components/commons/input/InputHashTag';
+import { NO_IMG } from 'constants/noimg';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -216,7 +217,7 @@ export default function PostForm({ post }: PostFormProps) {
             isSubmitting={isSubmitting}
           />
           <img
-            src={previewImg ? previewImg : '/images/no-img.png'}
+            src={previewImg ? previewImg : NO_IMG}
             alt={previewImg ? '게시글 대표 썸네일' : ''}
           />
           {previewImg && (

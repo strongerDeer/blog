@@ -1,7 +1,6 @@
-import { PostInterface } from 'types/Post';
 import Btn from './Btn';
 import { useCallback, useContext, useEffect, useState } from 'react';
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import { db } from 'firebaseApp';
 import {
   addDoc,

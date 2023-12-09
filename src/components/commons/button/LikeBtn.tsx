@@ -1,4 +1,4 @@
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { useContext } from 'react';

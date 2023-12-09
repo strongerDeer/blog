@@ -1,6 +1,6 @@
-import { languageState } from 'atom';
-import { TRANSLATIONS } from 'constants/language';
 import { useRecoilValue } from 'recoil';
+import { TRANSLATIONS } from 'constants/language';
+import { languageState } from 'recoils/atom';
 
 export default function useTranslation() {
   const lang = useRecoilValue(languageState);

@@ -2,13 +2,13 @@ import { useContext } from 'react';
 
 import styles from './Profile.module.scss';
 // firebase
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 
-import BtnLogout from '../../../components/commons/button/SignoutBtn';
+import BtnLogout from '../../../commons/button/SignoutBtn';
 import Btn from 'components/commons/button/Btn';
-import { noimg } from 'utils/constants';
 import classNames from 'classnames';
 import FollowBtn from 'components/commons/button/FollowBtn';
+import { NO_IMG } from 'constants/noimg';
 
 interface ProfileProps {
   image?: string;
@@ -26,7 +26,7 @@ export default function Profile() {
       <div>
         <h3>About Me</h3>
         <img
-          src={user?.photoURL ? user.photoURL : noimg}
+          src={user?.photoURL ? user.photoURL : NO_IMG}
           alt=""
           className={styles.user__img}
         />

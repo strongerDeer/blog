@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 
 // components
 
-import InputTextLabel from '../../../components/commons/input/InputTextLabel';
+import InputTextLabel from '../../../commons/input/InputTextLabel';
 
 // style
 import styles from './SignForm.module.scss';

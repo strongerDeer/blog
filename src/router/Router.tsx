@@ -1,19 +1,19 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
-import HomePage from '../pages/home';
-import PostListPage from '../pages/post';
-import PostDetailPage from '../pages/post/detail';
-import PostCreatePage from '../pages/post/create';
-import PostEditPage from '../pages/post/edit';
-import ProfilePage from '../pages/profile';
+import HomePage from '../components/pages/home';
+import PostListPage from '../components/pages/post';
+import PostDetailPage from '../components/pages/post/detail';
+import PostCreatePage from '../components/pages/post/create';
+import PostEditPage from '../components/pages/post/edit';
+import ProfilePage from '../components/pages/profile';
 
-import ProfileEditPage from 'pages/profile/edit';
-import NotificationsPage from 'pages/notifications';
-import SearchPage from 'pages/search';
-import SigninPage from 'pages/sign/Signin';
-import SignupPage from 'pages/sign/Signup';
+import ProfileEditPage from 'components/pages/profile/edit';
+import NotificationsPage from 'components/pages/notifications';
+import SearchPage from 'components/pages/search';
+import SigninPage from 'components/pages/sign/Signin';
+import SignupPage from 'components/pages/sign/Signup';
 import { useContext } from 'react';
-import AuthContext from 'context/AuthContext';
-import FollowingPostListPage from 'pages/followingpost';
+import AuthContext from 'contexts/AuthContext';
+import FollowingPostListPage from 'components/pages/followingpost';
 
 interface RouterProps {
   isAuthenticated: boolean;

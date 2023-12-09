@@ -3,7 +3,7 @@ import Footer from './footer/Footer';
 import Header from './header/Header';
 
 import styles from './Layout.module.scss';
-import ThemeContext from 'context/ThemeContext';
+import ThemeContext from 'contexts/ThemeContext';
 
 type LayoutProps = {
   isAuthenticated: boolean;

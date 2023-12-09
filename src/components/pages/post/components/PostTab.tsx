@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react';
-import Tab from '../../../components/commons/tab/Tab';
-import AuthContext from 'context/AuthContext';
+import Tab from '../../../commons/tab/Tab';
+import AuthContext from 'contexts/AuthContext';
 import { collection } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { PostInterface } from 'types/Post';

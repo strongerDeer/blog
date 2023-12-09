@@ -1,6 +1,6 @@
-import { MY_POST } from 'pages/home';
-import PostList from 'pages/post/components/PostList';
-import Profile from 'pages/profile/components/Profile';
+import { MY_POST } from 'components/pages/home';
+import PostList from 'components/pages/post/components/PostList';
+import Profile from 'components/pages/profile/components/Profile';
 import { useState } from 'react';
 
 export default function ProfilePage() {

@@ -1,6 +1,6 @@
 import Tab from 'components/commons/tab/Tab';
-import { ALL_POST, tabList } from 'pages/home';
-import PostList from 'pages/post/components/PostList';
+import { ALL_POST, tabList } from 'components/pages/home';
+import PostList from 'components/pages/post/components/PostList';
 import { useState } from 'react';
 
 export default function PostListPage() {

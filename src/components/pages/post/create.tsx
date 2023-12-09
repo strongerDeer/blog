@@ -1,4 +1,4 @@
-import PostForm from 'pages/post/components/PostForm';
+import PostForm from 'components/pages/post/components/PostForm';
 import Today from './components/Today';
 
 export default function PostCreatePage() {

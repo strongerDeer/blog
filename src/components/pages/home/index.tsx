@@ -1,7 +1,7 @@
-import Carousel from 'pages/home/components/Carousel';
-import PostList from 'pages/post/components/PostList';
+import Carousel from 'components/pages/home/components/Carousel';
+import PostList from 'components/pages/post/components/PostList';
 
-import Profile from 'pages/profile/components/Profile';
+import Profile from 'components/pages/profile/components/Profile';
 
 import styles from './index.module.scss';
 import Tab from 'components/commons/tab/Tab';

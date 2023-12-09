@@ -13,11 +13,12 @@ import SVGWrite from 'components/commons/SVG/SVGWrite';
 import SVGSignin from 'components/commons/SVG/SVGSignin';
 import SVGSignup from 'components/commons/SVG/SVGSignup';
 import { useContext } from 'react';
-import AuthContext from 'context/AuthContext';
-import { noimg } from 'utils/constants';
+import AuthContext from 'contexts/AuthContext';
 import { useRecoilState } from 'recoil';
-import { languageState } from 'atom';
+
 import useTranslation from 'hooks/useTranslation';
+import { languageState } from 'recoils/atom';
+import { NO_IMG } from 'constants/noimg';
 
 type HeadertProps = {
   isAuthenticated: boolean;
@@ -55,7 +56,7 @@ export default function Header({ isAuthenticated }: HeadertProps) {
           <>
             <Link to="/profile" className={styles.profile}>
               <img
-                src={user?.photoURL ? user.photoURL : noimg}
+                src={user?.photoURL ? user.photoURL : NO_IMG}
                 alt="프로필 페이지"
               />
             </Link>

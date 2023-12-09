@@ -7,10 +7,10 @@ import styles from './PostDetail.module.scss';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
-import BtnDeletePost from '../../../components/commons/button/DeletePostBtn';
-import Loader from '../../../components/commons/loader/Loader';
+import BtnDeletePost from '../../../commons/button/DeletePostBtn';
+import Loader from '../../../commons/loader/Loader';
 
-import Comments from '../../../components/commons/comments/Comments';
+import Comments from '../../../commons/comments/Comments';
 import { PostInterface } from 'types/Post';
 import Today from './Today';
 import classNames from 'classnames';

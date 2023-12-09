@@ -1,4 +1,4 @@
-import PostForm from 'pages/post/components/PostForm';
+import PostForm from 'components/pages/post/components/PostForm';
 
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';

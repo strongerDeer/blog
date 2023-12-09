@@ -8,7 +8,7 @@ import { db } from 'firebaseApp';
 import { toast } from 'react-toastify';
 
 // utils
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 
 // types
 import { PostInterface } from 'types/Post';

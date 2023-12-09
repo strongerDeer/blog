@@ -9,13 +9,13 @@ import {
 } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 
 import PostCardList from './PostCardList';
 
 import { PostInterface } from 'types/Post';
 import InputSearchLabel from 'components/commons/input/InputSearchLabel';
-import { ALL_POST, MY_POST } from 'pages/home';
+import { ALL_POST, MY_POST } from 'components/pages/home';
 
 interface PostListProps {
   activeTab?: string;

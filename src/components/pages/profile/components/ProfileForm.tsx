@@ -1,6 +1,6 @@
 import InputFileLabel from 'components/commons/input/InputFileLabel';
 import InputTextLabel from 'components/commons/input/InputTextLabel';
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import {
   deleteObject,
   getDownloadURL,
@@ -19,6 +19,7 @@ import styles from './ProfileForm.module.scss';
 import Btn from 'components/commons/button/Btn';
 
 import { updateProfile } from 'firebase/auth';
+import { NO_IMG } from 'constants/noimg';
 
 const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
 
@@ -102,10 +103,7 @@ export default function ProfileForm() {
   return (
     <form onSubmit={onSubmit}>
       <div className={styles.profile}>
-        <img
-          src={previewImg ? previewImg : '/images/noimg.png'}
-          alt="이미지 미리보기"
-        />
+        <img src={previewImg ? previewImg : NO_IMG} alt="이미지 미리보기" />
         <InputFileLabel
           label="썸네일"
           id="postThumbnail"

@@ -1,4 +1,4 @@
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import {
   collection,
   onSnapshot,

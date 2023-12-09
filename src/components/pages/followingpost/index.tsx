@@ -1,4 +1,4 @@
-import AuthContext from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
 import {
   collection,
   doc,
@@ -9,7 +9,7 @@ import {
 } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
-import PostCardList from 'pages/post/components/PostCardList';
+import PostCardList from 'components/pages/post/components/PostCardList';
 
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { PostInterface } from 'types/Post';
