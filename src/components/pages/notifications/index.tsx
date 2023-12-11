@@ -23,7 +23,7 @@ export default function NotificationsPage() {
       let notificationQuery = query(
         ref,
         where('uid', '==', user?.uid),
-        orderBy('createdAt', 'desc'),
+        orderBy('createdAt', 'asc'),
       );
       onSnapshot(notificationQuery, (snapShot) => {
         let dataObj = snapShot.docs.map((doc) => ({

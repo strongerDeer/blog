@@ -50,10 +50,9 @@ export default function Header({ isAuthenticated }: HeadertProps) {
               <SVGWrite fill="#fff" />
               Write
             </Btn>
+            <ProfileModal />
 
             <NotificationModal />
-
-            <ProfileModal />
           </>
         ) : (
           <>

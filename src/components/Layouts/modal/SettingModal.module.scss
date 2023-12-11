@@ -1,12 +1,12 @@
-.profile__modal {
-  a,
-  button {
+.setting__modal {
+  li {
     display: flex;
-    padding: 0.8em;
     align-items: center;
     gap: 0.5em;
-    width: 100%;
-    box-sizing: border-box;
+  }
+
+  button {
+    height: 4rem;
   }
 
   li:not(:first-child) {

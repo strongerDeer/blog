@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './Modal.module.scss';
+import classNames from 'classnames';
 
-export default function Modal({ btn, children }: any) {
+export default function Modal({ btn, children, type }: any) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const toggleModal = () => {
@@ -31,7 +32,6 @@ export default function Modal({ btn, children }: any) {
       }
     };
     const handleESC = (e: any) => {
-      console.log('ddd');
       if (isOpen && e.key === 'Escape') {
         setIsOpen(false);
       }
@@ -53,12 +53,16 @@ export default function Modal({ btn, children }: any) {
   return (
     <div className={styles.modal} ref={modalRef}>
       <button
-        className={styles.modal__button}
+        className={classNames(styles.modal__button, styles[type])}
         type="button"
         onClick={toggleModal}>
         {btn}
       </button>
-      {isOpen && <div className={styles.modal__content}>{children}</div>}
+      {isOpen && (
+        <div className={classNames(styles.modal__content, styles[type])}>
+          {children}
+        </div>
+      )}
     </div>
   );
 }

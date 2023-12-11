@@ -15,6 +15,8 @@ import {
 } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 
+import styles from './NotificationModal.module.scss';
+
 export default function NotificationModal() {
   const { user } = useContext(AuthContext);
   const [notifications, setNotifications] = useState<NotificationsInterface[]>(
@@ -27,7 +29,7 @@ export default function NotificationModal() {
       let notificationQuery = query(
         ref,
         where('uid', '==', user?.uid),
-        where('isRead', '==', true),
+        where('isRead', '==', false),
         orderBy('createdAt', 'desc'),
       );
       onSnapshot(notificationQuery, (snapShot) => {
@@ -41,26 +43,30 @@ export default function NotificationModal() {
     }
   }, [user]);
 
-  return notifications?.length > 0 ? (
+  return (
     <Modal
+      type="noti"
       btn={
         <>
           <SVGNotification />
           <span className="a11y-hidden">알림</span>
-          <span className="">{notifications.length}</span>
+          {notifications.length > 0 && (
+            <span className={styles.noti__count}>{notifications.length}</span>
+          )}
         </>
       }>
-      <ul>
-        {notifications?.slice(0, 10).map((notification) => (
-          <NotificationItem key={notification.id} noti={notification} />
-        ))}
-      </ul>
-      <Link to="/notifications">더보기</Link>
+      {notifications?.length > 0 ? (
+        <>
+          <ul>
+            {notifications?.slice(0, 10).map((notification) => (
+              <NotificationItem key={notification.id} noti={notification} />
+            ))}
+          </ul>
+        </>
+      ) : (
+        <p className={styles.no__noti}>새로운 알림이 없습니다.</p>
+      )}
+      <Link to="/notifications">이전 알림 보기</Link>
     </Modal>
-  ) : (
-    <Btn href="/notifications">
-      <SVGNotification />
-      <span className="a11y-hidden">알림</span>
-    </Btn>
   );
 }
