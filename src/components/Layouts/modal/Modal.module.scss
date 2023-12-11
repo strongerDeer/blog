@@ -1,0 +1,25 @@
+@import 'styles/var.scss';
+.modal {
+  position: relative;
+  &__button {
+    width: 4.8rem;
+    height: 4.8rem;
+  }
+  &__content {
+    position: absolute;
+    top: 4.8rem;
+    right: 0;
+
+    background-color: #fff;
+    z-index: 10;
+
+    width: 32rem;
+
+    border-radius: 1rem;
+    padding: 1rem;
+
+    box-shadow: $boxShadow;
+
+    border: 1px solid #ddd;
+  }
+}

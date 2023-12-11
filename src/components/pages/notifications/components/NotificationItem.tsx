@@ -1,8 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { NotificationsInterface } from '..';
+import { useNavigate } from 'react-router-dom';
+
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
+import { NotificationsInterface } from 'types/Notifications';
 
+import styles from './NotificationItem.module.scss';
 export default function NotificationItem({
   noti,
 }: {
@@ -18,13 +20,18 @@ export default function NotificationItem({
     });
   };
   return (
-    <li>
-      <button type="button" onClick={() => onClickNotification(noti?.url)}>
+    <li className={styles.noti__item}>
+      <button
+        type="button"
+        className={noti.isRead ? styles.unread : styles.unread}
+        onClick={() => onClickNotification(noti?.url)}>
         {noti.type === 'following' && <>{noti.content}팔로우하였습니다.</>}
         {noti.type === 'comment' && <>{noti.content}에 댓글이 달렸습니다.</>}
         {noti.createdAt}
 
-        {noti.isRead ? '읽음' : '읽지 않음'}
+        <span className="a11y-hidden">
+          {noti.isRead ? '읽음' : '읽지 않음'}
+        </span>
       </button>
     </li>
   );

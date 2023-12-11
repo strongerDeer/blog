@@ -9,16 +9,7 @@ import {
 import { db } from 'firebaseApp';
 import { useContext, useEffect, useState } from 'react';
 import NotificationItem from './components/NotificationItem';
-
-export interface NotificationsInterface {
-  id: string;
-  uid: string;
-  url: string;
-  createdAt: string;
-  isRead: boolean;
-  type: string;
-  content: string;
-}
+import { NotificationsInterface } from 'types/Notifications';
 
 export default function NotificationsPage() {
   const { user } = useContext(AuthContext);
