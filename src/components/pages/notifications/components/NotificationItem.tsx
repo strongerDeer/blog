@@ -27,7 +27,7 @@ export default function NotificationItem({
         onClick={() => onClickNotification(noti?.url)}>
         {noti.type === 'following' && <>{noti.content}팔로우하였습니다.</>}
         {noti.type === 'comment' && <>{noti.content}에 댓글이 달렸습니다.</>}
-        {noti.createdAt}
+        <span className={styles.createdAt}> {noti.createdAt}</span>
 
         <span className="a11y-hidden">
           {noti.isRead ? '읽음' : '읽지 않음'}

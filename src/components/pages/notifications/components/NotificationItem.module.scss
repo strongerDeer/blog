@@ -1,12 +1,22 @@
 @import 'styles/var.scss';
 
 .noti__item {
-  border-bottom: 1px solid #ddd;
+  &:not(:first-child) {
+    border-top: 1px solid #ddd;
+  }
   button {
     width: 100%;
     padding: 1em;
     text-align: left;
     position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    .createdAt {
+      color: #767676;
+      font-size: 0.9em;
+    }
 
     &.unread::after {
       content: '';
@@ -17,8 +27,8 @@
       background-color: map-get($color, primary2);
 
       position: absolute;
-      top: 1rem;
-      right: 0em;
+      top: 1em;
+      right: 1em;
     }
   }
 }

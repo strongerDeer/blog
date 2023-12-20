@@ -66,7 +66,9 @@ export default function NotificationModal() {
       ) : (
         <p className={styles.no__noti}>새로운 알림이 없습니다.</p>
       )}
-      <Link to="/notifications">이전 알림 보기</Link>
+      <Link to="/notifications" className={styles.link}>
+        이전 알림 보기
+      </Link>
     </Modal>
   );
 }

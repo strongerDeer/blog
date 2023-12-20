@@ -34,9 +34,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
                 <img src={post?.photoURL ? post.photoURL : NO_IMG} alt="" />
                 {post?.displayName ? post.displayName : post?.email}
               </p>
-              <time className={styles.post_text_date}>
-                {post?.createdAt.split('. 오')[0]}
-              </time>
+              <time className={styles.post_text_date}>{post?.createdAt}</time>
             </div>
             <p className={styles.post_text_content}>{post?.content}</p>
           </div>
