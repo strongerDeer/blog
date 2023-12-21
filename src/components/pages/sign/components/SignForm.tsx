@@ -16,7 +16,6 @@ import {
 import { toast } from 'react-toastify';
 
 // components
-
 import InputTextLabel from '../../../commons/input/InputTextLabel';
 
 // style
@@ -33,7 +32,10 @@ export default function SignForm({ signup }: SignFormProps) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+
+  const [emailError, setEmailError] = useState<string>('');
   const [error, setError] = useState<string>('');
+
   const navigate = useNavigate();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,9 +51,10 @@ export default function SignForm({ signup }: SignFormProps) {
         const validRegex =
           /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (!value?.match(validRegex)) {
-          setError('이메일 형식이 올바르지 않습니다.');
+          setEmailError('이메일 형식이 올바르지 않습니다.');
+          if (error === '아이디와 비밀번호를 다시 확인해주세요!') setError('');
         } else {
-          setError('');
+          setEmailError('');
         }
         break;
       case 'user-pw':
@@ -97,17 +100,17 @@ export default function SignForm({ signup }: SignFormProps) {
     } catch (error: any) {
       let errorMsg = error?.code;
 
-      // 로그인
-      if ((errorMsg = 'auth/invalid-login-credentials')) {
-        errorMsg = '아이디와 비밀번호를 다시 확인해주세요!';
+      if (signup) {
+        // 회원가입 에러
+        if ((errorMsg = 'auth/email-already-in-use')) {
+          setEmailError('이미 사용중인 이메일입니다');
+        }
+      } else {
+        // 로그인 에러
+        if ((errorMsg = 'auth/invalid-login-credentials')) {
+          setError('아이디와 비밀번호를 다시 확인해주세요!');
+        }
       }
-
-      // 회원가입
-      if ((errorMsg = 'auth/email-already-in-use')) {
-        errorMsg = '이미 사용중인 이메일입니다.';
-      }
-
-      toast.error(errorMsg);
     }
   };
 
@@ -143,7 +146,7 @@ export default function SignForm({ signup }: SignFormProps) {
   return (
     <div className={styles['form-wrap']}>
       <h2 className={styles.title}>{text}</h2>
-      {error && error?.length > 0 && <p className={styles.errorMsg}>{error}</p>}
+
       <form onSubmit={onSubmit} className={styles['sign-form']}>
         <div>
           <InputTextLabel
@@ -154,6 +157,9 @@ export default function SignForm({ signup }: SignFormProps) {
             onChange={onChange}
           />
         </div>
+        {emailError && emailError?.length > 0 && (
+          <p className={styles.errorMsg}>{emailError}</p>
+        )}
         <div>
           <InputTextLabel
             label="비밀번호"
@@ -174,6 +180,9 @@ export default function SignForm({ signup }: SignFormProps) {
             />
           </div>
         )}
+        {error && error?.length > 0 && (
+          <p className={styles.errorMsg}>{error}</p>
+        )}
         <Btn
           type="submit"
           disabled={
@@ -181,7 +190,9 @@ export default function SignForm({ signup }: SignFormProps) {
             password === '' ||
             (passwordConfirm && passwordConfirm === '')
               ? true
-              : undefined) || (error ? error?.length > 0 : undefined)
+              : undefined) ||
+            (error ? error?.length > 0 : undefined) ||
+            (emailError ? emailError?.length > 0 : undefined)
           }>
           {text}
         </Btn>
