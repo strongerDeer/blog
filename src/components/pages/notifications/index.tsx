@@ -23,7 +23,8 @@ export default function NotificationsPage() {
       let notificationQuery = query(
         ref,
         where('uid', '==', user?.uid),
-        orderBy('createdAt', 'asc'),
+        orderBy('isRead'),
+        orderBy('createdAt', 'desc'),
       );
       onSnapshot(notificationQuery, (snapShot) => {
         let dataObj = snapShot.docs.map((doc) => ({
@@ -36,8 +37,15 @@ export default function NotificationsPage() {
     }
   }, [user]);
 
+  const notReadNotiCount = notifications.filter(
+    (noti) => noti.isRead === false,
+  ).length;
+
   return (
     <>
+      <h2>
+        알림메시지 {notReadNotiCount}/{notifications?.length}개
+      </h2>
       {notifications?.length > 0 ? (
         <ul>
           {notifications?.map((notification) => (

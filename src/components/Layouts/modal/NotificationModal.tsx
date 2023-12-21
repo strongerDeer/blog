@@ -1,6 +1,5 @@
 import SVGNotification from 'components/commons/SVG/SVGNotification';
-import Btn from 'components/commons/button/Btn';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import { NotificationsInterface } from 'types/Notifications';
@@ -58,7 +57,7 @@ export default function NotificationModal() {
       {notifications?.length > 0 ? (
         <>
           <ul>
-            {notifications?.slice(0, 10).map((notification) => (
+            {notifications?.slice(0, 5).map((notification) => (
               <NotificationItem key={notification.id} noti={notification} />
             ))}
           </ul>
@@ -67,7 +66,7 @@ export default function NotificationModal() {
         <p className={styles.no__noti}>새로운 알림이 없습니다.</p>
       )}
       <Link to="/notifications" className={styles.link}>
-        이전 알림 보기
+        모든 알림 보기
       </Link>
     </Modal>
   );
