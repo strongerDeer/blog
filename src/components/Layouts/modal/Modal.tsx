@@ -9,18 +9,6 @@ export default function Modal({ btn, children, type }: any) {
     setIsOpen((prev: any) => !prev);
   };
 
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     document.body.style.cssText = `
-  //     overflow: hidden;
-  //     position: relative;
-  //     height: 100%;`;
-  //   }
-  //   return () => {
-  //     document.body.removeAttribute('style');
-  //   };
-  // }, [isOpen]);
-
   useEffect(() => {
     const handleOutsideClick = (e: any) => {
       if (
