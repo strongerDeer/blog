@@ -7,7 +7,7 @@ import {
   ref,
   uploadString,
 } from 'firebase/storage';
-import { storage } from 'firebaseApp';
+import { db, storage } from 'firebaseApp';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,6 +20,8 @@ import Btn from 'components/commons/button/Btn';
 
 import { updateProfile } from 'firebase/auth';
 import { NO_IMG } from 'constants/noimg';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import useFindUser from 'hooks/useFindeUser';
 
 const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
 
@@ -27,7 +29,7 @@ export default function ProfileForm() {
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
-
+  const { users } = useFindUser(user?.uid ? user.uid : '');
   const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -89,10 +91,26 @@ export default function ProfileForm() {
         await updateProfile(user, {
           displayName: nickname,
           photoURL: imgUrl || '',
-        }).then(() => {
-          toast.success('프로필 수정 완료!');
-          navigate('/profile');
         });
+        // 사용자 정보 저장하기
+        if (!users) {
+          // 생성
+          await addDoc(collection(db, 'users'), {
+            email: user?.email,
+            uid: user?.uid,
+            displayName: nickname,
+            photoURL: imgUrl || '',
+          });
+        } else if (users?.id) {
+          // 업데이트
+          const userRef = doc(db, 'users', users?.id);
+          await updateDoc(userRef, {
+            displayName: nickname,
+            photoURL: imgUrl || '',
+          });
+        }
+        toast.success('프로필 수정 완료!');
+        navigate('/profile');
       }
     } catch (error: any) {
       console.log(error);
