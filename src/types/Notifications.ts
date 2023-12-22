@@ -6,4 +6,6 @@ export interface NotificationsInterface {
   isRead: boolean;
   type: string;
   content: string;
+  author?: string;
+  post?: string;
 }

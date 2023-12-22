@@ -25,8 +25,17 @@ export default function NotificationItem({
         type="button"
         className={noti.isRead ? '' : styles.unread}
         onClick={() => onClickNotification(noti?.url)}>
-        {noti.type === 'following' && <>{noti.content}팔로우하였습니다.</>}
-        {noti.type === 'comment' && <>{noti.content}에 댓글이 달렸습니다.</>}
+        {noti.type === 'following' && (
+          <span>
+            <strong>{noti.content}</strong>님이 회원님을 팔로우합니다.
+          </span>
+        )}
+        {noti.type === 'comment' && (
+          <span>
+            <strong>'{noti?.post}'</strong> 글에 <strong>{noti.author}</strong>
+            님이 댓글을 남겼습니다: "{noti.content}"
+          </span>
+        )}
         <span className={styles.createdAt}> {noti.createdAt}</span>
 
         <span className="a11y-hidden">

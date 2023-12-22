@@ -23,8 +23,8 @@ export default function CommentForm({ post }: CommentProps) {
   const [comment, setComment] = useState('');
   const { user } = useContext(AuthContext);
 
-  const truncate = (str: string) => {
-    return str?.length > 10 ? str.substring(0, 10) + '...' : str;
+  const truncate = (str: string, num: number = 10) => {
+    return str?.length > num ? str.substring(0, num) + '...' : str;
   };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -81,9 +81,11 @@ export default function CommentForm({ post }: CommentProps) {
           }),
           uid: post?.uid,
           isRead: false,
-          url: `/posts/${post?.id}`,
+          url: `/post/${post?.id}`,
           type: 'comment',
-          content: `${post?.title && truncate(post?.title)}`,
+          author: user?.displayName,
+          post: post?.title && truncate(post?.title),
+          content: truncate(comment, 16),
         });
       }
       toast.success('댓글을 생성하였습니다.');
