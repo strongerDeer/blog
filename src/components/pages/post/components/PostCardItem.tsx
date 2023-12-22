@@ -9,6 +9,8 @@ import TalkBtn from 'components/commons/button/TalkBtn';
 import SVGEdit from 'components/commons/SVG/SVGEdit';
 import { NO_IMG } from 'constants/noimg';
 
+import useFindUser from 'hooks/useFindeUser';
+
 interface PostCardItemProps {
   post: any;
   getPosts: any;
@@ -16,6 +18,7 @@ interface PostCardItemProps {
 
 export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
   const { user } = useContext(AuthContext);
+  const { users } = useFindUser(post?.uid ? post.uid : '');
   return (
     <li key={post && post?.id}>
       <article className={styles.post}>
@@ -31,9 +34,10 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
 
             <div className={styles.post_text_profile}>
               <p className={styles.post_text_author}>
-                <img src={post?.photoURL ? post.photoURL : NO_IMG} alt="" />
-                {post?.displayName ? post.displayName : post?.email}
+                <img src={users?.photoURL || NO_IMG} alt="" />
+                {users?.displayName || post?.email}
               </p>
+
               <time className={styles.post_text_date}>{post?.createdAt}</time>
             </div>
             <p className={styles.post_text_content}>{post?.content}</p>
