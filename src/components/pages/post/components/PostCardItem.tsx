@@ -10,6 +10,7 @@ import SVGEdit from 'components/commons/SVG/SVGEdit';
 import { NO_IMG } from 'constants/noimg';
 
 import useFindUser from 'hooks/useFindeUser';
+import getTime from 'hooks/getTime';
 
 interface PostCardItemProps {
   post: any;
@@ -38,7 +39,9 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
                 {users?.displayName || post?.email}
               </p>
 
-              <time className={styles.post_text_date}>{post?.createdAt}</time>
+              <time className={styles.post_text_date}>
+                {getTime(post?.createdAt)}
+              </time>
             </div>
             <p className={styles.post_text_content}>{post?.content}</p>
           </div>
