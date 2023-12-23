@@ -39,7 +39,7 @@ export default function LikeBtn({ post }: any) {
             <span className="a11y-hidden">좋아요</span>
           </>
         )}
-        {post?.likeCount}
+        {post.likeCount ? post.likeCount : 0}
       </button>
     </>
   );

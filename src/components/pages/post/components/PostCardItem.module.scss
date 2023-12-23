@@ -38,9 +38,10 @@
   width: 100%;
   aspect-ratio: 288/180;
   object-fit: cover;
+  border-bottom: 1px solid #eee;
 }
 .post_text {
-  padding: 1.6rem 2.4rem 5.6rem;
+  padding: 1.6rem 2.4rem 8rem;
   line-height: 1.4;
   .post_text_category {
     width: fit-content;
@@ -91,4 +92,34 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    transition: all 0.3s;
+    border-radius: 50%;
+    svg {
+      width: 55%;
+      height: auto;
+      transition: all 0.3s;
+    }
+  }
+  a:hover {
+    background-color: rgba(map-get($color, primary), 0.1);
+    svg {
+      fill: map-get($color, primary);
+    }
+  }
+  button:hover {
+    background-color: rgba(map-get($color, primary2), 0.1);
+  }
 }

@@ -37,7 +37,8 @@ export default function BtnDeletePost({ id, getPosts, imgUrl }: any) {
   };
   return (
     <button type="button" className="post__delete" onClick={handleDelete}>
-      <SVGDelete /> 삭제
+      <SVGDelete />
+      <span className="a11y-hidden">삭제</span>
     </button>
   );
 }

@@ -52,11 +52,12 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
             <TalkBtn count={post?.commentsCount} href={`/post/${post?.id}`} />
           </div>
           {user?.email === post?.email && (
-            <div>
+            <div className={styles.btnGroup}>
               <Link
                 to={`/post/edit/${post?.id}`}
                 className={styles['post__edit']}>
-                <SVGEdit /> 수정
+                <SVGEdit />
+                <span className="a11y-hidden">수정</span>
               </Link>
 
               <BtnDeletePost
