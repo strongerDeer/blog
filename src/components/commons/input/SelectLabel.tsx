@@ -7,6 +7,7 @@ interface SelectLabelProps {
   options?: any;
   text?: string;
   onChange?: any;
+  required?: boolean;
 }
 
 // required 추가
@@ -17,6 +18,7 @@ export default function SelectLabel({
   onChange,
   text,
   value,
+  required,
 }: SelectLabelProps) {
   return (
     <div className={styles.wrap}>
@@ -28,7 +30,8 @@ export default function SelectLabel({
         name={id}
         onChange={onChange}
         className={styles.select}
-        value={value}>
+        value={value}
+        required={required ? true : false}>
         {<option value="">{text}</option>}
         {options.map((option: string, index: number) => (
           <option key={index} value={option}>

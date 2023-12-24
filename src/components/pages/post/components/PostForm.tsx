@@ -198,6 +198,7 @@ export default function PostForm({ post }: PostFormProps) {
             options={CATEGORIES}
             value={category ? category : ''}
             text="카테고리를 선택해 주세요"
+            required
           />
         </li>
         <li>
@@ -206,6 +207,8 @@ export default function PostForm({ post }: PostFormProps) {
             id="postTitle"
             onChange={onChange}
             value={title}
+            maxLength={50}
+            required
           />
         </li>
         <li>
