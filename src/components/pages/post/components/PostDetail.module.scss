@@ -38,3 +38,31 @@
     letter-spacing: -0.01em;
   }
 }
+
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+
+  margin-top: 4rem;
+
+  .hashtag {
+    font-size: 0.9em;
+    border: 1px solid rgba(map-get($color, primary), 0.5);
+    color: map-get($color, primary);
+    background-color: rgba(map-get($color, primary), 0.05);
+    border-radius: 2em;
+    height: 3rem;
+    padding: 0 0.8em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1em;
+    &::before {
+      content: '#';
+    }
+
+    .hash_del {
+      margin-left: 0.3em;
+    }
+  }
+}

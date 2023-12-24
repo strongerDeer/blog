@@ -1,6 +1,8 @@
 import { useState } from 'react';
-import InputTextLabel from './InputTextLabel';
 import { toast } from 'react-toastify';
+
+import styles from './InputHashTag.module.scss';
+import SVGDelete from '../SVG/SVGDelete';
 
 interface InputHashTagProps {
   tags?: string[];
@@ -32,25 +34,40 @@ export default function InputHashTag({ tags, setTags }: InputHashTagProps) {
   };
 
   return (
-    <>
-      <p>
-        {tags?.map((tag, index) => (
-          <span key={index}>
-            #{tag}
-            <button type="button" onClick={() => removeTag(tag)}>
-              삭제
-            </button>
-          </span>
-        ))}
-      </p>
-      <InputTextLabel
-        label="해시태그"
-        id="postHashtag"
-        placeholder="해시태그 + 스페이스바 입력"
-        onChange={onChangeHashtag}
-        onKeyUp={handleKeyUp}
-        value={hashtag}
-      />
-    </>
+    <div className={styles.hash}>
+      <label htmlFor="postHashtag">
+        해시태그 (해시태그 + 스페이스바 입력 / 최대 10개)
+      </label>
+      <div className={styles.hashWrap}>
+        <p className={styles.hashtags}>
+          {tags?.map((tag, index) => (
+            <span key={index} className={styles.hashtag}>
+              {tag}
+              <button
+                type="button"
+                className={styles.hash_del}
+                onClick={() => removeTag(tag)}>
+                <SVGDelete fill="black" />
+                <span className="a11y-hidden">삭제</span>
+              </button>
+            </span>
+          ))}
+        </p>
+
+        {tags && tags?.length < 10 && (
+          <>
+            <input
+              className={styles.input}
+              type="text"
+              id="postHashtag"
+              name="postHashtag"
+              onChange={onChangeHashtag}
+              onKeyUp={handleKeyUp}
+              value={hashtag}
+            />
+          </>
+        )}
+      </div>
+    </div>
   );
 }

@@ -61,9 +61,11 @@ export default function PostDetail() {
             )}
 
             <div className={styles.post__content}>{post?.content}</div>
-            <p>
+            <p className={styles.hashtags}>
               {post?.hashTags?.map((tag, index) => (
-                <span key={index}>{`#${tag}`}</span>
+                <span key={index} className={styles.hashtag}>
+                  {tag}
+                </span>
               ))}
             </p>
 
