@@ -15,6 +15,7 @@ import { PostInterface } from 'types/Post';
 import Today from './Today';
 import classNames from 'classnames';
 import FollowBtn from 'components/commons/button/FollowBtn';
+import { Viewer } from '@toast-ui/react-editor';
 
 export default function PostDetail() {
   const [post, setPost] = useState<PostInterface | null>(null);
@@ -60,7 +61,10 @@ export default function PostDetail() {
               <img src={post?.imgUrl} alt="" className="post__img" />
             )}
 
-            <div className={styles.post__content}>{post?.content}</div>
+            <div className={styles.post__content}>
+              {/* {post?.content} */}
+              <Viewer initialValue={post?.content} />
+            </div>
             <p className={styles.hashtags}>
               {post?.hashTags?.map((tag, index) => (
                 <span key={index} className={styles.hashtag}>

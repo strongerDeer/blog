@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 
 import styles from './BlogEditor.module.scss';
 
@@ -13,7 +13,7 @@ import 'prismjs/themes/prism.css';
 
 interface BlogEditorProps {
   editorRef: RefObject<Editor>;
-  value: string;
+  value?: string;
 }
 
 export default function BlogEditor({ editorRef, value }: BlogEditorProps) {
@@ -24,6 +24,7 @@ export default function BlogEditor({ editorRef, value }: BlogEditorProps) {
         initialEditType="markdown"
         initialValue={value}
         ref={editorRef}
+        placeholder="당신의 이야기를 들려주세요!"
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         height="100%"
       />
