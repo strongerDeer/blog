@@ -60,11 +60,7 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
                 <span className="a11y-hidden">수정</span>
               </Link>
 
-              <BtnDeletePost
-                id={post?.id}
-                imgUrl={post?.imgUrl}
-                getPosts={getPosts}
-              />
+              <BtnDeletePost post={post} />
             </div>
           )}
         </div>

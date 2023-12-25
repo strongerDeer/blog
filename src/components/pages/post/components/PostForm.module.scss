@@ -5,3 +5,9 @@
   top: fcSize(40, 64);
   left: 0;
 }
+
+.btnGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}

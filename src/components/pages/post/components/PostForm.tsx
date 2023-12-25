@@ -29,6 +29,9 @@ import BtnBack from 'components/commons/button/BtnBack';
 import BlogEditor from './BlogEditor';
 import InputHashTag from 'components/commons/input/InputHashTag';
 import { NO_IMG } from 'constants/noimg';
+import SVGDelete from 'components/commons/SVG/SVGDelete';
+import SVGWrite from 'components/commons/SVG/SVGWrite';
+import { postDelete } from 'components/commons/button/DeletePostBtn';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -50,9 +53,13 @@ export default function PostForm({ post }: PostFormProps) {
   const [summary, setSummary] = useState<string>('');
   const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [content, setContent] = useState<string>('Tell your story...');
+  const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<CategoryType | null>(null);
   const [tags, setTags] = useState<string[]>([]);
+
+  const goback = () => {
+    navigate(-1);
+  };
 
   useEffect(() => {
     if (post) {
@@ -187,6 +194,11 @@ export default function PostForm({ post }: PostFormProps) {
     setPreviewImg(null);
   };
 
+  const handleDeletePost = () => {
+    postDelete(post);
+    navigate('/post');
+  };
+
   return (
     <form onSubmit={onSubmit}>
       <ul className="flex-column">
@@ -236,8 +248,25 @@ export default function PostForm({ post }: PostFormProps) {
           <InputHashTag tags={tags} setTags={setTags} />
         </li>
       </ul>
-      <Btn type="submit">{post ? '수정' : '제출'}</Btn>
-      <Btn type="reset">삭제</Btn>
+
+      <div className={styles.btnGroup}>
+        {post ? (
+          <Btn bgNone onClick={handleDeletePost}>
+            <SVGDelete />
+            삭제
+          </Btn>
+        ) : (
+          <Btn bgNone onClick={goback}>
+            취소
+          </Btn>
+        )}
+
+        <Btn type="submit">
+          <SVGWrite fill="white" />
+          {post ? <>수정</> : <>제출</>}
+        </Btn>
+      </div>
+
       <BtnBack className={styles.btnBack} />
     </form>
   );
