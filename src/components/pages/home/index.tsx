@@ -6,6 +6,7 @@ import Profile from 'components/pages/profile/components/Profile';
 import styles from './index.module.scss';
 import Tab from 'components/commons/tab/Tab';
 import { useState } from 'react';
+import useUnsplashImages from 'hooks/useUnsplashImages';
 
 export const ALL_POST = 'all';
 export const MY_POST = 'my';
@@ -19,6 +20,7 @@ export const tabList = [
 ];
 
 export default function HomePage() {
+  const unsplash = useUnsplashImages();
   const [activeTab, setActiveTab] = useState<string>(ALL_POST);
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const targetId = `${e.currentTarget.dataset.id}`;
@@ -34,6 +36,11 @@ export default function HomePage() {
         <div>
           <Tab tabList={tabList} activeTab={activeTab} onClick={onClick} />
 
+          {unsplash.map((img, index) => (
+            <div key={index}>
+              <img src={img && img.urls?.small} />
+            </div>
+          ))}
           <PostList activeTab={activeTab} />
         </div>
       </div>
