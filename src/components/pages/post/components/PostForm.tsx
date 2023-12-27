@@ -32,6 +32,7 @@ import { NO_IMG } from 'constants/noimg';
 import SVGDelete from 'components/commons/SVG/SVGDelete';
 import SVGWrite from 'components/commons/SVG/SVGWrite';
 import { postDelete } from 'components/commons/button/DeletePostBtn';
+import SearchUnsplash from './SearchUnsplash';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -52,6 +53,9 @@ export default function PostForm({ post }: PostFormProps) {
   const [title, setTitle] = useState<string>('');
   const [summary, setSummary] = useState<string>('');
   const [previewImg, setPreviewImg] = useState<string | null>(null);
+
+  const [unsplashImg, setUnsplashImg] = useState<string | null>(null);
+
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [content, setContent] = useState<string>('');
   const [category, setCategory] = useState<CategoryType | null>(null);
@@ -122,7 +126,9 @@ export default function PostForm({ post }: PostFormProps) {
         // 작성
         // 이미지 우선 업로드
         let imgUrl = '';
-        if (previewImg) {
+        if (unsplashImg) {
+          imgUrl = unsplashImg;
+        } else if (previewImg) {
           const data = await uploadString(storageRef, previewImg, 'data_url');
           imgUrl = await getDownloadURL(data?.ref);
         }
@@ -231,6 +237,7 @@ export default function PostForm({ post }: PostFormProps) {
             accept="images/*"
             isSubmitting={isSubmitting}
           />
+
           <img
             src={previewImg ? previewImg : NO_IMG}
             alt={previewImg ? '게시글 대표 썸네일' : ''}
@@ -240,6 +247,12 @@ export default function PostForm({ post }: PostFormProps) {
               삭제
             </button>
           )}
+        </li>
+        <li>
+          <SearchUnsplash
+            unsplashImg={unsplashImg}
+            setUnsplashImg={setUnsplashImg}
+          />
         </li>
         <li>
           <BlogEditor editorRef={editorRef} value={content} />
