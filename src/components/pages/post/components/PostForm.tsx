@@ -33,6 +33,7 @@ import SVGDelete from 'components/commons/SVG/SVGDelete';
 import SVGWrite from 'components/commons/SVG/SVGWrite';
 import { postDelete } from 'components/commons/button/DeletePostBtn';
 import SearchUnsplash from './SearchUnsplash';
+import ThumbnailInput from './ThumbnailInput';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';
 export const CATEGORIES: CategoryType[] = [
@@ -196,10 +197,6 @@ export default function PostForm({ post }: PostFormProps) {
     }
   };
 
-  const handleDeletePreviewImg = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setPreviewImg(null);
-  };
-
   const handleDeletePost = () => {
     postDelete(post);
     navigate('/post');
@@ -230,30 +227,16 @@ export default function PostForm({ post }: PostFormProps) {
           />
         </li>
         <li>
-          <InputFileLabel
-            label="썸네일"
-            id="postThumbnail"
-            setValue={setPreviewImg}
-            accept="images/*"
+          <ThumbnailInput
+            previewImg={previewImg}
+            setPreviewImg={setPreviewImg}
             isSubmitting={isSubmitting}
-          />
-
-          <img
-            src={previewImg ? previewImg : NO_IMG}
-            alt={previewImg ? '게시글 대표 썸네일' : ''}
-          />
-          {previewImg && (
-            <button type="button" onClick={handleDeletePreviewImg}>
-              삭제
-            </button>
-          )}
-        </li>
-        <li>
-          <SearchUnsplash
             unsplashImg={unsplashImg}
             setUnsplashImg={setUnsplashImg}
           />
+          {/* <InputFileLabel label="썸네일" id="postThumbnail" accept="images/*" /> */}
         </li>
+        <li></li>
         <li>
           <BlogEditor editorRef={editorRef} value={content} />
         </li>
