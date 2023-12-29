@@ -1,14 +1,18 @@
 import { useContext } from 'react';
 
 import styles from './Profile.module.scss';
+
 // firebase
 import AuthContext from 'contexts/AuthContext';
 
-import BtnLogout from '../../../commons/button/SignoutBtn';
-import Btn from 'components/commons/button/Btn';
+// lib
 import classNames from 'classnames';
-import FollowBtn from 'components/commons/button/FollowBtn';
+
+import { onSignOut } from 'hooks/signOut';
 import { NO_IMG } from 'constants/noimg';
+import Btn from 'components/commons/button/Btn';
+import FollowBtn from 'components/commons/button/FollowBtn';
+import SVGSignout from 'components/commons/SVG/SVGSignout';
 
 interface ProfileProps {
   image?: string;
@@ -54,9 +58,11 @@ export default function Profile() {
       </div>
 
       <div className={styles.btn__group}>
-        <BtnLogout />
+        <button type="button" onClick={onSignOut}>
+          <SVGSignout />
+          <span className="a11y-hidden">Logout</span>
+        </button>
         <Btn href="/profile/edit">프로필 수정</Btn>
-
         <FollowBtn uid={user?.uid ? user.uid : ''} />
       </div>
     </section>

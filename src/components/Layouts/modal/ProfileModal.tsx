@@ -1,4 +1,3 @@
-import { onSignOut } from 'components/commons/button/SignoutBtn';
 import { NO_IMG } from 'constants/noimg';
 import AuthContext from 'contexts/AuthContext';
 import { useContext } from 'react';
@@ -9,6 +8,7 @@ import SVGSignout from 'components/commons/SVG/SVGSignout';
 
 import styles from './ProfileModal.module.scss';
 import SVGProfile from 'components/commons/SVG/SVGProfile';
+import { onSignOut } from 'hooks/signOut';
 export default function ProfileModal() {
   const { user } = useContext(AuthContext);
 
