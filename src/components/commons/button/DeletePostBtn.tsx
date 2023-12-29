@@ -25,15 +25,24 @@ export const postDelete = async (post: PostInterface) => {
     // 내용 삭제
     await deleteDoc(doc(db, 'posts', id));
     toast.success('삭제되었습니다.');
+    return true;
   }
+  return false;
 };
 
 export default function BtnDeletePost({ post }: any) {
   const navigate = useNavigate();
+  const pathname = useLocation().pathname;
 
-  const handleDeletePost = () => {
-    postDelete(post);
-    navigate('/post');
+  const handleDeletePost = async () => {
+    const isDel = await postDelete(post);
+    if (isDel) {
+      if (pathname.includes('profile')) {
+        navigate('/profile');
+      } else {
+        navigate('/');
+      }
+    }
   };
   return (
     <button type="button" className="post__delete" onClick={handleDeletePost}>

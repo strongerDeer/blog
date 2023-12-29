@@ -77,7 +77,7 @@ export default function PostDetail() {
               <Link to={`/post/edit/${params?.id}`} className="post__edit">
                 수정
               </Link>
-              <BtnDeletePost id={params?.id} imgUrl={post?.imgUrl} />
+              <BtnDeletePost post={post} />
             </div>
 
             <Comments post={post} />
