@@ -7,8 +7,6 @@ import PostList from 'components/pages/post/components/PostList';
 import Profile from 'components/pages/profile/components/Profile';
 import Tab from 'components/commons/tab/Tab';
 
-import useTranslation from 'hooks/useTranslation';
-
 export const ALL_POST = 'all';
 export const FOLLOW_POST = 'follow';
 export const MY_POST = 'my';
