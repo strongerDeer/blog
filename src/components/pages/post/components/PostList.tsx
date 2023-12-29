@@ -14,14 +14,15 @@ import AuthContext from 'contexts/AuthContext';
 import PostCardList from './PostCardList';
 
 import { PostInterface } from 'types/Post';
-import InputSearchLabel from 'components/commons/input/InputSearchLabel';
-import { ALL_POST, MY_POST } from 'components/pages/home';
+import { ALL_POST, FOLLOW_POST, MY_POST } from 'components/pages/home';
+import useGetFolloingIds from 'hooks/useGetFolloingIds';
 
 interface PostListProps {
   activeTab?: string;
 }
 export default function PostList({ activeTab }: PostListProps) {
   const { user } = useContext(AuthContext);
+  const { followingIds } = useGetFolloingIds();
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
   useEffect(() => {
@@ -38,6 +39,12 @@ export default function PostList({ activeTab }: PostListProps) {
         postQuery = query(
           postsRef,
           where('uid', '==', user?.uid),
+          orderBy('createdAt', 'desc'),
+        );
+      } else if (activeTab === FOLLOW_POST && user) {
+        postQuery = query(
+          postsRef,
+          where('uid', 'in', followingIds),
           orderBy('createdAt', 'desc'),
         );
       } else if (activeTab === 'like') {
@@ -68,8 +75,6 @@ export default function PostList({ activeTab }: PostListProps) {
 
   return (
     <section className="post">
-      <InputSearchLabel setPost={setPosts} />
-
       <PostCardList posts={posts} />
     </section>
   );
