@@ -19,7 +19,7 @@ interface PostCardItemProps {
 
 export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
   const { user } = useContext(AuthContext);
-  const { users } = useFindUser(post?.uid ? post.uid : '');
+  const { findUser } = useFindUser(post?.uid ? post.uid : '');
   return (
     <li key={post && post?.id}>
       <article className={styles.post}>
@@ -35,8 +35,8 @@ export default function PostCardItem({ post, getPosts }: PostCardItemProps) {
 
             <div className={styles.post_text_profile}>
               <p className={styles.post_text_author}>
-                <img src={users?.photoURL || NO_IMG} alt="" />
-                {users?.displayName || post?.email}
+                <img src={findUser?.photoURL || NO_IMG} alt="" />
+                {findUser?.displayName || post?.email}
               </p>
 
               <time className={styles.post_text_date}>

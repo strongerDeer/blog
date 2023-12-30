@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Users } from 'types/Users';
 
 export default function useFindUser(uid: string) {
-  const [users, setUsers] = useState<Users | null>({});
+  const [findUser, setFindUser] = useState<Users | null>({});
 
   useEffect(() => {
     if (uid) {
@@ -17,10 +17,10 @@ export default function useFindUser(uid: string) {
           id: doc?.id,
         }));
 
-        setUsers(dataObj[0] as Users);
+        setFindUser(dataObj[0] as Users);
       });
     }
-  }, []);
+  }, [uid]);
 
-  return { users };
+  return { findUser };
 }

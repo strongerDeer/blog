@@ -41,4 +41,38 @@
 .btn__group {
   display: flex;
   gap: 0.4rem;
+
+  .btn_logout,
+  .btn_profileEdit {
+    // border: 1px solid #ddd;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+    svg {
+      width: 55%;
+      transition: all 0.3s;
+    }
+    &:hover {
+      background-color: rgba(map-get($color, primary), 0.1);
+
+      svg {
+        fill: map-get($color, primary);
+      }
+    }
+  }
+  .btn_logout {
+    &:hover {
+      background-color: rgba(map-get($color, primary2), 0.1);
+
+      svg {
+        fill: map-get($color, primary2);
+      }
+    }
+  }
+  .btn_profileEdit {
+  }
 }

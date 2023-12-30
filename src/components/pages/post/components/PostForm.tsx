@@ -24,15 +24,12 @@ import AuthContext from 'contexts/AuthContext';
 import Btn from 'components/commons/button/Btn';
 import InputTextLabel from 'components/commons/input/InputTextLabel';
 import SelectLabel from 'components/commons/input/SelectLabel';
-import InputFileLabel from 'components/commons/input/InputFileLabel';
 import BtnBack from 'components/commons/button/BtnBack';
 import BlogEditor from './BlogEditor';
 import InputHashTag from 'components/commons/input/InputHashTag';
-import { NO_IMG } from 'constants/noimg';
 import SVGDelete from 'components/commons/SVG/SVGDelete';
 import SVGWrite from 'components/commons/SVG/SVGWrite';
 import { postDelete } from 'components/commons/button/DeletePostBtn';
-import SearchUnsplash from './SearchUnsplash';
 import ThumbnailInput from './ThumbnailInput';
 
 export type CategoryType = 'Frontend' | 'Backend' | 'Web' | 'Native';

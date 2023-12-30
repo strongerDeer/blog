@@ -48,7 +48,7 @@ export default function PostDetail() {
               </p>
               <time className={styles.post__date}>{post?.createdAt}</time>
 
-              <FollowBtn uid={post?.uid} />
+              <FollowBtn uid={post.uid} />
             </div>
 
             {post?.category && (

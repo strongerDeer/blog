@@ -29,7 +29,7 @@ export default function ProfileForm() {
   const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
-  const { users } = useFindUser(user?.uid ? user.uid : '');
+  const { findUser } = useFindUser(user?.uid ? user.uid : '');
   const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -93,7 +93,7 @@ export default function ProfileForm() {
           photoURL: imgUrl || '',
         });
         // 사용자 정보 저장하기
-        if (!users) {
+        if (!findUser) {
           // 생성
           await addDoc(collection(db, 'users'), {
             email: user?.email,
@@ -101,16 +101,16 @@ export default function ProfileForm() {
             displayName: nickname,
             photoURL: imgUrl || '',
           });
-        } else if (users?.id) {
+        } else if (findUser?.id) {
           // 업데이트
-          const userRef = doc(db, 'users', users?.id);
+          const userRef = doc(db, 'users', findUser?.id);
           await updateDoc(userRef, {
             displayName: nickname,
             photoURL: imgUrl || '',
           });
         }
         toast.success('프로필 수정 완료!');
-        navigate('/profile');
+        // navigate('/profile');
       }
     } catch (error: any) {
       console.log(error);

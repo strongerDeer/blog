@@ -15,7 +15,7 @@ import PostCardList from './PostCardList';
 
 import { PostInterface } from 'types/Post';
 import { ALL_POST, FOLLOW_POST, MY_POST } from 'components/pages/home';
-import useGetFolloingIds from 'hooks/useGetFolloingIds';
+import useGetFolloingIds from 'hooks/useGetFollowingIds';
 
 interface PostListProps {
   activeTab?: string;

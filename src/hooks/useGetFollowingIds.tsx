@@ -6,7 +6,7 @@ import { useCallback, useContext, useEffect, useState } from 'react';
 interface UserProps {
   id: string;
 }
-export default function useGetFolloingIds() {
+export default function useGetFollowingIds() {
   const { user } = useContext(AuthContext);
   const [followingIds, setFollowingIds] = useState<string[]>(['']);
 

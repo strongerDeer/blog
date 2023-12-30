@@ -13,17 +13,13 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import { FollowingInterface } from 'types/Following';
+import { FollowerInterface } from 'types/Follower';
+import useFindUser from 'hooks/useFindeUser';
 
-interface FollowingProps {
-  uid: string;
-}
-
-interface UserProps {
-  id: string;
-}
-
-export default function FollowBtn({ uid }: FollowingProps) {
+export default function FollowBtn({ uid }: FollowingInterface) {
   const { user } = useContext(AuthContext);
+  const { findUser } = useFindUser(uid);
   const [followers, setFollowers] = useState<string[]>([]);
 
   const onClickFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -36,7 +32,11 @@ export default function FollowBtn({ uid }: FollowingProps) {
         await setDoc(
           followingRef,
           {
-            users: arrayUnion({ id: uid }),
+            users: arrayUnion({
+              uid: uid,
+              displayName: findUser?.displayName,
+              email: findUser?.email,
+            }),
           },
           {
             merge: true,
@@ -48,7 +48,11 @@ export default function FollowBtn({ uid }: FollowingProps) {
         await setDoc(
           followerRef,
           {
-            users: arrayUnion({ id: user?.uid }),
+            users: arrayUnion({
+              uid: user.uid,
+              displayName: user.displayName,
+              email: user.email,
+            }),
           },
           { merge: true },
         );
@@ -84,13 +88,13 @@ export default function FollowBtn({ uid }: FollowingProps) {
         // 로그인한 사용자
         const followingRef = doc(db, 'following', user?.uid);
         await updateDoc(followingRef, {
-          users: arrayRemove({ id: uid }),
+          users: arrayRemove({ uid: uid }),
         });
 
         // 팔로우 당하는 사람
         const followerRef = doc(db, 'follower', uid);
         await updateDoc(followerRef, {
-          users: arrayRemove({ id: user?.uid }),
+          users: arrayRemove({ uid: user?.uid }),
         });
       }
       toast.success('팔로우를 취소하였습니다');
@@ -106,8 +110,8 @@ export default function FollowBtn({ uid }: FollowingProps) {
         setFollowers([]);
         doc
           ?.data()
-          ?.users?.map((user: UserProps) =>
-            setFollowers((prev) => (prev ? [...prev, user?.id] : [])),
+          ?.users?.map((user: FollowerInterface) =>
+            setFollowers((prev) => (prev ? [...prev, user?.uid] : [])),
           );
       });
     }
@@ -124,7 +128,7 @@ export default function FollowBtn({ uid }: FollowingProps) {
       </Btn>
     ) : (
       <Btn bgNone={false} onClick={onClickFollow}>
-        팔로잉{' '}
+        팔로잉
       </Btn>
     )
   ) : null;
