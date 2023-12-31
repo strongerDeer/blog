@@ -2,6 +2,7 @@
 
 .profile__section {
   background-color: map-get($color, background2);
+
   border-radius: 1rem;
   padding: 4rem;
 
@@ -35,12 +36,24 @@
 }
 
 .user__email {
-  color: map-get($color, gray);
+  font-size: 0.9em;
+  color: rgba(map-get($color, text), 0.5);
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
 }
 
 .btn__group {
   display: flex;
   gap: 0.4rem;
+
+  a strong {
+    font-size: 1.4em;
+  }
 
   .btn_logout,
   .btn_profileEdit {
@@ -52,6 +65,7 @@
     justify-content: center;
     border-radius: 50%;
     transition: all 0.3s;
+
     svg {
       width: 55%;
       transition: all 0.3s;
@@ -74,5 +88,22 @@
     }
   }
   .btn_profileEdit {
+  }
+}
+
+.profile__section {
+  container: profile / inline-size;
+}
+@container profile (max-width: 320px) {
+  .count {
+    width: 100%;
+    justify-content: space-between;
+
+    a {
+      flex-grow: 1;
+      padding: 0.8rem 1rem;
+      flex-direction: column;
+      gap: 0.2em;
+    }
   }
 }

@@ -103,7 +103,7 @@ export default function Profile() {
         <p className={styles.user__email}>{user?.email}</p>
       </div>
 
-      <div className={styles.btn__group}>
+      <div className={styles.count}>
         <Btn href="/" bgNone={true}>
           게시글 <strong>{posts.length}</strong>
         </Btn>
