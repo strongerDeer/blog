@@ -12,12 +12,13 @@ interface BtnProps {
   disabled?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   name?: string;
+  className?: string;
 }
 
 export default function Btn(props: BtnProps) {
-  const { children, href, type, bgNone, ...rest } = props;
+  const { children, href, type, bgNone, className, ...rest } = props;
 
-  const classList = classNames(styles.btn, bgNone && styles.bgNone);
+  const classList = classNames(className, styles.btn, bgNone && styles.bgNone);
 
   if (href) {
     return (

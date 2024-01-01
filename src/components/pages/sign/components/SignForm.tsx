@@ -91,12 +91,13 @@ export default function SignForm({ signup }: SignFormProps) {
         // 회원가입
         await createUserWithEmailAndPassword(auth, email, password);
         toast.success('회원가입 성공🥳');
+        navigate('/profile/edit');
       } else {
         // 로그인
         await signInWithEmailAndPassword(auth, email, password);
         toast.success('로그인 성공🥳');
+        navigate('/');
       }
-      navigate('/');
     } catch (error: any) {
       let errorMsg = error?.code;
 

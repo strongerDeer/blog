@@ -1,5 +1,25 @@
 @import 'styles/global.scss';
 
+.wrap {
+  margin: 8rem 0;
+  .info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+    border: 1px solid #e5e5e5;
+
+    border-radius: 1rem;
+    color: map-get($color, primary);
+    margin-bottom: 3rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+}
 .profile {
   width: 12rem;
   height: 12rem;
@@ -26,6 +46,8 @@
     label,
     input[type='file'] {
       border-radius: 50%;
+      background: url(../../../../../public/images/icon-image.svg) no-repeat 50%
+        50%/ 2.4rem;
     }
     label {
       display: block;
@@ -47,4 +69,8 @@
       padding: 0;
     }
   }
+}
+
+.full {
+  width: 100%;
 }

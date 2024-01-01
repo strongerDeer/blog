@@ -3,7 +3,7 @@ import { db } from 'firebaseApp';
 import { useEffect, useState } from 'react';
 import { Users } from 'types/Users';
 
-export default function useFindUser(uid: string) {
+export default function useFindUser(uid: string | undefined) {
   const [findUser, setFindUser] = useState<Users | null>({});
 
   useEffect(() => {

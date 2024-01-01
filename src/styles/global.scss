@@ -53,6 +53,12 @@ body {
   margin: auto;
 }
 
+.min-width {
+  width: calc(100% - 6rem);
+  max-width: 40rem;
+  margin: auto;
+}
+
 .flex-column {
   display: flex;
   flex-direction: column;

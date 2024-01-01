@@ -9,7 +9,6 @@ import {
 } from 'firebase/storage';
 import { db, storage } from 'firebaseApp';
 import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // lib
 import { toast } from 'react-toastify';
@@ -26,8 +25,6 @@ import useFindUser from 'hooks/useFindeUser';
 const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
 
 export default function ProfileForm() {
-  const navigate = useNavigate();
-
   const { user } = useContext(AuthContext);
   const { findUser } = useFindUser(user?.uid ? user.uid : '');
   const [previewImg, setPreviewImg] = useState<string | null>(null);
@@ -119,43 +116,52 @@ export default function ProfileForm() {
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className={styles.profile}>
-        <img src={previewImg ? previewImg : NO_IMG} alt="이미지 미리보기" />
-        <InputFileLabel
-          label="썸네일"
-          id="postThumbnail"
-          setValue={setPreviewImg}
-          accept="images/*"
-          isSubmitting={isSubmitting}
-        />
-        {previewImg && (
-          <button type="button" onClick={handleDeletePreviewImg}>
-            삭제
-          </button>
-        )}
-      </div>
+    <div className={styles.wrap}>
+      {!findUser && (
+        <p className={styles.info}>
+          프로필 정보를 등록 하셔야 서비스를 이용할 수 있습니다.
+        </p>
+      )}
+      <form onSubmit={onSubmit}>
+        <div className={styles.profile}>
+          <img src={previewImg ? previewImg : NO_IMG} alt="이미지 미리보기" />
+          <InputFileLabel
+            label="썸네일"
+            id="postThumbnail"
+            setValue={setPreviewImg}
+            accept="images/*"
+            isSubmitting={isSubmitting}
+          />
+          {previewImg && (
+            <button type="button" onClick={handleDeletePreviewImg}>
+              삭제
+            </button>
+          )}
+        </div>
 
-      <div>
+        <div>
+          <InputTextLabel
+            label="아이디"
+            type="email"
+            id="user-id"
+            value={user?.email ? user.email : ''}
+            onChange={onChange}
+            disabled
+          />
+        </div>
+
         <InputTextLabel
-          label="아이디"
-          type="email"
-          id="user-id"
-          value={user?.email ? user.email : ''}
+          label="닉네임"
+          type="text"
+          id="user-nickname"
+          value={nickname ? nickname : ''}
           onChange={onChange}
-          disabled
         />
-      </div>
 
-      <InputTextLabel
-        label="닉네임"
-        type="text"
-        id="user-nickname"
-        value={nickname ? nickname : ''}
-        onChange={onChange}
-      />
-
-      <Btn type="submit">프로필 수정</Btn>
-    </form>
+        <Btn type="submit" className={styles.full}>
+          프로필 {findUser ? '수정' : '등록'}
+        </Btn>
+      </form>
+    </div>
   );
 }

@@ -14,6 +14,7 @@ import SignupPage from 'components/pages/sign/Signup';
 import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import FollowingPostListPage from 'components/pages/followingpost';
+import useFindUser from 'hooks/useFindeUser';
 
 interface RouterProps {
   isAuthenticated: boolean;
@@ -21,33 +22,42 @@ interface RouterProps {
 
 export default function Router({ isAuthenticated }: RouterProps) {
   const { user } = useContext(AuthContext);
+  const { findUser } = useFindUser(user?.uid);
 
   return (
     <>
       <Routes>
         {isAuthenticated ? (
           <>
-            <Route path="/" element={<HomePage />} />
+            {findUser ? (
+              <>
+                <Route path="/" element={<HomePage />} />
+                {/* Post */}
+                <Route path="/post" element={<PostListPage />} />
+                <Route path="/post/:id" element={<PostDetailPage />} />
+                <Route path="/post/new" element={<PostCreatePage />} />
+                <Route path="/post/edit/:id" element={<PostEditPage />} />
 
-            {/* Post */}
-            <Route path="/post" element={<PostListPage />} />
-            <Route path="/post/:id" element={<PostDetailPage />} />
-            <Route path="/post/new" element={<PostCreatePage />} />
-            <Route path="/post/edit/:id" element={<PostEditPage />} />
+                {/* Profile */}
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/edit" element={<ProfileEditPage />} />
+                <Route path="/profile/:id" element={<>프로필 보기</>} />
 
-            {/* Profile */}
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/edit" element={<ProfileEditPage />} />
-            <Route path="/profile/:id" element={<>프로필 보기</>} />
+                {/* other */}
+                <Route path="/follower" element={<>팔로우 리스트</>} />
+                <Route path="/following" element={<>팔로잉 리스트</>} />
+                <Route
+                  path="/followingpost"
+                  element={<FollowingPostListPage />}
+                />
+                <Route path="/notifications" element={<NotificationsPage />} />
+                <Route path="/search" element={<SearchPage />} />
 
-            {/* other */}
-            <Route path="/follower" element={<>팔로우 리스트</>} />
-            <Route path="/following" element={<>팔로잉 리스트</>} />
-            <Route path="/followingpost" element={<FollowingPostListPage />} />
-            <Route path="/notifications" element={<NotificationsPage />} />
-            <Route path="/search" element={<SearchPage />} />
-
-            <Route path="*" element={<Navigate replace to="/" />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+              </>
+            ) : (
+              <Route path="*" element={<ProfileEditPage />} />
+            )}
           </>
         ) : (
           <>
