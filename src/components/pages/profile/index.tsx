@@ -8,7 +8,6 @@ export default function ProfilePage() {
 
   return (
     <div className="max-width">
-      Profile Page
       <Profile />
       <button
         type="button"

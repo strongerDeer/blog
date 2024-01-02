@@ -13,8 +13,9 @@ import SigninPage from 'components/pages/sign/Signin';
 import SignupPage from 'components/pages/sign/Signup';
 import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
-import FollowingPostListPage from 'components/pages/followingpost';
 import useFindUser from 'hooks/useFindeUser';
+import FollowerListPage from 'components/pages/follow/follower';
+import FollowingListPage from 'components/pages/follow/following';
 
 interface RouterProps {
   isAuthenticated: boolean;
@@ -44,12 +45,9 @@ export default function Router({ isAuthenticated }: RouterProps) {
                 <Route path="/profile/:id" element={<>프로필 보기</>} />
 
                 {/* other */}
-                <Route path="/follower" element={<>팔로우 리스트</>} />
-                <Route path="/following" element={<>팔로잉 리스트</>} />
-                <Route
-                  path="/followingpost"
-                  element={<FollowingPostListPage />}
-                />
+                <Route path="/follower" element={<FollowerListPage />} />
+                <Route path="/following" element={<FollowingListPage />} />
+
                 <Route path="/notifications" element={<NotificationsPage />} />
                 <Route path="/search" element={<SearchPage />} />
 

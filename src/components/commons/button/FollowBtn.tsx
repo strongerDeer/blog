@@ -13,11 +13,10 @@ import {
   updateDoc,
 } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { FollowingInterface } from 'types/Following';
-import { FollowerInterface } from 'types/Follower';
+import { FollowInterface } from 'types/Follow';
 import useFindUser from 'hooks/useFindeUser';
 
-export default function FollowBtn({ uid }: FollowingInterface) {
+export default function FollowBtn({ uid }: FollowInterface) {
   const { user } = useContext(AuthContext);
   const { findUser } = useFindUser(uid);
   const [followers, setFollowers] = useState<string[]>([]);
@@ -36,6 +35,7 @@ export default function FollowBtn({ uid }: FollowingInterface) {
               uid: uid,
               displayName: findUser?.displayName,
               email: findUser?.email,
+              photoURL: findUser?.photoURL,
             }),
           },
           {
@@ -52,6 +52,7 @@ export default function FollowBtn({ uid }: FollowingInterface) {
               uid: user.uid,
               displayName: user.displayName,
               email: user.email,
+              photoURL: user?.photoURL,
             }),
           },
           { merge: true },
@@ -110,7 +111,7 @@ export default function FollowBtn({ uid }: FollowingInterface) {
         setFollowers([]);
         doc
           ?.data()
-          ?.users?.map((user: FollowerInterface) =>
+          ?.users?.map((user: FollowInterface) =>
             setFollowers((prev) => (prev ? [...prev, user?.uid] : [])),
           );
       });

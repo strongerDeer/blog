@@ -11,7 +11,6 @@ import classNames from 'classnames';
 import { onSignOut } from 'hooks/signOut';
 import { NO_IMG } from 'constants/noimg';
 import Btn from 'components/commons/button/Btn';
-import FollowBtn from 'components/commons/button/FollowBtn';
 import SVGSignout from 'components/commons/SVG/SVGSignout';
 import SVGProfile from 'components/commons/SVG/SVGProfile';
 import { Link } from 'react-router-dom';
@@ -27,29 +26,20 @@ import {
 import { db } from 'firebaseApp';
 import { PostInterface } from 'types/Post';
 
-import { FollowerInterface } from 'types/Follower';
-import { FollowingInterface } from 'types/Following';
+import { FollowInterface } from 'types/Follow';
 
-interface ProfileProps {
-  image?: string;
-  nickname?: string;
-  email?: string;
-  createdAt?: string;
-  uid?: string;
-  id?: string;
-}
 export default function Profile() {
   const { user } = useContext(AuthContext);
 
   const [posts, setPosts] = useState<PostInterface[]>([]);
-  const [followers, setFollowers] = useState<FollowerInterface[]>([]);
-  const [followings, setFollowings] = useState<FollowingInterface[]>([]);
+  const [followers, setFollowers] = useState<FollowInterface[]>([]);
+  const [followings, setFollowings] = useState<FollowInterface[]>([]);
 
   const getFollowers = async (id: string) => {
     if (id) {
       const docRef = doc(db, 'follower', id);
       onSnapshot(docRef, (doc) => {
-        setFollowers(doc.data()?.users as FollowerInterface[]);
+        setFollowers(doc.data()?.users as FollowInterface[]);
       });
     }
   };
@@ -58,10 +48,12 @@ export default function Profile() {
     if (id) {
       const docRef = doc(db, 'following', id);
       onSnapshot(docRef, (doc) => {
-        setFollowings(doc.data()?.users as FollowingInterface[]);
+        setFollowings(doc.data()?.users as FollowInterface[]);
       });
     }
   };
+
+  console.log(followers, followings);
 
   useEffect(() => {
     // 나의글 가져오기
@@ -105,13 +97,13 @@ export default function Profile() {
 
       <div className={styles.count}>
         <Btn href="/" bgNone={true}>
-          게시글 <strong>{posts.length}</strong>
+          게시글 <strong>{posts ? posts.length : 0}</strong>
         </Btn>
         <Btn href="/follower" bgNone={true}>
-          팔로우 <strong>{followers.length}</strong>
+          팔로우 <strong>{followers ? followers.length : 0}</strong>
         </Btn>
         <Btn href="/following" bgNone={true}>
-          팔로잉 <strong>{followings.length}</strong>
+          팔로잉 <strong>{followings ? followings.length : 0}</strong>
         </Btn>
       </div>
 
