@@ -1,0 +1,23 @@
+@import 'styles/var.scss';
+.btn {
+  height: $inputHeight;
+  padding: 0 2rem;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+
+  background-color: var(--gray01);
+  color: var(--text-primary);
+  border-radius: $borderRadius;
+
+  &.fillPrimary {
+    color: var(--gray00);
+    border-color: var(--primary);
+    background-color: var(--primary);
+    &:disabled {
+      @include getColor(background-color, primary, 0.6);
+    }
+  }
+}
