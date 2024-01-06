@@ -1,4 +1,3 @@
-import 'styles/reset.scss';
 import 'styles/global.scss';
 
 import Layout from 'components/layouts/Layout';

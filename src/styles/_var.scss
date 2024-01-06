@@ -1,20 +1,3 @@
-@use 'sass:map';
-
-// 폰트
-$font: 'Pretendard', san-serif;
-
-// 컬러
-$color: (
-  'primary': #37abec,
-  'primary2': #f37c4b,
-  'text': black,
-  'background': #f5f6f9,
-  'background2': #fff,
-  'grayLv1': #eee,
-  'grayLv2': #f5f6f9,
-  'error': #ff2e3c,
-);
-
 // layout
 $maxW: 1200;
 $maxWidth: $maxW + 'rem';
@@ -25,6 +8,72 @@ $boxShadow: 5px 5px 2rem 0 rgba(0, 0, 0, 0.05);
 $signWidth: 40rem;
 $inputHeight: 4rem;
 
+// 폰트
+$font: 'Pretendard', san-serif;
+
+// 반응형 폰트 사이즈
 @function fcSize($min, $max) {
   @return clamp($min * 0.1rem, (100vw / $maxW) * $max, $max * 0.1rem);
 }
+
+// 컬러
+$light: (
+  'primary': #37abec,
+  'status-warn': #f37c4b,
+  'status-error': #ff2e3c,
+  'text-primary': #333,
+  'text-secondary': #767676,
+  'gray00': #fff,
+  'gray01': #eee,
+  'gray02': #ddd,
+  'gray03': #ccc,
+  'gray04': #bbb,
+  'gray05': #aaa,
+);
+
+$dark: (
+  'primary': #37abec,
+  'status-warn': #f37c4b,
+  'status-error': #ff2e3c,
+  'text-primary': #fff,
+  'text-secondary': #eee,
+  'gray00': #000,
+  'gray01': #111,
+  'gray02': #222,
+  'gray03': #333,
+  'gray04': #444,
+  'gray05': #555,
+);
+
+// 컬러 테마
+:root {
+  @each $k, $v in $light {
+    #{"--" + $k}: #{$v};
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    @each $k, $v in $dark {
+      #{"--" + $k}: #{$v};
+    }
+  }
+}
+@mixin getColor($property, $colorName, $opacity: 1) {
+  #{$property}: rgba(map-get($light, $colorName), $opacity);
+
+  @at-root .dark & {
+    #{$property}: rgba(map-get($dark, $colorName), $opacity);
+  }
+  @media screen and (prefers-color-scheme: dark) {
+    #{$property}: rgba(map-get($dark, $colorName), $opacity);
+  }
+}
+/*
+  컬러 적용방법 
+
+  기본 컬러 적용 
+  background-color: var(--primary);
+
+  투명값 적용
+  @include getColor(background-color, primary, 0.5);
+*/
