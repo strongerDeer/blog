@@ -7,7 +7,7 @@ import Router from 'router/Router';
 function App() {
   return (
     <Layout>
-      <Router>Hello </Router>
+      <Router />
     </Layout>
   );
 }
