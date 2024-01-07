@@ -7,12 +7,13 @@ import SVGLogo from 'components/svg/SVGLogo';
 import SVGSignin from 'components/svg/SVGSignin';
 import SVGSignup from 'components/svg/SVGSignup';
 import SVGWrite from 'components/svg/SVGWrite';
-import SVGNotification from 'components/svg/SVGNotification';
-import SVGSetting from 'components/svg/SVGSetting';
+import ProfileBtn from 'components/profile/ProfileBtn';
+import NotificationBtn from 'components/notification/NotificationBtn';
+import SettingBtn from 'components/setting/SettingBtn';
 
 export default function Header() {
-  // const isAuthenticated = false;
-  const isAuthenticated = true;
+  const isAuthenticated = false;
+  // const isAuthenticated = true;
   return (
     <header className={styles.header}>
       <h1>
@@ -23,19 +24,15 @@ export default function Header() {
       </h1>
 
       <nav>
-        <Btn href="/post/create" fillPrimary>
-          <SVGWrite fill="gray00" />
-          Write
-        </Btn>
         {isAuthenticated ? (
           <>
             {/* 로그인 */}
-            <button type="button">프로필</button>
-
-            <button type="button">
-              <SVGNotification />
-              <span className="a11y-hidden">알림</span>
-            </button>
+            <Btn href="/post/create" className={styles.write_btn} fillPrimary>
+              <SVGWrite fill="gray00" />
+              Write
+            </Btn>
+            <ProfileBtn />
+            <NotificationBtn />
           </>
         ) : (
           <>
@@ -44,17 +41,14 @@ export default function Header() {
               <SVGSignin fill="primary" />
               Login
             </Btn>
-            <Btn href="/signup">
-              <SVGSignup />
-              SignUp
+            <Btn href="/signup" fillPrimary>
+              <SVGSignup fill="gray00" />
+              Signup
             </Btn>
           </>
         )}
 
-        <button type="button">
-          <SVGSetting />
-          <span className="a11y-hidden">설정</span>
-        </button>
+        <SettingBtn />
       </nav>
     </header>
   );
