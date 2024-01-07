@@ -1,3 +1,4 @@
+import LoginPage from 'pages/login/LoginPage';
 import { Route, Routes } from 'react-router-dom';
 
 export default function Router() {
@@ -6,7 +7,7 @@ export default function Router() {
       <Route path="/" element={<>Home</>} />
 
       {/* 회원 */}
-      <Route path="/login" element={<>로그인</>} />
+      <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<>회원가입</>} />
 
       {/* 프로필 */}
