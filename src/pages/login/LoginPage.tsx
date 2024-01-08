@@ -1,41 +1,39 @@
 import Btn from 'components/commons/button/Btn';
-import InputTextLabel from 'components/commons/input/InputTextLabel';
-import { useInput } from 'hooks/useInput';
+import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
+import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
+
+import styles from 'components/forms/Form.module.scss';
+import { useState } from 'react';
 
 export default function LoginPage() {
-  const email = useInput('');
-  const password = useInput('');
-
+  const [password, setPassword] = useState<string>('');
   return (
-    <>
-      <h2>로그인</h2>
+    <section className={styles.wrap}>
+      <h2 className={styles.title}>로그인</h2>
 
-      <form>
-        <InputTextLabel
-          label="아이디"
-          type="email"
-          id="user-id"
-          value={email.value}
-          onChange={email.onChange}
-        />
-        <InputTextLabel
+      <form className={styles.form}>
+        {/* 이메일 */}
+        <ValidatorCheckEmail />
+
+        {/* 비밀번호 */}
+        <ValidatorCheckPassword
           label="비밀번호"
-          type="password"
           id="user-pw"
-          value={password.value}
-          onChange={password.onChange}
+          value={password}
+          setValue={setPassword}
         />
+
         <Btn type="submit" fillPrimary>
           로그인
         </Btn>
       </form>
 
-      <p>or</p>
+      <p className={styles.or}>or</p>
 
-      <div>
+      <div className={styles.sns_login}>
         <Btn>Google 로그인</Btn>
         <Btn>GitHub 로그인</Btn>
       </div>
-    </>
+    </section>
   );
 }

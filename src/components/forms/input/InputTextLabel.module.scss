@@ -1,0 +1,20 @@
+@import 'styles/var.scss';
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    color: var(--text-secondary);
+    font-size: fcSize(12, 14);
+  }
+  .input {
+    border: 1px solid var(--gray02);
+    padding: 0 1rem;
+    height: $inputHeight;
+    border-radius: $borderRadius;
+
+    width: 100%;
+  }
+}

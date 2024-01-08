@@ -18,11 +18,19 @@ interface InputTextLabelProps {
 }
 
 export default function InputTextLabel(props: InputTextLabelProps) {
-  const { id, type, label, labelHidden, className, ...rest } = props;
+  const { id, type, label, labelHidden, className, required, ...rest } = props;
 
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <div className={styles.wrap}>
+      <label className={styles.label} htmlFor={id}>
+        {label}
+        {required && (
+          <>
+            {' '}
+            *<span className="a11y-hidden">필수</span>
+          </>
+        )}
+      </label>
 
       <input
         className={classNames(styles.input, className)}

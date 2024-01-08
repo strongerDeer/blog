@@ -1,0 +1,42 @@
+.wrap {
+  width: 32rem;
+  margin: 8rem auto;
+
+  .title {
+    margin-bottom: 4rem;
+    text-align: center;
+  }
+
+  .or {
+    text-align: center;
+    margin: 2rem;
+  }
+  .form,
+  .sns_login {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form {
+    gap: 2rem;
+  }
+  .sns_login {
+    gap: 1rem;
+  }
+}
+
+.error {
+  color: var(--status-error);
+  font-size: 0.9em;
+  margin-top: 0.5em;
+  animation: show 0.3s;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

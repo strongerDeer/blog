@@ -1,5 +1,7 @@
-import LoginPage from 'pages/login/LoginPage';
 import { Route, Routes } from 'react-router-dom';
+
+import LoginPage from 'pages/login/LoginPage';
+import SignupPage from 'pages/login/SignupPage';
 
 export default function Router() {
   return (
@@ -8,7 +10,7 @@ export default function Router() {
 
       {/* 회원 */}
       <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<>회원가입</>} />
+      <Route path="/signup" element={<SignupPage />} />
 
       {/* 프로필 */}
       <Route path="/profile" element={<>나의 프로필</>} />
