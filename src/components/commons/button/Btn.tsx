@@ -11,6 +11,7 @@ interface BtnProps {
   className?: string;
   fillPrimary?: boolean;
   disabled?: boolean;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export default function Btn(props: BtnProps) {
