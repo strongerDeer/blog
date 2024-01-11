@@ -1,6 +1,10 @@
 import styles from './Header.module.scss';
 
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+
+import { AuthContext } from 'context/AuthContext';
+import { onSignOut } from 'utils/onSignOut';
 
 import Btn from 'components/commons/button/Btn';
 import SVGLogo from 'components/svg/SVGLogo';
@@ -12,8 +16,8 @@ import NotificationBtn from 'components/notification/NotificationBtn';
 import SettingBtn from 'components/setting/SettingBtn';
 
 export default function Header() {
-  const isAuthenticated = false;
-  // const isAuthenticated = true;
+  const { isAuthenticated } = useContext(AuthContext);
+
   return (
     <header className={styles.header}>
       <h1>
@@ -33,6 +37,9 @@ export default function Header() {
             </Btn>
             <ProfileBtn />
             <NotificationBtn />
+            <button type="button" onClick={onSignOut}>
+              로그아웃
+            </button>
           </>
         ) : (
           <>

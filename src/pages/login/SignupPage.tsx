@@ -1,13 +1,18 @@
-import Btn from 'components/commons/button/Btn';
-import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
-import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
-
 import styles from 'components/forms/Form.module.scss';
 
 import { useEffect, useState } from 'react';
+
 import InputTextLabel from 'components/forms/input/InputTextLabel';
 
+import Btn from 'components/commons/button/Btn';
+import SNSLoginBtn from 'components/login/SNSLoginBtn';
+import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
+import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
+
 export default function SignupPage() {
+  const [profileImg, setProfileImg] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [nickname, setNickname] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
 
@@ -64,8 +69,8 @@ export default function SignupPage() {
       <p className={styles.or}>or</p>
 
       <div className={styles.sns_login}>
-        <Btn>Google 회원가입</Btn>
-        <Btn>GitHub 회원가입</Btn>
+        <SNSLoginBtn type="Google" />
+        <SNSLoginBtn type="GitHub" />
       </div>
     </section>
   );
