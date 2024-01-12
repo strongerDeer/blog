@@ -2,8 +2,16 @@ import { useState } from 'react';
 import InputTextLabel from './input/InputTextLabel';
 
 import styles from './Form.module.scss';
-export default function ValidatorCheckEmail() {
-  const [value, setValue] = useState<string>('');
+
+export default function ValidatorCheckEmail({
+  value,
+  setValue,
+  required,
+}: {
+  value: string;
+  setValue: any;
+  required?: boolean;
+}) {
   const [error, setError] = useState<string | null>(null);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +38,7 @@ export default function ValidatorCheckEmail() {
         id="user-id"
         value={value}
         onChange={onChange}
-        required
+        required={required}
       />
       {error && (
         <p className={styles.error}>이메일 형식이 올바르지 않습니다.</p>

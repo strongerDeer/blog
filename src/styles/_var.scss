@@ -3,6 +3,7 @@ $maxW: 1200;
 $maxWidth: $maxW + 'rem';
 $borderRadius: 0.4em;
 $boxShadow: 5px 5px 2rem 0 rgba(0, 0, 0, 0.05);
+$boxShadowSmall: 3px 3px 1rem 0 rgba(0, 0, 0, 0.15);
 
 // 로그인/회원가입
 $signWidth: 40rem;
@@ -19,10 +20,10 @@ $font: 'Pretendard', san-serif;
 // 컬러
 $light: (
   'primary': #37abec,
-  'status-warn': #f37c4b,
-  'status-error': #ff2e3c,
-  'text-primary': #333,
-  'text-secondary': #767676,
+  'statusWarn': #f37c4b,
+  'statusError': #ff2e3c,
+  'textPrimary': #333,
+  'textSecondary': #767676,
   'gray00': #fff,
   'gray01': #eee,
   'gray02': #ddd,
@@ -33,9 +34,9 @@ $light: (
 
 $dark: (
   'primary': #37abec,
-  'status-warn': #f37c4b,
-  'status-error': #ff2e3c,
-  'text-primary': #fff,
+  'statusWarn': #f37c4b,
+  'statusError': #ff2e3c,
+  'textPrimary': #fff,
   'text-secondary': #eee,
   'gray00': #000,
   'gray01': #111,

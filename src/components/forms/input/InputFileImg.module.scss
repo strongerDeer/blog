@@ -1,0 +1,69 @@
+@import 'styles/var.scss';
+
+.wrap {
+  width: 12rem;
+  height: 12rem;
+  position: relative;
+  margin: auto;
+
+  .input_btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+
+    .label,
+    .input {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+    }
+    .label {
+      background-color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      box-shadow: $boxShadowSmall;
+    }
+    .input {
+      outline-offset: 1px;
+    }
+  }
+  .preview {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--gray02);
+    box-sizing: border-box;
+  }
+
+  .del_btn {
+    background-color: var(--gray00);
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    border: 2px solid;
+    @include getColor(border-color, statusWarn, 0.3);
+
+    border-radius: 50%;
+    overflow: hidden;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 70%;
+      height: auto;
+    }
+  }
+}

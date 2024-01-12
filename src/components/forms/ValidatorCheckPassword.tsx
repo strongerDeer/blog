@@ -8,11 +8,13 @@ export default function ValidatorCheckPassword({
   id,
   value,
   setValue,
+  required,
 }: {
   label: string;
   id: string;
   value: string;
   setValue: any;
+  required?: boolean;
 }) {
   // const [value, setValue] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +41,7 @@ export default function ValidatorCheckPassword({
         id={id}
         value={value}
         onChange={onChange}
-        required
+        required={required}
       />
       {error && (
         <p className={styles.error}>비밀번호는 8자리 이상으로 입력해주세요</p>

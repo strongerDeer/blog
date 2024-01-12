@@ -6,6 +6,7 @@ import styles from 'components/forms/Form.module.scss';
 import { useState } from 'react';
 
 export default function LoginPage() {
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   return (
     <section className={styles.wrap}>
@@ -13,7 +14,7 @@ export default function LoginPage() {
 
       <form className={styles.form}>
         {/* 이메일 */}
-        <ValidatorCheckEmail />
+        <ValidatorCheckEmail value={email} setValue={setEmail} />
 
         {/* 비밀번호 */}
         <ValidatorCheckPassword

@@ -7,6 +7,7 @@ interface InputTextLabelProps {
   type?: string;
   label?: string;
   value?: string;
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
   required?: boolean;
   disabled?: boolean;
   labelHidden?: boolean;
@@ -18,7 +19,26 @@ interface InputTextLabelProps {
 }
 
 export default function InputTextLabel(props: InputTextLabelProps) {
-  const { id, type, label, labelHidden, className, required, ...rest } = props;
+  const {
+    id,
+    type,
+    label,
+    labelHidden,
+    className,
+    required,
+    onChange,
+    value,
+    setValue,
+    ...rest
+  } = props;
+
+  const onChangeInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { value },
+    } = e;
+
+    setValue!(value);
+  };
 
   return (
     <div className={styles.wrap}>
@@ -37,6 +57,8 @@ export default function InputTextLabel(props: InputTextLabelProps) {
         type={type || 'text'}
         id={id}
         name={id}
+        required={required}
+        onChange={onChange ? onChange : onChangeInputText}
         {...rest}
       />
     </div>
