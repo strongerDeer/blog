@@ -4,15 +4,38 @@ import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 import styles from 'components/forms/Form.module.scss';
 import { useState } from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { app } from 'firebaseApp';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import SNSLoginBtn from 'components/login/SNSLoginBtn';
 
-export default function LoginPage() {
+export default function LoginxPage() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState<string>('');
+  const [errorMsg, setErrorMsg] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [error, setError] = useState<string>('');
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const auth = getAuth(app);
+      // 로그인
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success('로그인 성공🥳');
+      navigate('/');
+    } catch (error: any) {
+      let errorMsg = error?.code;
+      setErrorMsg(errorMsg);
+    }
+  };
   return (
     <section className={styles.wrap}>
       <h2 className={styles.title}>로그인</h2>
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         {/* 이메일 */}
         <ValidatorCheckEmail value={email} setValue={setEmail} />
 
@@ -24,6 +47,7 @@ export default function LoginPage() {
           setValue={setPassword}
         />
 
+        {error && <p className="error">{error}</p>}
         <Btn type="submit" fillPrimary>
           로그인
         </Btn>
@@ -32,8 +56,8 @@ export default function LoginPage() {
       <p className={styles.or}>or</p>
 
       <div className={styles.sns_login}>
-        <Btn>Google 로그인</Btn>
-        <Btn>GitHub 로그인</Btn>
+        <SNSLoginBtn type="Google" />
+        <SNSLoginBtn type="GitHub" />
       </div>
     </section>
   );

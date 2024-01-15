@@ -3,11 +3,14 @@ import { Route, Routes } from 'react-router-dom';
 import LoginPage from 'pages/login/LoginPage';
 import SignupPage from 'pages/login/SignupPage';
 import { useContext } from 'react';
-import { AuthContext } from 'context/AuthContext';
+import AuthContext from 'contexts/AuthContext';
+import ProfilePage from 'pages/profile/ProfilePage';
 
-export default function Router() {
-  const { isAuthenticated } = useContext(AuthContext);
-
+export default function Router({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   return (
     <Routes>
       <Route path="/" element={<>Home</>} />
@@ -17,7 +20,7 @@ export default function Router() {
           {/* 로그인 */}
 
           {/* 프로필 */}
-          <Route path="/profile" element={<>나의 프로필</>} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="/profile/create" element={<>프로필 생성</>} />
           <Route path="/profile/edit" element={<>프로필 수정</>} />
           <Route path="/profile/:id" element={<>유저 프로필</>} />
@@ -35,6 +38,7 @@ export default function Router() {
           {/* 회원 */}
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="*" element={<LoginPage />} />
         </>
       )}
       {/* 게시물 */}
@@ -47,6 +51,7 @@ export default function Router() {
 
       {/* 검색 */}
       <Route path="/search" element={<>검색</>} />
+      <Route path="*" element={<>404페이지</>} />
     </Routes>
   );
 }

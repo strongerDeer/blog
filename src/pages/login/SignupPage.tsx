@@ -13,7 +13,11 @@ import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 // firebase
 import { app, db, storage } from 'firebaseApp';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  updateProfile,
+} from 'firebase/auth';
 import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 
@@ -24,8 +28,10 @@ import { v4 as uuidv4 } from 'uuid';
 export default function SignupPage() {
   const navigate = useNavigate();
 
+  const [isFilled, setIsFilled] = useState<boolean>(false);
   const [profileImg, setProfileImg] = useState<string>('');
   const [email, setEmail] = useState<string>('');
+  const [emailError, setEmailError] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
@@ -40,6 +46,19 @@ export default function SignupPage() {
     }
   }, [password, passwordConfirm]);
 
+  useEffect(() => {
+    if (
+      email.length >= 5 &&
+      nickname.length >= 1 &&
+      password.length >= 8 &&
+      passwordConfirm.length >= 8
+    ) {
+      setIsFilled(true);
+    } else {
+      setIsFilled(false);
+    }
+  }, [email, nickname, password, passwordConfirm]);
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -53,22 +72,27 @@ export default function SignupPage() {
           const data = await uploadString(storageRef, profileImg, 'data_url');
           const profileUrl = await getDownloadURL(data?.ref);
 
-          try {
-            await setDoc(doc(db, 'users', userCredential.user.uid), {
-              email: userCredential.user.email,
-              nickname: nickname,
-              profileUrl: profileUrl,
-            });
-            toast.success('회원가입 성공!');
-            navigate('/');
-          } catch (error) {
-            console.log(error);
+          if (auth.currentUser) {
+            try {
+              await updateProfile(auth.currentUser, {
+                displayName: nickname,
+                photoURL: profileUrl,
+              });
+              toast.success('회원가입 성공!');
+              navigate('/');
+            } catch (error) {
+              console.log(error);
+            }
           }
         },
       );
       // 완료후 경로 이동
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      let errorMsg = error?.code;
+
+      if (errorMsg === 'auth/email-already-in-use') {
+        setEmailError('이미 사용중인 이메일입니다');
+      }
     }
   };
 
@@ -87,6 +111,7 @@ export default function SignupPage() {
         />
 
         <ValidatorCheckEmail value={email} setValue={setEmail} required />
+        {emailError && <p>{emailError}</p>}
 
         <InputTextLabel
           label="닉네임"
@@ -113,7 +138,7 @@ export default function SignupPage() {
         />
         {error && <p className={styles.error}>{error}</p>}
 
-        <Btn type="submit" fillPrimary>
+        <Btn type="submit" fillPrimary disabled={!isFilled}>
           회원가입
         </Btn>
       </form>

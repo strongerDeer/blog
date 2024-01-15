@@ -1,23 +1,25 @@
+import { Link } from 'react-router-dom';
 import styles from './Header.module.scss';
 
-import { useContext } from 'react';
-import { Link } from 'react-router-dom';
-
-import { AuthContext } from 'context/AuthContext';
-import { onSignOut } from 'utils/onSignOut';
-
+// components
 import Btn from 'components/commons/button/Btn';
+
+// svg
 import SVGLogo from 'components/svg/SVGLogo';
+import SVGWrite from 'components/svg/SVGWrite';
 import SVGSignin from 'components/svg/SVGSignin';
 import SVGSignup from 'components/svg/SVGSignup';
-import SVGWrite from 'components/svg/SVGWrite';
+import SettingBtn from 'components/setting/SettingBtn';
 import ProfileBtn from 'components/profile/ProfileBtn';
 import NotificationBtn from 'components/notification/NotificationBtn';
-import SettingBtn from 'components/setting/SettingBtn';
 
-export default function Header() {
-  const { isAuthenticated } = useContext(AuthContext);
+import { onSignOut } from 'utils/onSignOut';
 
+export default function Header({
+  isAuthenticated,
+}: {
+  isAuthenticated: boolean;
+}) {
   return (
     <header className={styles.header}>
       <h1>
