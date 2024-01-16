@@ -1,0 +1,15 @@
+.profile__modal {
+  a,
+  button {
+    display: flex;
+    padding: 0.8em;
+    align-items: center;
+    gap: 0.5em;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  li:not(:first-child) {
+    border-top: 1px solid var(--gray03);
+  }
+}

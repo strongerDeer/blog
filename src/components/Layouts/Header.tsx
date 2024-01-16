@@ -9,11 +9,9 @@ import SVGLogo from 'components/svg/SVGLogo';
 import SVGWrite from 'components/svg/SVGWrite';
 import SVGSignin from 'components/svg/SVGSignin';
 import SVGSignup from 'components/svg/SVGSignup';
-import SettingBtn from 'components/setting/SettingBtn';
-import ProfileBtn from 'components/profile/ProfileBtn';
-import NotificationBtn from 'components/notification/NotificationBtn';
-
-import { onSignOut } from 'utils/onSignOut';
+import ProfileModal from 'components/modal/ProfileModal';
+import NotificationModal from 'components/modal/NotificationModal';
+import SettingModal from 'components/modal/SettingModal';
 
 export default function Header({
   isAuthenticated,
@@ -37,11 +35,10 @@ export default function Header({
               <SVGWrite fill="gray00" />
               Write
             </Btn>
-            <ProfileBtn />
-            <NotificationBtn />
-            <button type="button" onClick={onSignOut}>
-              로그아웃
-            </button>
+
+            <ProfileModal />
+
+            <NotificationModal />
           </>
         ) : (
           <>
@@ -57,7 +54,7 @@ export default function Header({
           </>
         )}
 
-        <SettingBtn />
+        <SettingModal />
       </nav>
     </header>
   );

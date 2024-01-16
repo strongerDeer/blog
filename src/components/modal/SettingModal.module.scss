@@ -1,0 +1,15 @@
+.setting__modal {
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  button {
+    height: 4rem;
+  }
+
+  li:not(:first-child) {
+    border-top: 1px solid var(--gray03);
+  }
+}

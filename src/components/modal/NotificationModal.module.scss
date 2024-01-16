@@ -1,0 +1,30 @@
+@import 'styles/var.scss';
+.noti__count {
+  color: var(--primary);
+  color: #fff;
+  padding: 0.1em 0.5em;
+  position: absolute;
+  top: 0.1rem;
+  right: -0.3rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid #fff;
+}
+
+.no__noti {
+  color: #767676;
+  text-align: center;
+  padding: 1em;
+}
+
+.link {
+  @include getColor(background-color, primary, 0.1);
+  margin-top: 0.5rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  font-weight: bold;
+  border-radius: 1rem;
+}
