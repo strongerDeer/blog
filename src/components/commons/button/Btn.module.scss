@@ -9,11 +9,16 @@
   gap: 0.6rem;
 
   background-color: var(--gray01);
-  color: var(--text-primary);
+  border: 1px solid var(--gray02);
+  color: var(--textPrimary);
   border-radius: $borderRadius;
 
   &.fillPrimary {
-    color: var(--gray00);
+    border-width: 0;
+    color: #fff;
+    svg {
+      fill: #fff;
+    }
     border-color: var(--primary);
     background-color: var(--primary);
     &:disabled {

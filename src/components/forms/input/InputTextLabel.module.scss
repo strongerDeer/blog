@@ -6,11 +6,12 @@
   gap: 0.5rem;
 
   .label {
-    color: var(--text-secondary);
+    color: var(--textSecondary);
     font-size: fcSize(12, 14);
   }
   .input {
-    border: 1px solid var(--gray02);
+    border: 1px solid var(--gray03);
+    background-color: var(--gray01);
     padding: 0 1rem;
     height: $inputHeight;
     border-radius: $borderRadius;

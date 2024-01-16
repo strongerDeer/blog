@@ -1,14 +1,5 @@
 @import 'styles/var.scss';
 
-[data-theme='light'] {
-  color: #000;
-  background-color: var(--gray00);
-}
-[data-theme='dark'] {
-  color: #fff;
-  background-color: #333;
-}
-
 .layout {
   display: flex;
   flex-direction: column;

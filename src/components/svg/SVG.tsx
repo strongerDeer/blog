@@ -8,7 +8,7 @@ export default function SVG({
   children,
   width,
   height = width,
-  fill = 'text-primary',
+  fill = 'textPrimary',
 }: SVGProps) {
   return (
     <svg
