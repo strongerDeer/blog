@@ -5,6 +5,7 @@ import SignupPage from 'pages/login/SignupPage';
 import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import ProfilePage from 'pages/profile/ProfilePage';
+import ProfileEditPage from 'pages/profile/ProfileEditPage';
 
 export default function Router({
   isAuthenticated,
@@ -21,8 +22,7 @@ export default function Router({
 
           {/* 프로필 */}
           <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/profile/create" element={<>프로필 생성</>} />
-          <Route path="/profile/edit" element={<>프로필 수정</>} />
+          <Route path="/profile/edit" element={<ProfileEditPage />} />
           <Route path="/profile/:id" element={<>유저 프로필</>} />
 
           {/* 게시물 */}

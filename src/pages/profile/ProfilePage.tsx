@@ -3,7 +3,6 @@ import { useContext } from 'react';
 
 import styles from './ProfilePage.module.scss';
 import { NO_IMG } from 'constants/index';
-import Btn from 'components/commons/button/Btn';
 
 export default function ProfilePage() {
   const { user } = useContext(AuthContext);

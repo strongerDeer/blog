@@ -57,7 +57,7 @@ export default function InputTextLabel(props: InputTextLabelProps) {
         type={type || 'text'}
         id={id}
         name={id}
-        required={required}
+        value={value}
         onChange={onChange ? onChange : onChangeInputText}
         {...rest}
       />

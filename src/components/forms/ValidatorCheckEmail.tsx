@@ -7,10 +7,12 @@ export default function ValidatorCheckEmail({
   value,
   setValue,
   required,
+  disabled,
 }: {
   value: string;
   setValue: any;
   required?: boolean;
+  disabled?: boolean;
 }) {
   const [error, setError] = useState<string | null>(null);
 
@@ -39,6 +41,7 @@ export default function ValidatorCheckEmail({
         value={value}
         onChange={onChange}
         required={required}
+        disabled={disabled}
       />
       {error && (
         <p className={styles.error}>이메일 형식이 올바르지 않습니다.</p>

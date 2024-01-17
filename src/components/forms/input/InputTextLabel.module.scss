@@ -17,5 +17,10 @@
     border-radius: $borderRadius;
 
     width: 100%;
+
+    &:disabled {
+      background-color: var(--gray02);
+      opacity: 0.5;
+    }
   }
 }

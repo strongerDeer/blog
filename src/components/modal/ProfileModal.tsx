@@ -22,7 +22,13 @@ export default function ProfileModal() {
         <li>
           <Link to="/profile">
             <SVGProfile />
-            Profile
+            Mypage
+          </Link>
+        </li>
+        <li>
+          <Link to="/profile/edit">
+            <SVGProfile />
+            Profile Edit
           </Link>
         </li>
         <li>

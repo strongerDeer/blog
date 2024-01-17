@@ -11,7 +11,7 @@ interface InputFileLabelProps {
   id?: string;
   type?: string;
   label?: string;
-  value?: string;
+  value?: string | null;
   setValue?: any;
   required?: boolean;
   disabled?: boolean;

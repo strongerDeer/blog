@@ -12,7 +12,7 @@ import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
 import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 // firebase
-import { app, db, storage } from 'firebaseApp';
+import { app, storage } from 'firebaseApp';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -29,7 +29,7 @@ export default function SignupPage() {
   const navigate = useNavigate();
 
   const [isFilled, setIsFilled] = useState<boolean>(false);
-  const [profileImg, setProfileImg] = useState<string>('');
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [email, setEmail] = useState<string>('');
   const [emailError, setEmailError] = useState<string>('');
   const [nickname, setNickname] = useState<string>('');
@@ -67,11 +67,13 @@ export default function SignupPage() {
       await createUserWithEmailAndPassword(auth, email, password).then(
         async (userCredential) => {
           // 이미지키 생성
-          const imgKey = `${userCredential.user.uid}/${uuidv4()}`;
-          const storageRef = ref(storage, imgKey);
-          const data = await uploadString(storageRef, profileImg, 'data_url');
-          const profileUrl = await getDownloadURL(data?.ref);
-
+          let profileUrl = previewImg;
+          if (previewImg) {
+            const imgKey = `${userCredential.user.uid}/${uuidv4()}`;
+            const storageRef = ref(storage, imgKey);
+            const data = await uploadString(storageRef, previewImg, 'data_url');
+            profileUrl = await getDownloadURL(data?.ref);
+          }
           if (auth.currentUser) {
             try {
               await updateProfile(auth.currentUser, {
@@ -106,8 +108,8 @@ export default function SignupPage() {
         <InputFileImg
           label="프로필 이미지"
           id="user-profile"
-          value={profileImg}
-          setValue={setProfileImg}
+          value={previewImg}
+          setValue={setPreviewImg}
         />
 
         <ValidatorCheckEmail value={email} setValue={setEmail} required />

@@ -28,7 +28,9 @@ export default function LoginxPage() {
       navigate('/');
     } catch (error: any) {
       let errorMsg = error?.code;
-      setErrorMsg(errorMsg);
+      if (errorMsg === 'auth/invalid-login-credentials') {
+        setError('이메일과 비밀번호를 확인해주세요!');
+      }
     }
   };
   return (
@@ -47,7 +49,7 @@ export default function LoginxPage() {
           setValue={setPassword}
         />
 
-        {error && <p className="error">{error}</p>}
+        {error && <p className={styles.error}>{error}</p>}
         <Btn type="submit" fillPrimary>
           로그인
         </Btn>
