@@ -7,6 +7,7 @@ import ProfileEditPage from 'pages/profile/ProfileEditPage';
 import MyPage from 'pages/profile/MyPage';
 import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
+import PostCreatePage from 'pages/post/PostCreatePage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ export default function Router() {
           <Route path="/profile/:id" element={<ProfilePage />} />
 
           {/* 게시물 */}
-          <Route path="/post/create" element={<>게시물 생성</>} />
+          <Route path="/post/create" element={<PostCreatePage />} />
           <Route path="/post/edit/:id" element={<>게시물 수정</>} />
 
           {/* 알림 */}

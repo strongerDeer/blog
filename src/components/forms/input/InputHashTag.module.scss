@@ -1,0 +1,75 @@
+@import 'styles/var.scss';
+
+.hash {
+  label {
+  }
+
+  &__box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    align-items: center;
+    padding: 0.5em;
+    border-radius: $borderRadius;
+    border: 1px solid var(--gray03);
+    transition: all 0.3s;
+
+    &:focus-within {
+      border: 1px solid var(--primary);
+    }
+    input {
+      flex-grow: 1;
+      min-width: 10em;
+      border: none;
+      height: 3rem;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+  }
+
+  &__tag {
+    font-size: 0.9em;
+    border: 1px solid;
+    @include getColor(border-color, primary, 0.5);
+    @include getColor(backgsround-color, primary, 0.5);
+    color: var(--primary);
+    border-radius: 2em;
+    height: 3rem;
+    padding: 0 0.8em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1em;
+    &::before {
+      content: '#';
+    }
+
+    &-del {
+      margin-left: 0.3em;
+    }
+  }
+
+  .hashWrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    align-items: center;
+
+    margin-top: 0.8rem;
+
+    min-height: 3.6rem;
+
+    transition: all 0.2s;
+
+    .hashtags {
+      display: flex;
+      flex-wrap: wrap;
+    }
+  }
+}
