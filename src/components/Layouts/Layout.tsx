@@ -6,15 +6,11 @@ import ThemeContext from 'contexts/ThemeContext';
 import Header from './Header';
 import Footer from './Footer';
 
-type LayoutProps = {
-  isAuthenticated: boolean;
-  children: ReactNode;
-};
-export default function Layout({ isAuthenticated, children }: LayoutProps) {
+export default function Layout({ children }: { children: ReactNode }) {
   const { theme } = useContext(ThemeContext);
   return (
     <div className={styles.layout} data-theme={theme}>
-      <Header isAuthenticated={isAuthenticated} />
+      <Header />
       <div className={styles.content}>{children}</div>
       <Footer />
     </div>

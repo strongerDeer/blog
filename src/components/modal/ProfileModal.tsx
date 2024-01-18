@@ -20,7 +20,7 @@ export default function ProfileModal() {
       btn={<img src={user?.photoURL || NO_IMG} alt="프로필 페이지" />}>
       <ul className={styles.profile__modal}>
         <li>
-          <Link to="/profile">
+          <Link to="/mypage">
             <SVGProfile />
             Mypage
           </Link>

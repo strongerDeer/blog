@@ -1,39 +1,37 @@
-import AuthContext from 'contexts/AuthContext';
-import { useContext } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import styles from './ProfilePage.module.scss';
-import { NO_IMG } from 'constants/index';
+import { db } from 'firebaseApp';
+import { doc, getDoc } from 'firebase/firestore';
+import { UserDataInterface } from 'interface';
+import Profile from 'components/profile/Profile';
+import Loader from 'components/commons/loader/Loader';
 
 export default function ProfilePage() {
-  const { user } = useContext(AuthContext);
+  const userId = useParams().id;
+  const [userData, setUserData] = useState<UserDataInterface | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  return (
-    <div className="max-width">
-      <div className={styles.profile__section}>
-        <h3>About Me</h3>
-        <img
-          src={user?.photoURL ? user.photoURL : NO_IMG}
-          alt=""
-          className={styles.user__img}
-        />
-        <p className={styles.user__name}>{user?.displayName}</p>
+  useEffect(() => {
+    if (userId) {
+      const getUesrData = async () => {
+        const docRef = doc(db, 'users', userId);
+        const docSnap = await getDoc(docRef);
 
-        <p className={styles.user__email}>{user?.email}</p>
+        if (docSnap.exists()) {
+          setUserData(docSnap.data() as UserDataInterface);
+        } else {
+          setUserData(null);
+        }
 
-        <div className={styles.count}>
-          <p>
-            게시글 <strong> 0</strong>
-          </p>
+        setIsLoading(false);
+      };
+      getUesrData();
+    }
+  }, [userId]);
 
-          <p>
-            팔로우 <strong>0</strong>
-          </p>
-
-          <p>
-            팔로잉 <strong> 0</strong>
-          </p>
-        </div>
-      </div>
-    </div>
-  );
+  if (isLoading) {
+    return <Loader />;
+  }
+  return <Profile user={userData} />;
 }

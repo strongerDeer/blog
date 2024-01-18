@@ -1,4 +1,4 @@
-import { app } from 'firebaseApp';
+import { app, db } from 'firebaseApp';
 import {
   GithubAuthProvider,
   GoogleAuthProvider,
@@ -8,8 +8,18 @@ import {
 import { toast } from 'react-toastify';
 
 import Btn from 'components/commons/button/Btn';
+import { doc, setDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 
-export default function SNSLoginBtn({ type }: { type: string }) {
+export default function SNSLoginBtn({
+  type,
+  signup,
+}: {
+  type: string;
+  signup?: boolean;
+}) {
+  const navigate = useNavigate();
+
   const onClickGoogleLogin = async (e: React.MouseEvent<HTMLButtonElement>) => {
     let provider;
 
@@ -27,7 +37,16 @@ export default function SNSLoginBtn({ type }: { type: string }) {
       auth,
       provider as GoogleAuthProvider | GithubAuthProvider,
     )
-      .then((res) => {
+      .then(async (res) => {
+        if (signup) {
+          // 유저 정보 저장
+          await setDoc(doc(db, 'users', res.user.uid), {
+            email: res.user.email,
+            displayName: res.user.displayName,
+            photoURL: res.user.photoURL,
+          });
+        }
+        navigate('/');
         toast.success('로그인 되었습니다.');
       })
       .catch((err) => {

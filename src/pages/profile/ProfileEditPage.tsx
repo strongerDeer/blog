@@ -12,12 +12,7 @@ import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 // firebase
 import { app, storage } from 'firebaseApp';
-import {
-  createUserWithEmailAndPassword,
-  getAuth,
-  updatePassword,
-  updateProfile,
-} from 'firebase/auth';
+import { getAuth, updatePassword, updateProfile } from 'firebase/auth';
 import {
   deleteObject,
   getDownloadURL,
@@ -74,7 +69,7 @@ export default function ProfileEditPage() {
         setIsFilled(false);
       }
     }
-  }, [nickname, password, passwordConfirm]);
+  }, [nickname, password, passwordConfirm, isEmailID]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -126,13 +121,14 @@ export default function ProfileEditPage() {
 
           toast.success('프로필 업데이트 성공!');
 
-          navigate('/profile');
+          navigate('/mypage');
         } catch (error) {
           console.log(error);
         }
       }
     } catch (error: any) {
       let errorMsg = error?.code;
+      console.log(errorMsg);
     }
   };
 

@@ -12,13 +12,13 @@ import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
 import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 // firebase
-import { app, storage } from 'firebaseApp';
+import { app, db, storage } from 'firebaseApp';
 import {
   createUserWithEmailAndPassword,
   getAuth,
   updateProfile,
 } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 
 // lib
@@ -77,6 +77,13 @@ export default function SignupPage() {
           if (auth.currentUser) {
             try {
               await updateProfile(auth.currentUser, {
+                displayName: nickname,
+                photoURL: profileUrl,
+              });
+
+              // 회원정보 리스트 정리
+              await setDoc(doc(db, 'users', userCredential.user.uid), {
+                email: userCredential.user.email,
                 displayName: nickname,
                 photoURL: profileUrl,
               });
@@ -148,8 +155,8 @@ export default function SignupPage() {
       <p className={styles.or}>or</p>
 
       <div className={styles.sns_login}>
-        <SNSLoginBtn type="Google" />
-        <SNSLoginBtn type="GitHub" />
+        <SNSLoginBtn type="Google" signup />
+        <SNSLoginBtn type="GitHub" signup />
       </div>
     </section>
   );

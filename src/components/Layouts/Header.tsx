@@ -12,12 +12,11 @@ import SVGSignup from 'components/svg/SVGSignup';
 import ProfileModal from 'components/modal/ProfileModal';
 import NotificationModal from 'components/modal/NotificationModal';
 import SettingModal from 'components/modal/SettingModal';
+import { useContext } from 'react';
+import AuthContext from 'contexts/AuthContext';
 
-export default function Header({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function Header() {
+  const { user } = useContext(AuthContext);
   return (
     <header className={styles.header}>
       <h1>
@@ -28,7 +27,7 @@ export default function Header({
       </h1>
 
       <nav>
-        {isAuthenticated ? (
+        {user ? (
           <>
             {/* 로그인 */}
             <Btn href="/post/create" className={styles.write_btn} fillPrimary>

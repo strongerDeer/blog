@@ -2,28 +2,26 @@ import { Route, Routes } from 'react-router-dom';
 
 import LoginPage from 'pages/login/LoginPage';
 import SignupPage from 'pages/login/SignupPage';
-import { useContext } from 'react';
-import AuthContext from 'contexts/AuthContext';
 import ProfilePage from 'pages/profile/ProfilePage';
 import ProfileEditPage from 'pages/profile/ProfileEditPage';
+import MyPage from 'pages/profile/MyPage';
+import { useContext } from 'react';
+import AuthContext from 'contexts/AuthContext';
 
-export default function Router({
-  isAuthenticated,
-}: {
-  isAuthenticated: boolean;
-}) {
+export default function Router() {
+  const { user } = useContext(AuthContext);
   return (
     <Routes>
       <Route path="/" element={<>Home</>} />
 
-      {isAuthenticated ? (
+      {user ? (
         <>
           {/* 로그인 */}
 
           {/* 프로필 */}
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="/profile/edit" element={<ProfileEditPage />} />
-          <Route path="/profile/:id" element={<>유저 프로필</>} />
+          <Route path="/profile/:id" element={<ProfilePage />} />
 
           {/* 게시물 */}
           <Route path="/post/create" element={<>게시물 생성</>} />

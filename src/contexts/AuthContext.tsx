@@ -4,24 +4,23 @@ import { ReactNode, createContext, useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app } from 'firebaseApp';
 import { UserDataInterface } from 'interface';
-
-interface AuthProps {
-  children: ReactNode;
-}
+import Loader from 'components/commons/loader/Loader';
 
 const AuthContext = createContext({
   user: null as UserDataInterface | null,
   setUser: null as any,
+  isLoading: true,
 });
 
-export const AuthContextProvider = ({ children }: AuthProps) => {
+export const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const auth = getAuth(app);
   const [currentUser, setCurrentUser] = useState<UserDataInterface | null>(
     null,
   );
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setCurrentUser({
           uid: user.uid,
@@ -33,14 +32,22 @@ export const AuthContextProvider = ({ children }: AuthProps) => {
       } else {
         setCurrentUser(null);
       }
+      setIsLoading(false);
     });
+
+    return () => unsubscribe();
   }, [auth]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <AuthContext.Provider
       value={{
         user: currentUser,
         setUser: setCurrentUser,
+        isLoading: false,
       }}>
       {children}
     </AuthContext.Provider>
