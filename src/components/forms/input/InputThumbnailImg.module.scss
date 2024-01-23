@@ -1,0 +1,102 @@
+@import 'styles/var.scss';
+
+.wrap {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 40/24;
+  position: relative;
+  margin: auto;
+  border-radius: $borderRadius;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  overflow: hidden;
+
+  .preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid var(--gray02);
+    box-sizing: border-box;
+  }
+
+  .input_btn {
+    position: relative;
+    .label,
+    .input {
+      width: 10em;
+      height: 4rem;
+      border-radius: $borderRadius;
+      box-sizing: border-box;
+    }
+    .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+    }
+    .input {
+      outline-offset: 1px;
+    }
+  }
+
+  .label,
+  .btnFind {
+    width: 10em;
+    background-color: var(--gray00);
+    color: var(--textSecondary);
+    border: 1px solid var(--gray03);
+    padding: 0 1em;
+    border-radius: $borderRadius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5em;
+  }
+
+  .del_btn {
+    background-color: var(--gray00);
+    position: absolute;
+
+    border: 2px solid;
+    @include getColor(border-color, statusWarn, 0.3);
+
+    border-radius: 50%;
+    overflow: hidden;
+    width: 3.2rem;
+    height: 3.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 70%;
+      height: auto;
+    }
+  }
+
+  .del_btn {
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .noImg {
+    @include getColor(color, textPrimary, 0.8);
+    background: var(--gray02);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+    .btnGroup {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+}

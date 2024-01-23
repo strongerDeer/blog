@@ -1,0 +1,21 @@
+@import 'styles/var.scss';
+
+.wrap {
+  @include maxWidth(60rem, 3rem);
+  margin-top: 5rem;
+
+  &,
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .btnGroup {
+    border-top: 1px solid var(--gray03);
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.8rem;
+  }
+}

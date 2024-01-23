@@ -78,6 +78,7 @@ export default function InputFileImg(props: InputFileLabelProps) {
       </div>
 
       <img className={styles.preview} src={value ? value : NO_IMG} alt="" />
+
       {value && (
         <button
           type="button"

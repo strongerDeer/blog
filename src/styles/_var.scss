@@ -1,6 +1,6 @@
 // layout
 $maxW: 1200;
-$maxWidth: $maxW + 'rem';
+$maxWidth: $maxW/10 + rem;
 $borderRadius: 0.4em;
 $boxShadow: 5px 5px 2rem 0 rgba(0, 0, 0, 0.05);
 $boxShadowSmall: 3px 3px 1rem 0 rgba(0, 0, 0, 0.15);
@@ -15,6 +15,12 @@ $font: 'Pretendard', san-serif;
 // 반응형 폰트 사이즈
 @function fcSize($min, $max) {
   @return clamp($min * 0.1rem, (100vw / $maxW) * $max, $max * 0.1rem);
+}
+
+@mixin maxWidth($maxWidth, $padding) {
+  width: $maxWidth;
+  max-width: calc(100% - ($padding * 2));
+  margin: 0 auto;
 }
 
 // 컬러
@@ -78,3 +84,9 @@ $dark: (
   투명값 적용
   @include getColor(background-color, primary, 0.5);
 */
+
+.max-width {
+  width: $maxWidth;
+  max-width: calc(100% - 6rem);
+  margin: 0 auto;
+}
