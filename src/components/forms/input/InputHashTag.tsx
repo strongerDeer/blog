@@ -2,9 +2,16 @@ import { useState } from 'react';
 import styles from './InputHashTag.module.scss';
 import { toast } from 'react-toastify';
 import SVGDelete from 'components/svg/SVGDelete';
+import { Dispatch } from '@toast-ui/editor';
 
-export default function InputHashTag() {
-  const [tags, setTags] = useState<string[]>([]);
+export default function InputHashTag({
+  tags,
+  setTags,
+}: {
+  tags: string[];
+  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+}) {
+  // const [tags, setTags] = useState<string[]>([]);
   const [hashtag, setHashtag] = useState<string>('');
 
   const onChangeHashtag = (e: React.ChangeEvent<HTMLInputElement>) => {

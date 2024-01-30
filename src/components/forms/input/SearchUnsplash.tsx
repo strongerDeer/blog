@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import axios from 'axios';
 
@@ -6,6 +6,7 @@ import styles from './SearchUnsplash.module.scss';
 
 interface UnsplashImages {
   total?: number;
+  total_pages?: number;
   results?: UnsplashImage[];
 }
 
@@ -29,6 +30,7 @@ export default function SearchUnsplash({
 }: SearchUnsplashProps) {
   const [keyword, setKeyword] = useState<string>('');
   const [unsplashImages, setUnsplashImages] = useState<UnsplashImages>({});
+  const [pageNum, setPageNum] = useState<number>(1);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
@@ -36,25 +38,44 @@ export default function SearchUnsplash({
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setPageNum(1);
     setUnsplashImg?.(null);
+    getData();
+  };
+
+  const getData = async () => {
     try {
       const res = await axios.get<UnsplashImages>(
         `https://api.unsplash.com/search/photos?query=${keyword}`,
         {
           params: {
             client_id: process.env.REACT_APP_UNSPLASH_ACCESS_KEY,
+            per_page: 12,
+            page: pageNum,
+            order_by: 'popular',
           },
         },
       );
-      console.log(res.data.total);
 
+      console.log('✅', keyword, pageNum);
+      console.log('✅', res);
       setUnsplashImages(res.data);
     } catch (error) {
       console.log(error);
+      setUnsplashImages({ total: 0 });
     }
   };
 
-  console.log(unsplashImages);
+  useEffect(() => {
+    if (unsplashImages.total) {
+      getData();
+    }
+  }, [pageNum]);
+
+  // console.log('✅', pageNum);
+  // console.log('⭐️', unsplashImages);
+
   return (
     <>
       <form onSubmit={handleSearch} className={styles.searchForm}>
@@ -84,7 +105,9 @@ export default function SearchUnsplash({
           {unsplashImages?.total === 0 ? (
             <p>이미지를 찾을 수 없습니다.</p>
           ) : (
-            unsplashImages?.results && (
+            unsplashImages?.results &&
+            unsplashImages?.total &&
+            unsplashImages?.total_pages && (
               <div>
                 <p>
                   <strong>{keyword}</strong>: {unsplashImages?.total} 개
@@ -100,8 +123,26 @@ export default function SearchUnsplash({
                     </li>
                   ))}
                 </ul>
-                <button type="button">이전</button>
-                <button type="button">다음</button>
+                {unsplashImages.total % 10 === unsplashImages?.total_pages ? (
+                  <>ddd</>
+                ) : (
+                  <>???</>
+                )}
+
+                <button
+                  type="button"
+                  onClick={() =>
+                    setPageNum((prev) => (prev > 1 ? prev - 1 : 1))
+                  }
+                  disabled={pageNum === 1}>
+                  이전
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPageNum((prev) => prev + 1)}
+                  disabled={pageNum === unsplashImages.total_pages}>
+                  다음
+                </button>
               </div>
             )
           )}

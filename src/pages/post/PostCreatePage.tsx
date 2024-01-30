@@ -1,14 +1,65 @@
+import { useContext, useState } from 'react';
+
+import styles from './PostCreatePage.module.scss';
+
+// lib
+import { v4 as uuidv4 } from 'uuid';
+
+import AuthContext from 'contexts/AuthContext';
+
+// components
+import SVGWrite from 'components/svg/SVGWrite';
 import Btn from 'components/commons/button/Btn';
 import InputHashTag from 'components/forms/input/InputHashTag';
 import InputTextLabel from 'components/forms/input/InputTextLabel';
-import SVGWrite from 'components/svg/SVGWrite';
-import { useState } from 'react';
-
-import styles from './PostCreatePage.module.scss';
 import InputThumbnailImg from 'components/forms/input/InputThumbnailImg';
-export default function PostCreatePage({ post }: any) {
-  const [previewImg, setPreviewImg] = useState<string>('');
+import { getDownloadURL, ref, uploadString } from 'firebase/storage';
+import { db, storage } from 'firebaseApp';
+import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
 
+export default function PostCreatePage({ post }: any) {
+  const { user } = useContext(AuthContext);
+  const [previewImg, setPreviewImg] = useState<string>('');
+  const [title, setTitle] = useState<string>('');
+  const [contents, setContens] = useState<string>('');
+  const [tags, setTags] = useState<string[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const imgKey = `${user?.uid}/${uuidv4()}`;
+    const storageRef = ref(storage, imgKey);
+
+    try {
+      let imgUrl = '';
+      if (previewImg) {
+        imgUrl = previewImg;
+      } else if (previewImg) {
+        const data = await uploadString(storageRef, previewImg, 'data_url');
+        imgUrl = await getDownloadURL(data?.ref);
+      }
+
+      await addDoc(collection(db, 'posts'), {
+        title: title,
+        // summary: contents,
+        content: contents,
+        createdAt: new Date()?.toLocaleDateString('ko', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }),
+        email: user?.email,
+        uid: user?.uid,
+        // category: category,
+        imgUrl: imgUrl,
+        hashTags: tags,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className={styles.wrap}>
       {/* 오늘 날짜 */}
@@ -19,23 +70,34 @@ export default function PostCreatePage({ post }: any) {
         setValue={setPreviewImg}
       />
 
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={onSubmit}>
         {/* 카테고리 */}
 
         <div>
-          <InputTextLabel label="제목" id="postTitle" maxLength={50} required />
+          <InputTextLabel
+            label="제목"
+            id="postTitle"
+            value={title}
+            setValue={setTitle}
+            maxLength={50}
+            required
+          />
         </div>
 
-        <textarea>내용삽입-에디터사용</textarea>
+        <textarea
+          onChange={(e) => setContens(e.target.value)}
+          placeholder="입력해주세요!"
+          value={contents}
+        />
 
-        <InputHashTag />
+        <InputHashTag tags={tags} setTags={setTags} />
 
         <div className={styles.btnGroup}>
           {/* 
           <Btn></Btn>
           <Btn>삭제</Btn> */}
           <Btn>취소</Btn>
-          <Btn fillPrimary>
+          <Btn type="submit" fillPrimary>
             <SVGWrite />
             {post ? '수정' : '제출'}
           </Btn>
