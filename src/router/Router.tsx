@@ -8,6 +8,7 @@ import MyPage from 'pages/profile/MyPage';
 import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import PostCreatePage from 'pages/post/PostCreatePage';
+import PostListPage from 'pages/post/PostListPage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -41,7 +42,7 @@ export default function Router() {
         </>
       )}
       {/* 게시물 */}
-      <Route path="/posts" element={<>게시물 리스트</>} />
+      <Route path="/post" element={<PostListPage />} />
       <Route path="/post/:id" element={<>게시물 상세</>} />
 
       {/* 팔로우 */}

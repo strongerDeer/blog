@@ -38,9 +38,9 @@ export default function SearchUnsplash({
 
   const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setPageNum(1);
     setUnsplashImg?.(null);
+
     getData();
   };
 
@@ -57,9 +57,7 @@ export default function SearchUnsplash({
           },
         },
       );
-
       console.log('✅', keyword, pageNum);
-      console.log('✅', res);
       setUnsplashImages(res.data);
     } catch (error) {
       console.log(error);

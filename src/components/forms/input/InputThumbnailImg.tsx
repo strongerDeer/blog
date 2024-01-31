@@ -9,6 +9,7 @@ import SVGSearch from 'components/svg/SVGSearch';
 import SearchUnsplash from './SearchUnsplash';
 
 interface InputFileLabelProps {
+  isSubmitting?: boolean;
   id?: string;
   type?: string;
   label?: string;
@@ -23,11 +24,11 @@ interface InputFileLabelProps {
 
 export default function InputThumbnailImg(props: InputFileLabelProps) {
   const {
+    isSubmitting,
     id,
     label,
     labelHidden,
     className,
-
     value,
     setValue,
     style,
@@ -85,6 +86,7 @@ export default function InputThumbnailImg(props: InputFileLabelProps) {
                   name={id}
                   onChange={onChange}
                   ref={fileRef}
+                  disabled={isSubmitting}
                   {...rest}
                 />
                 <label className={styles.label} htmlFor={id}>

@@ -15,15 +15,22 @@ import InputTextLabel from 'components/forms/input/InputTextLabel';
 import InputThumbnailImg from 'components/forms/input/InputThumbnailImg';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import { db, storage } from 'firebaseApp';
-import { addDoc, collection, doc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection } from 'firebase/firestore';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function PostCreatePage({ post }: any) {
+  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
   const [previewImg, setPreviewImg] = useState<string>('');
   const [title, setTitle] = useState<string>('');
   const [contents, setContens] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const goback = () => {
+    navigate(-1);
+  };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,9 +48,10 @@ export default function PostCreatePage({ post }: any) {
         imgUrl = await getDownloadURL(data?.ref);
       }
 
+      // 에디터 변경 작업
+
       await addDoc(collection(db, 'posts'), {
         title: title,
-        // summary: contents,
         content: contents,
         createdAt: new Date()?.toLocaleDateString('ko', {
           hour: '2-digit',
@@ -52,10 +60,14 @@ export default function PostCreatePage({ post }: any) {
         }),
         email: user?.email,
         uid: user?.uid,
+        // 카테고리 추가 작업
         // category: category,
         imgUrl: imgUrl,
         hashTags: tags,
       });
+
+      toast.success('게시글 작성 완료!');
+      navigate('/post');
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +80,7 @@ export default function PostCreatePage({ post }: any) {
         id="post-thumbnail"
         value={previewImg}
         setValue={setPreviewImg}
+        isSubmitting={isSubmitting}
       />
 
       <form className={styles.form} onSubmit={onSubmit}>
@@ -96,13 +109,13 @@ export default function PostCreatePage({ post }: any) {
           {/* 
           <Btn></Btn>
           <Btn>삭제</Btn> */}
-          <Btn>취소</Btn>
+          <Btn onClick={goback}>취소</Btn>
           <Btn type="submit" fillPrimary>
             <SVGWrite />
             {post ? '수정' : '제출'}
           </Btn>
         </div>
-        <Btn>뒤로가기</Btn>
+        <Btn onClick={goback}>뒤로가기</Btn>
       </form>
     </div>
   );

@@ -1,0 +1,126 @@
+@import 'styles/var.scss';
+
+@mixin ellipse($num: 1, $lineHeight: 1.4) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+
+  height: calc(1em * $num * $lineHeight);
+}
+
+.post {
+  position: relative;
+
+  & > a {
+    display: block;
+    border-radius: 1rem;
+    overflow: hidden;
+    background-color: white;
+  }
+
+  .post__button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    display: flex;
+    gap: 0.4em;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.4rem 2.4rem;
+    box-sizing: border-box;
+  }
+}
+
+.post_thumbnail {
+  width: 100%;
+  aspect-ratio: 288/180;
+  object-fit: cover;
+  border-bottom: 1px solid #eee;
+}
+.post_text {
+  padding: 1.6rem 2.4rem 8rem;
+  line-height: 1.4;
+  .post_text_category {
+    width: fit-content;
+    color: var(--primary);
+    font-size: 1.2rem;
+    background-color: #f5f5f5;
+    border-radius: 2em;
+    padding: 0.2em 1em 0.1em;
+    margin-bottom: 1em;
+  }
+  .post_text_title {
+    @include ellipse(2);
+    font-size: fcSize(16, 18);
+  }
+  .post_text_profile {
+    font-size: 1.2rem;
+    color: #767676;
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    margin: 0.8rem 0 1.6rem;
+
+    .post_text_author {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      img {
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+      }
+      &::after {
+        content: '|';
+        color: #ccc;
+        margin-left: 0.5em;
+      }
+    }
+  }
+  .post_text_content {
+    @include ellipse(3);
+    font-size: fcSize(12, 14);
+    color: #767676;
+  }
+}
+
+.default__button {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btnGroup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  a,
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4rem;
+    height: 4rem;
+    transition: all 0.3s;
+    border-radius: 50%;
+    svg {
+      width: 55%;
+      height: auto;
+      transition: all 0.3s;
+    }
+  }
+  a:hover {
+    @include getColor(background-color, primary, 0.1);
+
+    svg {
+      fill: var(--primary);
+    }
+  }
+  button:hover {
+    @include getColor(background-color, statusWarn, 0.1);
+  }
+}
