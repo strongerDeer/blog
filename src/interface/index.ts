@@ -1,6 +1,6 @@
 export interface UserDataInterface {
-  uid: string | null;
-  email: string | null;
+  uid?: string | null;
+  email?: string | null;
   displayName?: string | null;
   photoURL?: string | null;
   provider?: string | null;
@@ -34,4 +34,12 @@ export interface PostInterface {
   like?: string;
   likeCount?: number;
   hashTags?: string[];
+}
+
+export interface FollowInterface {
+  uid: string;
+  id?: string;
+  displayName?: string;
+  email?: string;
+  photoURL?: string;
 }

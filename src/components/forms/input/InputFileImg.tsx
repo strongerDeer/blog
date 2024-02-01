@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import styles from './InputFileImg.module.scss';
 import classNames from 'classnames';
 
-import { NO_IMG } from 'constants/index';
+import { NO_PROFILE } from 'constants/index';
 import SVGImage from 'components/svg/SVGImage';
 import SVGClose from 'components/svg/SVGClose';
 
@@ -77,7 +77,7 @@ export default function InputFileImg(props: InputFileLabelProps) {
         </label>
       </div>
 
-      <img className={styles.preview} src={value ? value : NO_IMG} alt="" />
+      <img className={styles.preview} src={value ? value : NO_PROFILE} alt="" />
 
       {value && (
         <button

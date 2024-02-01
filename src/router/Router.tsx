@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import PostCreatePage from 'pages/post/PostCreatePage';
 import PostListPage from 'pages/post/PostListPage';
+import PostEditPage from 'pages/post/PostEditPage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -27,7 +28,7 @@ export default function Router() {
 
           {/* 게시물 */}
           <Route path="/post/create" element={<PostCreatePage />} />
-          <Route path="/post/edit/:id" element={<>게시물 수정</>} />
+          <Route path="/post/edit/:id" element={<PostEditPage />} />
 
           {/* 알림 */}
           <Route path="/notifications" element={<>알림 목록</>} />

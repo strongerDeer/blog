@@ -57,7 +57,7 @@ export default function SearchUnsplash({
           },
         },
       );
-      console.log('✅', keyword, pageNum);
+
       setUnsplashImages(res.data);
     } catch (error) {
       console.log(error);
@@ -70,9 +70,6 @@ export default function SearchUnsplash({
       getData();
     }
   }, [pageNum]);
-
-  // console.log('✅', pageNum);
-  // console.log('⭐️', unsplashImages);
 
   return (
     <>

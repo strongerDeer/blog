@@ -4,6 +4,8 @@ import { db } from 'firebaseApp';
 import { PostInterface } from 'interface';
 import { useEffect, useState } from 'react';
 
+import styles from './PostListPage.module.scss';
+
 export default function PostListPage() {
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
@@ -22,14 +24,10 @@ export default function PostListPage() {
 
   return (
     <>
-      PostPage
-      <ul>
+      <ul className={styles.post__list}>
         {posts?.length > 0 ? (
-          posts.map((post: any) => (
-            <>
-              {post.title}
-              <PostCardItem key={post.id} post={post} />
-            </>
+          posts.map((post: PostInterface) => (
+            <PostCardItem key={post.id} post={post} />
           ))
         ) : (
           <p>게시글이 없습니다.</p>

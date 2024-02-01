@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from './ProfileModal.module.scss';
 import Modal from './Modal';
 
-import { NO_IMG } from 'constants/index';
+import { NO_PROFILE } from 'constants/index';
 import { onSignOut } from 'utils/onSignOut';
 
 import SVGProfile from 'components/svg/SVGProfile';
@@ -17,7 +17,7 @@ export default function ProfileModal() {
   return (
     <Modal
       type="profile"
-      btn={<img src={user?.photoURL || NO_IMG} alt="프로필 페이지" />}>
+      btn={<img src={user?.photoURL || NO_PROFILE} alt="프로필 페이지" />}>
       <ul className={styles.profile__modal}>
         <li>
           <Link to="/mypage">

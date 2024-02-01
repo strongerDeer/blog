@@ -1,6 +1,6 @@
 import { UserDataInterface } from 'interface';
 import styles from './Profile.module.scss';
-import { NO_IMG } from 'constants/index';
+import { NO_PROFILE } from 'constants/index';
 
 export default function Profile({ user }: { user: UserDataInterface | null }) {
   return (
@@ -8,7 +8,7 @@ export default function Profile({ user }: { user: UserDataInterface | null }) {
       <div className={styles.profile__section}>
         <h3>About Me</h3>
         <img
-          src={user?.photoURL ? user.photoURL : NO_IMG}
+          src={user?.photoURL ? user.photoURL : NO_PROFILE}
           alt=""
           className={styles.user__img}
         />

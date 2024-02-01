@@ -22,7 +22,7 @@ import { useNavigate } from 'react-router-dom';
 export default function PostCreatePage({ post }: any) {
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
-  const [previewImg, setPreviewImg] = useState<string>('');
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
   const [title, setTitle] = useState<string>('');
   const [contents, setContens] = useState<string>('');
   const [tags, setTags] = useState<string[]>([]);
@@ -40,12 +40,14 @@ export default function PostCreatePage({ post }: any) {
     const storageRef = ref(storage, imgKey);
 
     try {
-      let imgUrl = '';
+      let imgUrl = null;
       if (previewImg) {
-        imgUrl = previewImg;
-      } else if (previewImg) {
-        const data = await uploadString(storageRef, previewImg, 'data_url');
-        imgUrl = await getDownloadURL(data?.ref);
+        if (previewImg.includes('unsplash')) {
+          imgUrl = previewImg;
+        } else {
+          const data = await uploadString(storageRef, previewImg, 'data_url');
+          imgUrl = await getDownloadURL(data?.ref);
+        }
       }
 
       // 에디터 변경 작업
@@ -68,6 +70,10 @@ export default function PostCreatePage({ post }: any) {
 
       toast.success('게시글 작성 완료!');
       navigate('/post');
+
+      setTags([]);
+      setPreviewImg(null);
+      setIsSubmitting(false);
     } catch (error) {
       console.log(error);
     }
