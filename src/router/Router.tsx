@@ -10,6 +10,7 @@ import AuthContext from 'contexts/AuthContext';
 import PostCreatePage from 'pages/post/PostCreatePage';
 import PostListPage from 'pages/post/PostListPage';
 import PostEditPage from 'pages/post/PostEditPage';
+import PostViewPage from 'pages/post/PostViewPage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -44,7 +45,7 @@ export default function Router() {
       )}
       {/* 게시물 */}
       <Route path="/post" element={<PostListPage />} />
-      <Route path="/post/:id" element={<>게시물 상세</>} />
+      <Route path="/post/:id" element={<PostViewPage />} />
 
       {/* 팔로우 */}
       <Route path="/follwers" element={<>팔로우 목록</>} />
