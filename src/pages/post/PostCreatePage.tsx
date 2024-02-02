@@ -18,6 +18,7 @@ import { db, storage } from 'firebaseApp';
 import { addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import BackBtn from 'components/commons/button/BackBtn';
 
 export default function PostCreatePage({ post }: any) {
   const navigate = useNavigate();
@@ -121,7 +122,8 @@ export default function PostCreatePage({ post }: any) {
             {post ? '수정' : '제출'}
           </Btn>
         </div>
-        <Btn onClick={goback}>뒤로가기</Btn>
+
+        <BackBtn />
       </form>
     </div>
   );
