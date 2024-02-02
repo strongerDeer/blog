@@ -1,0 +1,144 @@
+@import 'styles/var.scss';
+
+.main_img {
+  position: relative;
+  height: fcSize(200, 420);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.content_img {
+  width: 100%;
+  aspect-ratio: 3/1;
+  object-fit: cover;
+  margin-bottom: 2em;
+}
+.post {
+  @include maxWidth(91.2rem, 3rem);
+  padding: 7.6rem 8rem;
+  box-sizing: border-box;
+  box-shadow: $boxShadow;
+  border-radius: $borderRadius * 3;
+  background-color: var(--gray00);
+
+  margin-top: calc(fcSize(100, 300) * -1);
+  position: relative;
+  z-index: 10;
+
+  .postionBtn {
+    position: absolute;
+    top: 6rem;
+    left: 0;
+  }
+
+  .btnGroup {
+    position: absolute;
+    top: 6rem;
+    right: 6rem;
+
+    height: 6.2rem;
+    display: flex;
+    gap: 0.4em;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  &__profile-box {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    color: #767676;
+
+    margin-bottom: 3rem;
+  }
+
+  &__author {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    img {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--gray01);
+    }
+  }
+
+  &__category {
+    width: fit-content;
+    padding: 0.4em 1.2em;
+    border-radius: 2em;
+    color: var(--primary);
+    background-color: #f5f5f5;
+    margin-bottom: 2.4rem;
+  }
+  &__date {
+    border-left: 1px solid #ccc;
+    padding-left: 1em;
+    line-height: 1;
+  }
+
+  &__title {
+    font-size: fcSize(24, 32);
+
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+  }
+
+  &__content {
+    line-height: 1.6;
+    text-align: justify;
+    letter-spacing: -0.01em;
+  }
+}
+
+.hashtags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+
+  margin-top: 4rem;
+
+  .hashtag {
+    font-size: 0.9em;
+
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2em;
+    @include getColor(border-color, primary, 0.5);
+
+    color: var(--primary);
+    @include getColor(background-color, primary, 0.05);
+
+    height: 3rem;
+    padding: 0 0.8em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.1em;
+    &::before {
+      content: '#';
+    }
+
+    .hash_del {
+      margin-left: 0.3em;
+    }
+  }
+}
