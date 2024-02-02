@@ -11,7 +11,7 @@ import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
 import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
 
 // firebase
-import { app, storage } from 'firebaseApp';
+import { app, db, storage } from 'firebaseApp';
 import { getAuth, updatePassword, updateProfile } from 'firebase/auth';
 import {
   deleteObject,
@@ -24,6 +24,7 @@ import {
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import AuthContext from 'contexts/AuthContext';
+import { doc, updateDoc } from 'firebase/firestore';
 
 const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
 
@@ -108,6 +109,13 @@ export default function ProfileEditPage() {
             displayName: nickname,
             photoURL: profileUrl || '',
           });
+
+          if (user?.uid) {
+            await updateDoc(doc(db, 'users', user.uid), {
+              displayName: nickname,
+              photoURL: profileUrl || '',
+            });
+          }
 
           if (password) {
             await updatePassword(auth.currentUser, password);
