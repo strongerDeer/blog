@@ -1,22 +1,26 @@
 import { Route, Routes } from 'react-router-dom';
 
+import MyPage from 'pages/profile/MyPage';
+import { useContext } from 'react';
+import AuthContext from 'contexts/AuthContext';
+
 import LoginPage from 'pages/login/LoginPage';
 import SignupPage from 'pages/login/SignupPage';
 import ProfilePage from 'pages/profile/ProfilePage';
 import ProfileEditPage from 'pages/profile/ProfileEditPage';
-import MyPage from 'pages/profile/MyPage';
-import { useContext } from 'react';
-import AuthContext from 'contexts/AuthContext';
 import PostCreatePage from 'pages/post/PostCreatePage';
 import PostListPage from 'pages/post/PostListPage';
 import PostEditPage from 'pages/post/PostEditPage';
 import PostViewPage from 'pages/post/PostViewPage';
+import FollowingListPage from 'pages/follow/FollowingListPage';
+import FollowerListPage from 'pages/follow/FollowerListPage';
+import HomePage from 'pages/home/HomePage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
   return (
     <Routes>
-      <Route path="/" element={<>Home</>} />
+      <Route path="/" element={<HomePage />} />
 
       {user ? (
         <>
@@ -48,8 +52,8 @@ export default function Router() {
       <Route path="/post/:id" element={<PostViewPage />} />
 
       {/* 팔로우 */}
-      <Route path="/follwers" element={<>팔로우 목록</>} />
-      <Route path="/follwings" element={<>팔로잉 목록</>} />
+      <Route path="/follwers" element={<FollowerListPage />} />
+      <Route path="/follwings" element={<FollowingListPage />} />
 
       {/* 검색 */}
       <Route path="/search" element={<>검색</>} />

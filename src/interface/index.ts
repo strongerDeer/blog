@@ -4,6 +4,8 @@ export interface UserDataInterface {
   displayName?: string | null;
   photoURL?: string | null;
   provider?: string | null;
+  followingList?: string[] | null;
+  followerList?: string[] | null;
 }
 
 export interface NotificationsInterface {

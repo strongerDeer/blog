@@ -4,5 +4,10 @@ import { useContext } from 'react';
 
 export default function MyPage() {
   const { user } = useContext(AuthContext);
-  return <Profile user={user} />;
+
+  if (user?.uid) {
+    return <Profile user={user} userId={user.uid} />;
+  } else {
+    return null;
+  }
 }
