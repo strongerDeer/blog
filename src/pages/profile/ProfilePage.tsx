@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { db } from 'firebaseApp';
@@ -6,8 +6,10 @@ import { doc, getDoc } from 'firebase/firestore';
 import { UserDataInterface } from 'interface';
 import Profile from 'components/profile/Profile';
 import Loader from 'components/commons/loader/Loader';
+import AuthContext from 'contexts/AuthContext';
 
 export default function ProfilePage() {
+  const { user } = useContext(AuthContext);
   const userId = useParams().id;
   const [userData, setUserData] = useState<UserDataInterface | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,5 +35,5 @@ export default function ProfilePage() {
   if (isLoading) {
     return <Loader />;
   }
-  return <Profile user={userData} />;
+  return <Profile />;
 }

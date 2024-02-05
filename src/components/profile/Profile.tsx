@@ -6,28 +6,29 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import { useParams } from 'react-router-dom';
 import useFindUser from 'hooks/useFindUser';
+import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { db } from 'firebaseApp';
 
-export default function Profile({
-  user,
-  userId,
-}: {
-  user: UserDataInterface | null;
-  userId?: string;
-}) {
+export default function Profile({ loginId }: { loginId?: string }) {
+  const { user } = useContext(AuthContext);
   const id = useParams().id;
-
-  const { user: loginUser } = useContext(AuthContext);
-  const { findUser: profileUser } = useFindUser(id);
-
   const [userData, setUserData] = useState<UserDataInterface | null>(null);
+
+  const getUserData = async (id: string) => {
+    const docRef = doc(db, 'users', id);
+
+    onSnapshot(docRef, (doc) => {
+      setUserData(doc.data() as UserDataInterface);
+    });
+  };
 
   useEffect(() => {
     if (id) {
-      setUserData(profileUser);
-    } else {
-      setUserData(loginUser);
+      getUserData(id);
+    } else if (user?.uid) {
+      getUserData(user?.uid);
     }
-  }, [id, loginUser, profileUser]);
+  }, [id, user?.uid]);
 
   return (
     <div className="max-width">
@@ -36,13 +37,13 @@ export default function Profile({
 
         <>
           <img
-            src={user?.photoURL ? user.photoURL : NO_PROFILE}
+            src={userData?.photoURL ? userData.photoURL : NO_PROFILE}
             alt=""
             className={styles.user__img}
           />
-          <p className={styles.user__name}>{user?.displayName}</p>
+          <p className={styles.user__name}>{userData?.displayName}</p>
 
-          <p className={styles.user__email}>{user?.email}</p>
+          <p className={styles.user__email}>{userData?.email}</p>
 
           <div className={styles.count}>
             <p>
@@ -64,9 +65,7 @@ export default function Profile({
             </p>
           </div>
 
-          {id !== loginUser?.uid && id && loginUser?.uid && (
-            <FollowBtn loginId={loginUser.uid} uid={id} />
-          )}
+          {id && user?.uid && <FollowBtn loginId={user?.uid} profileId={id} />}
         </>
       </div>
     </div>

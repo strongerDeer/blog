@@ -37,6 +37,20 @@ export default function Router() {
 
           {/* 알림 */}
           <Route path="/notifications" element={<>알림 목록</>} />
+
+          {/* 팔로우 */}
+          {user.uid && (
+            <>
+              <Route
+                path="/follwers"
+                element={<FollowerListPage loginId={user.uid} />}
+              />
+              <Route
+                path="/follwings"
+                element={<FollowingListPage loginId={user.uid} />}
+              />
+            </>
+          )}
         </>
       ) : (
         <>
@@ -50,10 +64,6 @@ export default function Router() {
       {/* 게시물 */}
       <Route path="/post" element={<PostListPage />} />
       <Route path="/post/:id" element={<PostViewPage />} />
-
-      {/* 팔로우 */}
-      <Route path="/follwers" element={<FollowerListPage />} />
-      <Route path="/follwings" element={<FollowingListPage />} />
 
       {/* 검색 */}
       <Route path="/search" element={<>검색</>} />
