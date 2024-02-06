@@ -86,7 +86,5 @@ $dark: (
 */
 
 .max-width {
-  width: $maxWidth;
-  max-width: calc(100% - 6rem);
-  margin: 0 auto;
+  @include maxWidth($maxWidth, 3rem);
 }

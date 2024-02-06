@@ -12,6 +12,7 @@ import useFindUser from 'hooks/useFindUser';
 import { UserDataInterface } from 'interface';
 
 import { useCallback, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 interface FollowBtnProps {
@@ -21,6 +22,8 @@ interface FollowBtnProps {
 }
 
 export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
+  const pathname = useLocation().pathname;
+
   const { findUser: loginUser } = useFindUser(loginId);
   const { findUser: profileUser } = useFindUser(profileId);
   const [followers, setFollowers] = useState<string[]>([]);
@@ -58,34 +61,38 @@ export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
   };
 
   const onDeleteFollow = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    try {
-      if (loginId && profileId) {
-        // 로그인한 사용자 : 팔로잉에 삭제
-        const followingRef = doc(db, 'users', loginId);
+    const confirm = window.confirm('팔로우를 취소할까요?');
 
-        await updateDoc(followingRef, {
-          followingList: arrayRemove({
-            uid: profileId,
-            displayName: profileUser?.displayName,
-            email: profileUser?.email,
-            photoURL: profileUser?.photoURL,
-          }),
-        });
+    if (confirm) {
+      try {
+        if (loginId && profileId) {
+          // 로그인한 사용자 : 팔로잉에 삭제
+          const followingRef = doc(db, 'users', loginId);
 
-        // 팔로우 당하는 사용자: 팔로우에 삭제
-        const followerRef = doc(db, 'users', profileId);
-        await updateDoc(followerRef, {
-          followerList: arrayRemove({
-            uid: loginId,
-            displayName: loginUser?.displayName,
-            email: loginUser?.email,
-            photoURL: loginUser?.photoURL,
-          }),
-        });
+          await updateDoc(followingRef, {
+            followingList: arrayRemove({
+              uid: profileId,
+              displayName: profileUser?.displayName,
+              email: profileUser?.email,
+              photoURL: profileUser?.photoURL,
+            }),
+          });
+
+          // 팔로우 당하는 사용자: 팔로우에 삭제
+          const followerRef = doc(db, 'users', profileId);
+          await updateDoc(followerRef, {
+            followerList: arrayRemove({
+              uid: loginId,
+              displayName: loginUser?.displayName,
+              email: loginUser?.email,
+              photoURL: loginUser?.photoURL,
+            }),
+          });
+        }
+        toast.success('팔로우 취소하였습니다!');
+      } catch (error) {
+        console.log(error);
       }
-      toast.success('팔로우 취소하였습니다!');
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -115,7 +122,9 @@ export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
       {loginId && followers?.includes(loginId) ? (
         <Btn onClick={onDeleteFollow}>팔로잉 취소</Btn>
       ) : (
-        <Btn onClick={onFollow}>팔로잉 하기</Btn>
+        <Btn onClick={onFollow} fillPrimary>
+          팔로잉 하기
+        </Btn>
       )}
     </>
   );

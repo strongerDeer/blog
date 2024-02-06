@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import useFindUser from 'hooks/useFindUser';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from 'firebaseApp';
+import { Link } from 'react-router-dom';
 
 export default function Profile({ loginId }: { loginId?: string }) {
   const { user } = useContext(AuthContext);
@@ -50,19 +51,19 @@ export default function Profile({ loginId }: { loginId?: string }) {
               게시글 <strong> 0</strong>
             </p>
 
-            <p>
+            <Link to="/followers">
               팔로우{' '}
               <strong>
                 {userData?.followerList ? userData?.followerList?.length : 0}
               </strong>
-            </p>
+            </Link>
 
-            <p>
+            <Link to="/followings">
               팔로잉{' '}
               <strong>
                 {userData?.followingList ? userData?.followingList?.length : 0}
               </strong>
-            </p>
+            </Link>
           </div>
 
           {id && user?.uid && <FollowBtn loginId={user?.uid} profileId={id} />}

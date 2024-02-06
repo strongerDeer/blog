@@ -1,0 +1,58 @@
+@import 'styles/var.scss';
+
+.follow_wrap {
+  @include maxWidth(40rem, 3rem);
+
+  margin-top: 6rem;
+
+  .title {
+    margin-bottom: 1em;
+    padding: 1rem;
+
+    border-bottom: 1px solid var(--gray03);
+    &::first-letter {
+      text-transform: uppercase;
+    }
+    strong {
+      color: var(--primary);
+      margin-left: 0.5em;
+    }
+  }
+}
+
+.follow_list {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  .follow_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+
+    a {
+      display: flex;
+      gap: 1em;
+      align-items: center;
+
+      img {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--gray02);
+      }
+      .user_text {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2em;
+        strong {
+          font-size: 1.1em;
+        }
+        span {
+          color: var(--textSecondary);
+        }
+      }
+    }
+  }
+}

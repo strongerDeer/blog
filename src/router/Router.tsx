@@ -42,11 +42,11 @@ export default function Router() {
           {user.uid && (
             <>
               <Route
-                path="/follwers"
+                path="/followers"
                 element={<FollowerListPage loginId={user.uid} />}
               />
               <Route
-                path="/follwings"
+                path="/followings"
                 element={<FollowingListPage loginId={user.uid} />}
               />
             </>
