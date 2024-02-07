@@ -13,6 +13,7 @@ import { NO_IMG, NO_PROFILE } from 'constants/index';
 import BackBtn from 'components/commons/button/BackBtn';
 import AuthContext from 'contexts/AuthContext';
 import SVGEdit from 'components/svg/SVGEdit';
+import CommentContainer from 'components/comments/CommentContainer';
 
 export default function PostViewPage() {
   const params = useParams();
@@ -92,7 +93,7 @@ export default function PostViewPage() {
 
             <BackBtn className={styles.postionBtn} />
 
-            {/* 코멘트 입력 */}
+            <CommentContainer post={post} />
           </>
         ) : (
           <Loader />

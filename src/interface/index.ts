@@ -30,7 +30,7 @@ export interface PostInterface {
   updateAt: string;
   uid: string;
   // category: CategoryType;
-  // comments: CommentsInterface[];
+  comments: CommentsInterface[];
   commentsCount?: number;
   imgUrl: string;
   like?: string;
@@ -44,4 +44,13 @@ export interface FollowInterface {
   displayName?: string;
   email?: string;
   photoURL?: string;
+}
+
+export interface CommentsInterface {
+  content: string;
+  uid: string;
+  email: string;
+  nickname: string;
+  profileURL: string;
+  createdAt: string;
 }
