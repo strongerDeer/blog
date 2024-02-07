@@ -25,8 +25,7 @@ import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
 import AuthContext from 'contexts/AuthContext';
 import { doc, updateDoc } from 'firebase/firestore';
-
-const STORAGE_DOWNLOAD_URL_STR = 'https://firebasestorage.googleapis.com';
+import { STORAGE_DOWNLOAD_URL_STR } from 'constants/index';
 
 export default function ProfileEditPage() {
   const { user, setUser } = useContext(AuthContext);
