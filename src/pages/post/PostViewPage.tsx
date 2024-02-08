@@ -18,6 +18,7 @@ import SVGEdit from 'components/svg/SVGEdit';
 import CommentContainer from 'components/comments/CommentContainer';
 import classNames from 'classnames';
 import TodayImage from 'components/post/TodayImage';
+import LikeBtn from 'components/commons/button/LikeBtn';
 
 export default function PostViewPage() {
   const params = useParams();
@@ -79,18 +80,21 @@ export default function PostViewPage() {
               ))}
             </p>
 
-            {user?.email === post?.email && (
-              <div className={styles.btnGroup}>
-                <Link
-                  to={`/post/edit/${post?.id}`}
-                  className={styles['post__edit']}>
-                  <SVGEdit />
-                  <span className="a11y-hidden">수정</span>
-                </Link>
+            <div className={styles.btnGroup}>
+              <LikeBtn post={post} />
+              {user?.email === post?.email && (
+                <>
+                  <Link
+                    to={`/post/edit/${post?.id}`}
+                    className={styles['post__edit']}>
+                    <SVGEdit />
+                    <span className="a11y-hidden">수정</span>
+                  </Link>
 
-                <BtnDeletePost post={post} />
-              </div>
-            )}
+                  <BtnDeletePost post={post} />
+                </>
+              )}
+            </div>
 
             <BackBtn className="backBtn" />
 
