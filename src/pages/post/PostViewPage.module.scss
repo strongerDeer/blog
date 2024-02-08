@@ -1,52 +1,13 @@
 @import 'styles/var.scss';
 
-.main_img {
-  position: relative;
-  height: fcSize(200, 420);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-}
-
 .content_img {
   width: 100%;
   aspect-ratio: 3/1;
   object-fit: cover;
   margin-bottom: 2em;
 }
+
 .post {
-  @include maxWidth(91.2rem, 3rem);
-  padding: 7.6rem 8rem;
-  box-sizing: border-box;
-  box-shadow: $boxShadow;
-  border-radius: $borderRadius * 3;
-  background-color: var(--gray00);
-
-  margin-top: calc(fcSize(100, 300) * -1);
-  position: relative;
-  z-index: 10;
-
-  .postionBtn {
-    position: absolute;
-    top: 6rem;
-    left: 0;
-  }
-
   .btnGroup {
     position: absolute;
     top: 6rem;
@@ -60,6 +21,7 @@
   }
 
   &__profile-box {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     gap: 1em;

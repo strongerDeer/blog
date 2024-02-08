@@ -1,9 +1,6 @@
 @import 'styles/var.scss';
 
 .wrap {
-  @include maxWidth(60rem, 3rem);
-  margin-top: 5rem;
-
   &,
   .form {
     display: flex;

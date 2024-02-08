@@ -1,5 +1,6 @@
 import { useContext, useState } from 'react';
 
+import './wrap.scss';
 import styles from './PostCreatePage.module.scss';
 
 // lib
@@ -19,6 +20,8 @@ import { addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import BackBtn from 'components/commons/button/BackBtn';
+import classNames from 'classnames';
+import TodayImage from 'components/post/TodayImage';
 
 export default function PostCreatePage({ post }: any) {
   const navigate = useNavigate();
@@ -80,51 +83,53 @@ export default function PostCreatePage({ post }: any) {
     }
   };
   return (
-    <div className={styles.wrap}>
-      {/* 오늘 날짜 */}
-      <InputThumbnailImg
-        label="썸네일 이미지"
-        id="post-thumbnail"
-        value={previewImg}
-        setValue={setPreviewImg}
-        isSubmitting={isSubmitting}
-      />
-
-      <form className={styles.form} onSubmit={onSubmit}>
-        {/* 카테고리 */}
-
-        <div>
-          <InputTextLabel
-            label="제목"
-            id="postTitle"
-            value={title}
-            setValue={setTitle}
-            maxLength={50}
-            required
-          />
-        </div>
-
-        <textarea
-          onChange={(e) => setContens(e.target.value)}
-          placeholder="입력해주세요!"
-          value={contents}
+    <>
+      <TodayImage />
+      <div className={classNames('wrap', styles.wrap)}>
+        <InputThumbnailImg
+          label="썸네일 이미지"
+          id="post-thumbnail"
+          value={previewImg}
+          setValue={setPreviewImg}
+          isSubmitting={isSubmitting}
         />
 
-        <InputHashTag tags={tags} setTags={setTags} />
+        <form className={styles.form} onSubmit={onSubmit}>
+          {/* 카테고리 */}
 
-        <div className={styles.btnGroup}>
-          {/* 
-          <Btn></Btn>
-          <Btn>삭제</Btn> */}
-          <Btn onClick={goback}>취소</Btn>
-          <Btn type="submit" fillPrimary>
-            <SVGWrite />
-            {post ? '수정' : '제출'}
-          </Btn>
-        </div>
+          <div>
+            <InputTextLabel
+              label="제목"
+              id="postTitle"
+              value={title}
+              setValue={setTitle}
+              maxLength={50}
+              required
+            />
+          </div>
 
-        <BackBtn />
-      </form>
-    </div>
+          <textarea
+            onChange={(e) => setContens(e.target.value)}
+            placeholder="입력해주세요!"
+            value={contents}
+          />
+
+          <InputHashTag tags={tags} setTags={setTags} />
+
+          <div className={styles.btnGroup}>
+            {/* 
+            <Btn></Btn>
+            <Btn>삭제</Btn> */}
+            <Btn onClick={goback}>취소</Btn>
+            <Btn type="submit" fillPrimary>
+              <SVGWrite />
+              {post ? '수정' : '제출'}
+            </Btn>
+          </div>
+
+          <BackBtn className="backBtn" />
+        </form>
+      </div>
+    </>
   );
 }

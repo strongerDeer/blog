@@ -6,6 +6,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from './PostViewPage.module.scss';
+import './wrap.scss';
+
 import { Link } from 'react-router-dom';
 import BtnDeletePost from 'components/commons/button/DeletePostBtn';
 import useFindUser from 'hooks/useFindUser';
@@ -14,6 +16,8 @@ import BackBtn from 'components/commons/button/BackBtn';
 import AuthContext from 'contexts/AuthContext';
 import SVGEdit from 'components/svg/SVGEdit';
 import CommentContainer from 'components/comments/CommentContainer';
+import classNames from 'classnames';
+import TodayImage from 'components/post/TodayImage';
 
 export default function PostViewPage() {
   const params = useParams();
@@ -40,12 +44,9 @@ export default function PostViewPage() {
 
   return (
     <>
-      {/* today */}
-      <div className={styles.main_img}>
-        <img src={post?.imgUrl ? post?.imgUrl : NO_IMG} alt="" />
-      </div>
+      <TodayImage imgUrl={post?.imgUrl} />
 
-      <main className={styles.post}>
+      <main className={classNames('wrap', styles.post)}>
         {post ? (
           <>
             <div className={styles['post__profile-box']}>
@@ -91,7 +92,7 @@ export default function PostViewPage() {
               </div>
             )}
 
-            <BackBtn className={styles.postionBtn} />
+            <BackBtn className="backBtn" />
 
             <CommentContainer post={post} />
           </>

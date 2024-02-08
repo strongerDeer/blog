@@ -1,0 +1,18 @@
+@import 'styles/var.scss';
+.wrap {
+  @include maxWidth(91.2rem, 3rem);
+  margin-top: calc(fcSize(100, 300) * -1);
+  padding: 7.6rem 8rem;
+  box-sizing: border-box;
+  box-shadow: $boxShadow;
+  border-radius: $borderRadius * 3;
+  background-color: var(--gray00);
+  position: relative;
+  z-index: 10;
+}
+
+.backBtn {
+  position: absolute;
+  top: 7.6rem;
+  left: 0;
+}
