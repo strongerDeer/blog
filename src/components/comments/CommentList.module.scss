@@ -1,0 +1,78 @@
+@import 'styles/var.scss';
+.comment_list {
+  border-top: 1px solid var(--gray04);
+
+  .comment_item {
+    border-bottom: 1px solid var(--gray02);
+    padding: 1.6rem;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8em;
+
+    .profile_img {
+      flex-shrink: 0;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1px solid var(--gray02);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .comment {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      line-height: 1.4;
+
+      .profile_info {
+        a {
+          display: inline-flex;
+          gap: 0.5em;
+          align-items: center;
+
+          strong {
+            font-weight: bold;
+          }
+          span {
+            border-left: 1px solid var(--gray04);
+            padding: 0 0 0 0.5em;
+            line-height: 1;
+            font-size: 0.9em;
+            color: var(--textSecondary);
+          }
+        }
+      }
+      .comment_time {
+        font-size: 0.9em;
+        color: var(--primary);
+      }
+    }
+
+    .btn_del {
+      flex-shrink: 0;
+      padding: 0.5em;
+      border-radius: 0.5em;
+      border: 1px solid;
+      font-size: 0.8em;
+      @include getColor(border-color, statusWarn, 0.3);
+      transition: all 0.3s;
+      &:enabled:hover {
+        color: var(--statusWarn);
+        @include getColor(border-color, statusWarn, 0.5);
+        @include getColor(background-color, statusWarn, 0.05);
+      }
+      &:enabled:active {
+        color: #fff;
+        background-color: var(--statusWarn);
+      }
+    }
+  }
+}

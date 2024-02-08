@@ -7,6 +7,9 @@ import { CommentsInterface, PostInterface } from 'interface';
 
 import { toast } from 'react-toastify';
 
+import styles from './CommentList.module.scss';
+import { Link } from 'react-router-dom';
+import getTime from 'utils/getTime';
 export default function CommentList({
   post,
   userId,
@@ -32,21 +35,40 @@ export default function CommentList({
   return (
     <>
       {post?.comments && post?.comments.length > 0 && (
-        <ol>
+        <ol className={styles.comment_list}>
           {post?.comments
             ?.slice(0)
             .reverse()
             .map((comment: CommentsInterface, index: number) => (
-              <li key={index}>
-                <img src={findUser?.photoURL || NO_PROFILE} alt="" />
-                <p>{comment.content}</p>
-                <p>{comment.createdAt}</p>
-                <p>{findUser?.email}</p>
-                <p>{findUser?.displayName}</p>
+              <li key={index} className={styles.comment_item}>
+                <Link
+                  className={styles.profile_img}
+                  to={`/profile/${comment.uid}`}>
+                  <img
+                    src={findUser?.photoURL || NO_PROFILE}
+                    alt=""
+                    className={styles.profile_img}
+                  />
+                </Link>
+
+                <div className={styles.comment}>
+                  <p className={styles.profile_info}>
+                    <Link to={`/profile/${comment.uid}`}>
+                      <strong>{findUser?.displayName}</strong>
+                      <span>{findUser?.email}</span>
+                    </Link>
+                  </p>
+                  <p>{comment.content}</p>
+                  <p className={styles.comment_time}>
+                    {getTime(comment.createdAt)}
+                  </p>
+                </div>
+
                 {comment.uid === userId && (
                   <button
                     type="button"
-                    onClick={() => hanleDeleteComment(comment)}>
+                    onClick={() => hanleDeleteComment(comment)}
+                    className={styles.btn_del}>
                     삭제
                   </button>
                 )}

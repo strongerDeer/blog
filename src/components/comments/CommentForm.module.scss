@@ -1,0 +1,21 @@
+.comment_form {
+  display: flex;
+  align-items: flex-end;
+  border: 1px solid var(--gray02);
+  margin: 1em 0 2em;
+  border-radius: 1em;
+  padding: 1em;
+
+  &:focus-within {
+    border-color: var(--primary);
+  }
+  textarea {
+    flex-grow: 1;
+    height: 12rem;
+    border: none;
+    resize: none;
+    &:focus {
+      outline: none;
+    }
+  }
+}

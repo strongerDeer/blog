@@ -6,6 +6,8 @@ import { PostInterface } from 'interface';
 import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
+import styles from './CommentForm.module.scss';
+
 export default function CommentForm({ post }: { post: PostInterface }) {
   const [comment, setComment] = useState('');
   const { user } = useContext(AuthContext);
@@ -55,7 +57,7 @@ export default function CommentForm({ post }: { post: PostInterface }) {
     }
   };
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={styles.comment_form}>
       <textarea value={comment} onChange={onChange} required></textarea>
       <Btn type="submit" fillPrimary>
         입력
