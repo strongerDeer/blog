@@ -1,12 +1,20 @@
 import Btn from 'components/commons/button/Btn';
 import AuthContext from 'contexts/AuthContext';
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  arrayUnion,
+  collection,
+  doc,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { PostInterface } from 'interface';
 import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import styles from './CommentForm.module.scss';
+import { getTruncate } from 'utils/getTruncate';
 
 export default function CommentForm({ post }: { post: PostInterface }) {
   const [comment, setComment] = useState('');
@@ -23,6 +31,7 @@ export default function CommentForm({ post }: { post: PostInterface }) {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const timeId = new Date().getTime() + '';
     try {
       if (post.id) {
         const postRef = doc(db, 'posts', post.id);
@@ -36,6 +45,10 @@ export default function CommentForm({ post }: { post: PostInterface }) {
               minute: '2-digit',
               second: '2-digit',
             }),
+            timeId: timeId,
+            email: user.email,
+            photoURL: user.photoURL,
+            displayName: user?.displayName,
           };
 
           await updateDoc(postRef, {
@@ -48,6 +61,25 @@ export default function CommentForm({ post }: { post: PostInterface }) {
             commentsCount: post?.commentsCount ? post?.commentsCount + 1 : 1,
           });
         }
+      }
+
+      // 댓글 생성 알림 만들기
+      if (user?.uid !== post?.uid) {
+        const usersRef = collection(db, 'users');
+
+        await setDoc(doc(usersRef, post.uid, 'notifications', timeId), {
+          createdAt: new Date()?.toLocaleDateString('ko', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+          }),
+          uid: post?.uid,
+          isRead: false,
+          url: `/posts/${post?.id}`,
+          content: `"${getTruncate(post?.content)}" 글에 "${getTruncate(
+            comment,
+          )}" 댓글이 작성되었습니다.`,
+        });
       }
 
       toast.success('댓글을 생성하였습니다.');

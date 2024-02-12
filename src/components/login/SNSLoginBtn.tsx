@@ -38,14 +38,13 @@ export default function SNSLoginBtn({
       provider as GoogleAuthProvider | GithubAuthProvider,
     )
       .then(async (res) => {
-        if (signup) {
-          // 유저 정보 저장
-          await setDoc(doc(db, 'users', res.user.uid), {
-            email: res.user.email,
-            displayName: res.user.displayName,
-            photoURL: res.user.photoURL,
-          });
-        }
+        // 유저 정보 저장
+        await setDoc(doc(db, 'users', res.user.uid), {
+          email: res.user.email,
+          displayName: res.user.displayName,
+          photoURL: res.user.photoURL,
+        });
+
         navigate('/');
         toast.success('로그인 되었습니다.');
       })

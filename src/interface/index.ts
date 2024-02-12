@@ -10,11 +10,11 @@ export interface UserDataInterface {
 
 export interface NotificationsInterface {
   id: string;
-  uid: string;
-  url: string;
-  createdAt: string;
-  isRead: boolean;
-  type: string;
+  uid?: string;
+  url?: string;
+  createdAt?: string;
+  isRead?: boolean;
+  type?: string;
   content: string;
   author?: string;
   post?: string;
@@ -36,6 +36,8 @@ export interface PostInterface {
   like?: string;
   likeCount?: number;
   hashTags?: string[];
+  noti?: NotificationsInterface;
+  notiCount?: number;
 }
 
 export interface FollowInterface {
@@ -47,10 +49,11 @@ export interface FollowInterface {
 }
 
 export interface CommentsInterface {
+  timeId: string;
   content: string;
   uid: string;
   email: string;
-  nickname: string;
-  profileURL: string;
+  displayName: string;
+  photoURL: string;
   createdAt: string;
 }

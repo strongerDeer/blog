@@ -1,6 +1,6 @@
 import { NO_PROFILE } from 'constants/index';
 
-import { arrayRemove, doc, updateDoc } from 'firebase/firestore';
+import { arrayRemove, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import useFindUser from 'hooks/useFindUser';
 import { CommentsInterface, PostInterface } from 'interface';
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import styles from './CommentList.module.scss';
 import { Link } from 'react-router-dom';
 import getTime from 'utils/getTime';
+import { getTruncate } from 'utils/getTruncate';
 export default function CommentList({
   post,
   userId,
@@ -17,8 +18,6 @@ export default function CommentList({
   post: PostInterface;
   userId: string;
 }) {
-  const { findUser } = useFindUser(userId);
-
   const hanleDeleteComment = async (comment: CommentsInterface) => {
     const confirm = window.confirm('해당 댓글을 삭제하시겠습니까?');
     if (confirm && post.id) {
@@ -27,6 +26,11 @@ export default function CommentList({
         comments: arrayRemove(comment),
         commentsCount: post?.commentsCount ? post?.commentsCount - 1 : 0,
       });
+
+      // 알림 삭제
+      await deleteDoc(
+        doc(db, 'users', post.uid, 'notifications', comment.timeId),
+      );
 
       toast.success('댓글이 삭제되었습니다.');
     }
@@ -45,7 +49,7 @@ export default function CommentList({
                   className={styles.profile_img}
                   to={`/profile/${comment.uid}`}>
                   <img
-                    src={findUser?.photoURL || NO_PROFILE}
+                    src={comment?.photoURL || NO_PROFILE}
                     alt=""
                     className={styles.profile_img}
                   />
@@ -54,8 +58,8 @@ export default function CommentList({
                 <div className={styles.comment}>
                   <p className={styles.profile_info}>
                     <Link to={`/profile/${comment.uid}`}>
-                      <strong>{findUser?.displayName}</strong>
-                      <span>{findUser?.email}</span>
+                      <strong>{comment?.displayName}</strong>
+                      <span>{comment?.email}</span>
                     </Link>
                   </p>
                   <p>{comment.content}</p>
