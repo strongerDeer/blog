@@ -1,18 +1,29 @@
-import { UserDataInterface } from 'interface';
+import { FollowInterface, UserDataInterface } from 'interface';
 import styles from './Profile.module.scss';
 import { NO_PROFILE } from 'constants/index';
 import FollowBtn from 'components/follow/FollowBtn';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import { useParams } from 'react-router-dom';
-import { doc, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { Link } from 'react-router-dom';
 
-export default function Profile({ loginId }: { loginId?: string }) {
+export default function Profile() {
   const { user } = useContext(AuthContext);
   const id = useParams().id;
   const [userData, setUserData] = useState<UserDataInterface | null>(null);
+
+  const pageId = id ? id : user?.uid;
+
+  const [followers, setFollowers] = useState<FollowInterface[]>([]);
+  const [followings, setFollowings] = useState<FollowInterface[]>([]);
 
   const getUserData = async (id: string) => {
     const docRef = doc(db, 'users', id);
@@ -21,6 +32,32 @@ export default function Profile({ loginId }: { loginId?: string }) {
       setUserData(doc.data() as UserDataInterface);
     });
   };
+
+  useEffect(() => {
+    // 팔로워
+    let followerRef = collection(db, `users/${pageId}/followers`);
+    let followerQuery = query(followerRef, orderBy('displayName', 'asc'));
+
+    onSnapshot(followerQuery, (snapshot) => {
+      let dataObj = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc?.id,
+      }));
+      setFollowers(dataObj as FollowInterface[]);
+    });
+
+    // 팔로잉
+    let followingRef = collection(db, `users/${pageId}/followings`);
+    let followingQuery = query(followingRef, orderBy('displayName', 'asc'));
+
+    onSnapshot(followingQuery, (snapshot) => {
+      let dataObj = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc?.id,
+      }));
+      setFollowings(dataObj as FollowInterface[]);
+    });
+  }, []);
 
   useEffect(() => {
     if (id) {
@@ -52,16 +89,12 @@ export default function Profile({ loginId }: { loginId?: string }) {
 
             <Link to="/followers">
               팔로우{' '}
-              <strong>
-                {userData?.followerList ? userData?.followerList?.length : 0}
-              </strong>
+              <strong>{followers?.length ? followers?.length : 0}</strong>
             </Link>
 
             <Link to="/followings">
               팔로잉{' '}
-              <strong>
-                {userData?.followingList ? userData?.followingList?.length : 0}
-              </strong>
+              <strong>{followings?.length ? followings?.length : 0}</strong>
             </Link>
           </div>
 
