@@ -5,8 +5,7 @@ import FollowBtn from 'components/follow/FollowBtn';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from 'contexts/AuthContext';
 import { useParams } from 'react-router-dom';
-import useFindUser from 'hooks/useFindUser';
-import { doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import { Link } from 'react-router-dom';
 
