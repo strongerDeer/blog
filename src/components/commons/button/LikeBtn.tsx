@@ -1,34 +1,87 @@
 import AuthContext from 'contexts/AuthContext';
-import { arrayRemove, arrayUnion, doc, updateDoc } from 'firebase/firestore';
+import {
+  arrayRemove,
+  arrayUnion,
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from 'firebaseApp';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import styles from './LikeBtn.module.scss';
 import SVGLikeFill from 'components/svg/SVGLikeFill';
 import SVGLike from 'components/svg/SVGLike';
+import { getTruncate } from 'utils/getTruncate';
+
 export default function LikeBtn({ post }: any) {
   const { user } = useContext(AuthContext);
 
-  const toggleLike = async () => {
-    const postRef = doc(db, 'posts', post.id);
+  const [likes, setLikes] = useState<string[]>([]);
 
-    if (user?.uid && post?.likes?.includes(user?.uid)) {
-      await updateDoc(postRef, {
-        likes: arrayRemove(user?.uid),
-        likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
-      });
-    } else {
-      await updateDoc(postRef, {
-        likes: arrayUnion(user?.uid),
-        likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
-      });
+  useEffect(() => {
+    let likeRef = collection(db, `posts/${post.id}/likes`);
+    let likeQuery = query(likeRef);
+
+    onSnapshot(likeQuery, (snapshot) => {
+      let dataObj = snapshot.docs.map((doc) => doc?.id);
+      setLikes(dataObj as string[]);
+    });
+  }, []);
+
+  console.log(likes);
+
+  const toggleLike = async () => {
+    if (user?.uid) {
+      if (!likes.includes(user.uid)) {
+        // 좋아요!
+        await setDoc(doc(db, `posts/${post.id}`, `likes/${user?.uid}`), {});
+
+        await updateDoc(doc(db, `posts/${post.id}`), {
+          likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
+        });
+
+        // 알림 추가
+        await setDoc(
+          doc(db, `users/${post.uid}`, `notifications/${user?.uid}`),
+          {
+            createdAt: new Date()?.toLocaleDateString('ko', {
+              hour: '2-digit',
+              minute: '2-digit',
+              second: '2-digit',
+            }),
+            uid: post?.uid,
+            isRead: false,
+            url: `/posts/${post?.id}`,
+            content: `"${getTruncate(post?.content)}" 글을 "${
+              user?.displayName
+            }"님이 좋아합니다.`,
+          },
+        );
+      } else {
+        // 좋아요 취소
+        await deleteDoc(doc(db, `posts/${post.id}`, `likes/${user?.uid}`));
+        await updateDoc(doc(db, `posts/${post.id}`), {
+          likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
+        });
+
+        // 알림 삭제
+        await deleteDoc(
+          doc(db, `users/${post.uid}`, `notifications/${user?.uid}`),
+        );
+      }
     }
   };
 
   return (
     <>
       <button type="button" onClick={toggleLike} className={styles.LikeBtn}>
-        {user && post?.likes?.includes(user?.uid) ? (
+        {user?.uid && likes.includes(user.uid) ? (
           <>
             <SVGLikeFill fill="statusWarn" />
             <span className="a11y-hidden">좋아요 취소</span>
