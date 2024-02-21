@@ -75,10 +75,11 @@ export default function CommentForm({ post }: { post: PostInterface }) {
           }),
           uid: post?.uid,
           isRead: false,
-          url: `/posts/${post?.id}`,
-          content: `"${getTruncate(post?.content)}" 글에 "${getTruncate(
-            comment,
-          )}" 댓글이 작성되었습니다.`,
+          url: `/post/${post?.id}`,
+          type: 'comment',
+          author: user?.uid,
+          postTitle: getTruncate(post?.content),
+          comment: getTruncate(comment),
         });
       }
 

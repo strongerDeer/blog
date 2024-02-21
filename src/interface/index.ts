@@ -11,13 +11,13 @@ export interface UserDataInterface {
 export interface NotificationsInterface {
   id: string;
   uid?: string;
-  url?: string;
   createdAt?: string;
+  url?: string;
   isRead?: boolean;
   type?: string;
-  content: string;
   author?: string;
-  post?: string;
+  postTitle?: string;
+  comment?: string;
 }
 
 export interface PostInterface {

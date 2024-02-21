@@ -28,7 +28,7 @@ export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
     try {
       if (loginId && profileId) {
         // 로그인한 사용자 : 팔로잉에 추가
-        await setDoc(doc(db, 'users', loginId, 'followings', profileId), {
+        await setDoc(doc(db, `users/${loginId}`, `followings/${profileId}`), {
           uid: timeId,
           displayName: profileUser?.displayName,
           email: profileUser?.email,
@@ -36,7 +36,7 @@ export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
         });
 
         // 팔로우 당하는 사용자: 팔로우에 추가
-        await setDoc(doc(db, 'users', profileId, 'followers', loginId), {
+        await setDoc(doc(db, `users/${profileId}`, `followers/${loginId}`), {
           uid: timeId,
           displayName: loginUser?.displayName,
           email: loginUser?.email,
@@ -44,15 +44,17 @@ export default function FollowBtn({ loginId, profileId }: FollowBtnProps) {
         });
 
         // 팔로우 당하는 사용자: 알림생성
-        await setDoc(doc(db, 'users', profileId, 'notifications', timeId), {
+        await setDoc(doc(db, `users/${profileId}`, `notifications/${timeId}`), {
           createdAt: new Date()?.toLocaleDateString('ko', {
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit',
           }),
           isRead: false,
+          uid: profileId,
           url: `/profile/${loginId}`,
-          content: `"${loginUser?.displayName}"님이 나를 팔로우합니다!`,
+          type: 'follow',
+          author: loginId,
         });
       }
 

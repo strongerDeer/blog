@@ -34,8 +34,6 @@ export default function LikeBtn({ post }: any) {
     });
   }, []);
 
-  console.log(likes);
-
   const toggleLike = async () => {
     if (user?.uid) {
       if (!likes.includes(user.uid)) {
@@ -57,10 +55,10 @@ export default function LikeBtn({ post }: any) {
             }),
             uid: post?.uid,
             isRead: false,
-            url: `/posts/${post?.id}`,
-            content: `"${getTruncate(post?.content)}" 글을 "${
-              user?.displayName
-            }"님이 좋아합니다.`,
+            url: `/post/${post?.id}`,
+            type: 'like',
+            author: user?.uid,
+            postTitle: getTruncate(post?.content),
           },
         );
       } else {

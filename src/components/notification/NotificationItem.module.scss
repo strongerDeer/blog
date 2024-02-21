@@ -1,0 +1,45 @@
+@import 'styles/var.scss';
+
+.noti__item {
+  &:not(:first-child) {
+    border-top: 1px solid #ddd;
+  }
+
+  .noti__link {
+    display: flex;
+    flex-direction: column;
+
+    padding: 1em 1.4em 1em 1em;
+    position: relative;
+
+    .createdAt {
+      color: var(--primary);
+      font-size: 0.9em;
+    }
+    &.unread::after {
+      content: '';
+      display: inline-block;
+      width: 0.8rem;
+      height: 0.8rem;
+      border-radius: 50%;
+      background-color: var(--statusWarn);
+      position: absolute;
+      top: 1em;
+      right: 1em;
+    }
+  }
+
+  //   button {
+  //     width: 100%;
+  //
+  //     text-align: left;
+  //
+
+  //
+  //
+  //     gap: 0.5em;
+  //     .createdAt {
+  //       color: #767676;
+  //       font-size: 0.9em;
+  //     }
+}

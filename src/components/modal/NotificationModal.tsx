@@ -15,6 +15,7 @@ import { db } from 'firebaseApp';
 import styles from './NotificationModal.module.scss';
 import { NotificationsInterface } from 'interface';
 import SVGNotification from 'components/svg/SVGNotification';
+import NotificationItem from 'components/notification/NotificationItem';
 
 export default function NotificationModal() {
   const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ export default function NotificationModal() {
 
   useEffect(() => {
     if (user) {
-      let ref = collection(db, 'notifications');
+      let ref = collection(db, `users/${user?.uid}`, 'notifications');
       let notificationQuery = query(
         ref,
         where('uid', '==', user?.uid),
@@ -49,19 +50,18 @@ export default function NotificationModal() {
         <>
           <SVGNotification />
           <span className="a11y-hidden">알림</span>
+
           {notifications.length > 0 && (
             <span className={styles.noti__count}>{notifications.length}</span>
           )}
         </>
       }>
       {notifications?.length > 0 ? (
-        <>
-          <ul>
-            {/* {notifications?.slice(0, 5).map((notification) => (
-              <NotificationItem key={notification.id} noti={notification} />
-            ))} */}
-          </ul>
-        </>
+        <ul>
+          {notifications?.slice(0, 5).map((notification) => (
+            <NotificationItem key={notification.id} noti={notification} />
+          ))}
+        </ul>
       ) : (
         <p className={styles.no__noti}>새로운 알림이 없습니다.</p>
       )}
