@@ -1,16 +1,18 @@
 import { NotificationsInterface } from 'interface';
 
 import styles from './NotificationItem.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import { doc, updateDoc } from 'firebase/firestore';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { db } from 'firebaseApp';
 import classNames from 'classnames';
 import getTime from 'utils/getTime';
 import useFindUser from 'hooks/useFindUser';
 export default function NotificationItem({
   noti,
+  btnShow,
 }: {
   noti: NotificationsInterface;
+  btnShow?: boolean;
 }) {
   const { findUser } = useFindUser(noti.author);
 
@@ -22,15 +24,20 @@ export default function NotificationItem({
     });
   };
 
+  const deleteNotification = async (uid: string, id: string) => {
+    await deleteDoc(doc(db, `users/${uid}`, `notifications/${id}`));
+  };
+
   return (
-    <li className={styles.noti__item}>
+    <li
+      className={classNames(
+        styles.noti__item,
+        noti.isRead ? null : styles.unread,
+      )}>
       <Link
         to={`${noti.url}`}
         onClick={onClickNotification}
-        className={classNames(
-          styles.noti__link,
-          noti.isRead ? '' : styles.unread,
-        )}>
+        className={styles.noti__link}>
         {noti.type === 'follow' && (
           <p>
             <strong>{findUser?.displayName}</strong>님이 팔로우합니다.
@@ -60,6 +67,22 @@ export default function NotificationItem({
           {noti.isRead ? '읽음' : '읽지 않음'}
         </span>
       </Link>
+
+      {btnShow && (
+        <div className={styles.noti__btnGroup}>
+          {!noti.isRead && (
+            <button type="button" onClick={onClickNotification}>
+              읽음
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={() => deleteNotification(`${noti.uid}`, noti.id)}>
+            삭제
+          </button>
+        </div>
+      )}
     </li>
   );
 }

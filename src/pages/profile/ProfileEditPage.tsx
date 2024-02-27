@@ -127,7 +127,6 @@ export default function ProfileEditPage() {
           });
 
           toast.success('프로필 업데이트 성공!');
-
           navigate('/mypage');
         } catch (error) {
           console.log(error);

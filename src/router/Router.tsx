@@ -15,6 +15,7 @@ import PostViewPage from 'pages/post/PostViewPage';
 import FollowingListPage from 'pages/follow/FollowingListPage';
 import FollowerListPage from 'pages/follow/FollowerListPage';
 import HomePage from 'pages/home/HomePage';
+import NotificationsPage from 'pages/notifications/NotificationsPage';
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -36,7 +37,7 @@ export default function Router() {
           <Route path="/post/edit/:id" element={<PostEditPage />} />
 
           {/* 알림 */}
-          <Route path="/notifications" element={<>알림 목록</>} />
+          <Route path="/notifications" element={<NotificationsPage />} />
 
           {/* 팔로우 */}
           {user.uid && (

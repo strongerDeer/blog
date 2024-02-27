@@ -55,5 +55,9 @@ export default function SNSLoginBtn({
       });
   };
 
-  return <Btn onClick={onClickGoogleLogin}>{type} 회원가입</Btn>;
+  return (
+    <Btn onClick={onClickGoogleLogin}>
+      {type} {signup ? '회원가입' : '로그인'}
+    </Btn>
+  );
 }

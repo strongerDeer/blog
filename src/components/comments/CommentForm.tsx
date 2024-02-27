@@ -78,7 +78,7 @@ export default function CommentForm({ post }: { post: PostInterface }) {
           url: `/post/${post?.id}`,
           type: 'comment',
           author: user?.uid,
-          postTitle: getTruncate(post?.content),
+          postTitle: getTruncate(post?.title),
           comment: getTruncate(comment),
         });
       }

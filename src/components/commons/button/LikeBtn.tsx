@@ -58,7 +58,7 @@ export default function LikeBtn({ post }: any) {
             url: `/post/${post?.id}`,
             type: 'like',
             author: user?.uid,
-            postTitle: getTruncate(post?.content),
+            postTitle: getTruncate(post?.title),
           },
         );
       } else {

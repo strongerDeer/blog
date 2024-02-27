@@ -1,22 +1,24 @@
 @import 'styles/var.scss';
 
 .noti__item {
+  @include getColor(background-color, gray03, 0.2);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+  padding: 0.5em;
+
+  opacity: 0.9;
+  position: relative;
   &:not(:first-child) {
     border-top: 1px solid #ddd;
   }
 
-  .noti__link {
-    display: flex;
-    flex-direction: column;
-
-    padding: 1em 1.4em 1em 1em;
-    position: relative;
-
-    .createdAt {
-      color: var(--primary);
-      font-size: 0.9em;
-    }
-    &.unread::after {
+  &.unread {
+    background-color: var(--gray01);
+    opacity: 1;
+    &::after {
       content: '';
       display: inline-block;
       width: 0.8rem;
@@ -28,18 +30,23 @@
       right: 1em;
     }
   }
+  .noti__link {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5em;
+    position: relative;
 
-  //   button {
-  //     width: 100%;
-  //
-  //     text-align: left;
-  //
+    .createdAt {
+      color: var(--primary);
+      font-size: 0.9em;
+    }
+  }
 
-  //
-  //
-  //     gap: 0.5em;
-  //     .createdAt {
-  //       color: #767676;
-  //       font-size: 0.9em;
-  //     }
+  .noti__btnGroup {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.4rem;
+    margin-right: 0.5em;
+  }
 }
