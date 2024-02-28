@@ -1,0 +1,14 @@
+@import "styles/var.scss";
+
+.post__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(26rem, 1fr));
+  gap: 2.4rem;
+
+  li {
+    background-color: var(--background);
+    box-shadow: $boxShadow;
+
+    border-radius: 1rem;
+  }
+}

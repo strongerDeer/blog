@@ -1,21 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from "react-router-dom";
 
-import MyPage from 'pages/profile/MyPage';
-import { useContext } from 'react';
-import AuthContext from 'contexts/AuthContext';
+import MyPage from "pages/profile/MyPage";
+import { useContext } from "react";
+import AuthContext from "contexts/AuthContext";
 
-import LoginPage from 'pages/login/LoginPage';
-import SignupPage from 'pages/login/SignupPage';
-import ProfilePage from 'pages/profile/ProfilePage';
-import ProfileEditPage from 'pages/profile/ProfileEditPage';
-import PostCreatePage from 'pages/post/PostCreatePage';
-import PostListPage from 'pages/post/PostListPage';
-import PostEditPage from 'pages/post/PostEditPage';
-import PostViewPage from 'pages/post/PostViewPage';
-import FollowingListPage from 'pages/follow/FollowingListPage';
-import FollowerListPage from 'pages/follow/FollowerListPage';
-import HomePage from 'pages/home/HomePage';
-import NotificationsPage from 'pages/notifications/NotificationsPage';
+import LoginPage from "pages/login/LoginPage";
+import SignupPage from "pages/login/SignupPage";
+import ProfilePage from "pages/profile/ProfilePage";
+import ProfileEditPage from "pages/profile/ProfileEditPage";
+import PostCreatePage from "pages/post/PostCreatePage";
+import PostListPage from "pages/post/PostListPage";
+import PostEditPage from "pages/post/PostEditPage";
+import PostViewPage from "pages/post/PostViewPage";
+import HomePage from "pages/home/HomePage";
+import NotificationsPage from "pages/notifications/NotificationsPage";
 
 export default function Router() {
   const { user } = useContext(AuthContext);
@@ -38,20 +36,6 @@ export default function Router() {
 
           {/* 알림 */}
           <Route path="/notifications" element={<NotificationsPage />} />
-
-          {/* 팔로우 */}
-          {user.uid && (
-            <>
-              <Route
-                path="/followers"
-                element={<FollowerListPage loginId={user.uid} />}
-              />
-              <Route
-                path="/followings"
-                element={<FollowingListPage loginId={user.uid} />}
-              />
-            </>
-          )}
         </>
       ) : (
         <>

@@ -1,19 +1,19 @@
-import { FollowInterface, UserDataInterface } from 'interface';
-import styles from './Profile.module.scss';
-import { NO_PROFILE } from 'constants/index';
-import FollowBtn from 'components/follow/FollowBtn';
-import { useCallback, useContext, useEffect, useState } from 'react';
-import AuthContext from 'contexts/AuthContext';
-import { useParams } from 'react-router-dom';
+import { FollowInterface, UserDataInterface } from "interface";
+import styles from "./Profile.module.scss";
+import { NO_PROFILE } from "constants/index";
+import FollowBtn from "components/follow/FollowBtn";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "contexts/AuthContext";
+import { useParams } from "react-router-dom";
 import {
   collection,
   doc,
   onSnapshot,
   orderBy,
   query,
-} from 'firebase/firestore';
-import { db } from 'firebaseApp';
-import { Link } from 'react-router-dom';
+} from "firebase/firestore";
+import { db } from "firebaseApp";
+import { Link } from "react-router-dom";
 
 export default function Profile() {
   const { user } = useContext(AuthContext);
@@ -26,7 +26,7 @@ export default function Profile() {
   const [followings, setFollowings] = useState<FollowInterface[]>([]);
 
   const getUserData = async (id: string) => {
-    const docRef = doc(db, 'users', id);
+    const docRef = doc(db, "users", id);
 
     onSnapshot(docRef, (doc) => {
       setUserData(doc.data() as UserDataInterface);
@@ -36,7 +36,7 @@ export default function Profile() {
   useEffect(() => {
     // 팔로워
     let followerRef = collection(db, `users/${pageId}/followers`);
-    let followerQuery = query(followerRef, orderBy('displayName', 'asc'));
+    let followerQuery = query(followerRef, orderBy("displayName", "asc"));
 
     onSnapshot(followerQuery, (snapshot) => {
       let dataObj = snapshot.docs.map((doc) => ({
@@ -48,7 +48,7 @@ export default function Profile() {
 
     // 팔로잉
     let followingRef = collection(db, `users/${pageId}/followings`);
-    let followingQuery = query(followingRef, orderBy('displayName', 'asc'));
+    let followingQuery = query(followingRef, orderBy("displayName", "asc"));
 
     onSnapshot(followingQuery, (snapshot) => {
       let dataObj = snapshot.docs.map((doc) => ({
@@ -88,12 +88,12 @@ export default function Profile() {
             </p>
 
             <Link to="/followers">
-              팔로우{' '}
+              팔로우{" "}
               <strong>{followers?.length ? followers?.length : 0}</strong>
             </Link>
 
             <Link to="/followings">
-              팔로잉{' '}
+              팔로잉{" "}
               <strong>{followings?.length ? followings?.length : 0}</strong>
             </Link>
           </div>
