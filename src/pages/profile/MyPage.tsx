@@ -13,34 +13,6 @@ export default function MyPage() {
   const { user } = useContext(AuthContext);
 
   const [activeTab, setActiveTab] = useState<string>("post");
-  const [followers, setFollowers] = useState<FollowInterface[]>([]);
-  const [followings, setFollowings] = useState<FollowInterface[]>([]);
-
-  useEffect(() => {
-    // 팔로워
-    let followerRef = collection(db, `users/${user?.uid}/followers`);
-    let followerQuery = query(followerRef, orderBy("displayName", "asc"));
-
-    onSnapshot(followerQuery, (snapshot) => {
-      let dataObj = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc?.id,
-      }));
-      setFollowers(dataObj as FollowInterface[]);
-    });
-
-    // 팔로잉
-    let followingRef = collection(db, `users/${user?.uid}/followings`);
-    let followingQuery = query(followingRef, orderBy("displayName", "asc"));
-
-    onSnapshot(followingQuery, (snapshot) => {
-      let dataObj = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc?.id,
-      }));
-      setFollowings(dataObj as FollowInterface[]);
-    });
-  }, []);
 
   return (
     <div className="max-width">
@@ -56,7 +28,7 @@ export default function MyPage() {
             activeTab === "post" ? styles.active : ""
           )}
         >
-          게시글
+          나의 게시글
         </button>
         <button
           type="button"
@@ -67,7 +39,7 @@ export default function MyPage() {
             activeTab === "follower" ? styles.active : ""
           )}
         >
-          팔로워 <strong>{followers?.length ? followers?.length : 0}</strong>
+          팔로워
         </button>
         <button
           type="button"
@@ -78,22 +50,20 @@ export default function MyPage() {
             activeTab === "following" ? styles.active : ""
           )}
         >
-          팔로잉 <strong>{followings?.length ? followings?.length : 0}</strong>
+          팔로잉
         </button>
       </div>
 
       {activeTab === "post" && (
         <>
-          <h2>게시글</h2>
+          <h2>나의 게시글</h2>
           <PostList type="my_post" />
         </>
       )}
 
-      {activeTab === "follower" && user?.uid && (
-        <FollowList users={followers} type="followers" />
-      )}
+      {activeTab === "follower" && user?.uid && <FollowList type="followers" />}
       {activeTab === "following" && user?.uid && (
-        <FollowList users={followings} type="followings" />
+        <FollowList type="followings" />
       )}
     </div>
   );

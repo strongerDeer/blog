@@ -1,11 +1,12 @@
 export interface UserDataInterface {
+  id?: string | null;
   uid?: string | null;
   email?: string | null;
   displayName?: string | null;
   photoURL?: string | null;
   provider?: string | null;
-  followingList?: string[] | null;
-  followerList?: string[] | null;
+  followings?: string[] | null;
+  followers?: string[] | null;
 }
 
 export interface NotificationsInterface {

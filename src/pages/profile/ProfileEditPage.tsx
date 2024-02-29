@@ -1,51 +1,51 @@
-import { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import styles from 'components/forms/Form.module.scss';
+import styles from "components/forms/Form.module.scss";
 
 //components
-import Btn from 'components/commons/button/Btn';
-import InputFileImg from 'components/forms/input/InputFileImg';
-import InputTextLabel from 'components/forms/input/InputTextLabel';
-import ValidatorCheckEmail from 'components/forms/ValidatorCheckEmail';
-import ValidatorCheckPassword from 'components/forms/ValidatorCheckPassword';
+import Btn from "components/commons/button/Btn";
+import InputFileImg from "components/forms/input/InputFileImg";
+import InputTextLabel from "components/forms/input/InputTextLabel";
+import ValidatorCheckEmail from "components/forms/ValidatorCheckEmail";
+import ValidatorCheckPassword from "components/forms/ValidatorCheckPassword";
 
 // firebase
-import { app, db, storage } from 'firebaseApp';
-import { getAuth, updatePassword, updateProfile } from 'firebase/auth';
+import { app, db, storage } from "firebaseApp";
+import { getAuth, updatePassword, updateProfile } from "firebase/auth";
 import {
   deleteObject,
   getDownloadURL,
   ref,
   uploadString,
-} from 'firebase/storage';
+} from "firebase/storage";
 
 // lib
-import { toast } from 'react-toastify';
-import { v4 as uuidv4 } from 'uuid';
-import AuthContext from 'contexts/AuthContext';
-import { doc, updateDoc } from 'firebase/firestore';
-import { STORAGE_DOWNLOAD_URL_STR } from 'constants/index';
+import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
+import AuthContext from "contexts/AuthContext";
+import { doc, updateDoc } from "firebase/firestore";
+import { STORAGE_DOWNLOAD_URL_STR } from "constants/index";
 
 export default function ProfileEditPage() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [isFilled, setIsFilled] = useState<boolean>(false);
-  const [previewImg, setPreviewImg] = useState<string>(user?.photoURL || '');
-  const [email, setEmail] = useState<string>(user?.email || '');
-  const [nickname, setNickname] = useState<string>(user?.displayName || '');
+  const [previewImg, setPreviewImg] = useState<string>(user?.photoURL || "");
+  const [email, setEmail] = useState<string>(user?.email || "");
+  const [nickname, setNickname] = useState<string>(user?.displayName || "");
 
-  const [password, setPassword] = useState<string>('');
-  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirm, setPasswordConfirm] = useState<string>("");
 
   const [error, setError] = useState<string | null>(null);
 
-  const isEmailID = user?.provider === 'password';
+  const isEmailID = user?.provider === "password";
 
   useEffect(() => {
     if (passwordConfirm?.length > 0 && password !== passwordConfirm) {
-      setError('비밀번호가 일치하지 않습니다!');
+      setError("비밀번호가 일치하지 않습니다!");
     } else {
       setError(null);
     }
@@ -96,7 +96,7 @@ export default function ProfileEditPage() {
       // firebase storage 이미지 업로드
       const imgKey = `${user?.uid}/${uuidv4()}`;
       const storageRef = ref(storage, imgKey);
-      const data = await uploadString(storageRef, previewImg, 'data_url');
+      const data = await uploadString(storageRef, previewImg, "data_url");
       profileUrl = data?.ref ? await getDownloadURL(data.ref) : null;
     }
 
@@ -106,13 +106,14 @@ export default function ProfileEditPage() {
         try {
           await updateProfile(auth.currentUser, {
             displayName: nickname,
-            photoURL: profileUrl || '',
+            photoURL: profileUrl || "",
           });
 
           if (user?.uid) {
-            await updateDoc(doc(db, 'users', user.uid), {
+            await updateDoc(doc(db, "users", user.uid), {
               displayName: nickname,
-              photoURL: profileUrl || '',
+              photoURL: profileUrl || "",
+              email: email,
             });
           }
 
@@ -123,11 +124,12 @@ export default function ProfileEditPage() {
           setUser({
             ...user,
             displayName: nickname,
-            photoURL: profileUrl || '',
+            photoURL: profileUrl || "",
+            email: email,
           });
 
-          toast.success('프로필 업데이트 성공!');
-          navigate('/mypage');
+          toast.success("프로필 업데이트 성공!");
+          navigate("/mypage");
         } catch (error) {
           console.log(error);
         }

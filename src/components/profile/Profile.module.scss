@@ -1,8 +1,8 @@
-@import 'styles/var.scss';
+@import "styles/var.scss";
 
 .profile__section {
   width: 40rem;
-  margin: 8rem auto;
+  margin: 8rem auto 0;
   background-color: var(--gray00);
 
   border-radius: 1rem;
@@ -46,6 +46,10 @@
     gap: 0.8rem;
     margin-top: 2rem;
   }
+}
+
+.info_wrap {
+  margin-bottom: 2rem;
 }
 
 // .btn__group {

@@ -72,7 +72,7 @@ export default function Profile() {
       <div className={styles.profile__section}>
         <h3>About Me</h3>
 
-        <>
+        <div className={styles.info_wrap}>
           <img
             src={userData?.photoURL ? userData.photoURL : NO_PROFILE}
             alt=""
@@ -81,25 +81,8 @@ export default function Profile() {
           <p className={styles.user__name}>{userData?.displayName}</p>
 
           <p className={styles.user__email}>{userData?.email}</p>
-
-          <div className={styles.count}>
-            <p>
-              게시글 <strong> 0</strong>
-            </p>
-
-            <Link to="/followers">
-              팔로우{" "}
-              <strong>{followers?.length ? followers?.length : 0}</strong>
-            </Link>
-
-            <Link to="/followings">
-              팔로잉{" "}
-              <strong>{followings?.length ? followings?.length : 0}</strong>
-            </Link>
-          </div>
-
-          {id && user?.uid && <FollowBtn loginId={user?.uid} profileId={id} />}
-        </>
+        </div>
+        {id && user?.uid && <FollowBtn loginId={user?.uid} profileId={id} />}
       </div>
     </div>
   );
