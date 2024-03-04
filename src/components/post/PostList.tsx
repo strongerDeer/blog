@@ -62,6 +62,13 @@ export default function PostList({ type }: { type?: string }) {
       const total = await getDocs(
         query(collection(db, "posts"), orderBy("createdAt", "desc"))
       );
+      const totalPageNum = Math.ceil(total.docs.length / LIMIT);
+      setTotalPage(totalPageNum);
+
+      if (currentPage > totalPageNum) {
+        return;
+      }
+
       const currentLast = total.docs[(currentPage - 1) * LIMIT - 1];
 
       let current = query(
@@ -84,8 +91,6 @@ export default function PostList({ type }: { type?: string }) {
         }));
         setPosts(dataObj as PostInterface[]);
       });
-
-      setTotalPage(Math.ceil(total.docs.length / LIMIT));
     };
     fucntionData();
   }, [currentPage]);
@@ -101,12 +106,9 @@ export default function PostList({ type }: { type?: string }) {
         )}
       </ul>
 
-      <Pagination
-        totalPage={totalPage ? totalPage : 1}
-        page={currentPage}
-        limit={LIMIT}
-        pathname="post"
-      />
+      {totalPage && (
+        <Pagination totalPage={totalPage} page={currentPage} pathname="post" />
+      )}
     </>
   );
 }
