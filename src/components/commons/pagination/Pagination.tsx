@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Pagination.module.scss";
 
@@ -9,15 +8,14 @@ interface PaginationProps {
   pathname: string;
 }
 
+const PAGE_ITEMS_DISPLAYED = 5;
+const PAGE_ITEMS_AROUND_CURRENT = 3;
+
 export default function Pagination({
   totalPage,
   page,
-  limit = 3,
   pathname,
 }: PaginationProps) {
-  const centerNum = Math.ceil(totalPage / 2);
-  const limitHalf = Math.floor(limit / 2);
-
   const PageItem = ({ pageNum }: { pageNum: number }) => (
     <Link
       to={`/${pathname}?page=${pageNum}`}
@@ -29,44 +27,46 @@ export default function Pagination({
 
   return (
     <div className={styles.pagination}>
-      {totalPage <= limit ? (
+      {totalPage <= PAGE_ITEMS_DISPLAYED ? (
         [...Array(totalPage)].map((_, i) => (
           <PageItem pageNum={i + 1} key={i} />
         ))
       ) : (
         <>
-          {page > centerNum - limitHalf + 1 && (
+          {page > PAGE_ITEMS_AROUND_CURRENT && (
             <>
               <PageItem pageNum={1} />
               ...
             </>
           )}
 
-          {page <= centerNum - limitHalf + 1 ? (
-            [...Array(limit)].map((_, i) => (
-              <PageItem pageNum={i + 1} key={i} />
-            ))
-          ) : page < totalPage - limit ? (
+          {page <= PAGE_ITEMS_AROUND_CURRENT && (
             <>
-              {[...Array(limitHalf)].map((_, i) => (
-                <PageItem pageNum={page - limitHalf + i} key={i} />
-              ))}
-
-              <PageItem pageNum={page} />
-
-              {[...Array(limitHalf)].map((_, i) => (
-                <PageItem pageNum={page + limitHalf + i - 1} key={i} />
+              {[...Array(PAGE_ITEMS_DISPLAYED)].map((_, i) => (
+                <PageItem pageNum={i + 1} key={i} />
               ))}
             </>
-          ) : (
+          )}
+          {page > PAGE_ITEMS_AROUND_CURRENT &&
+            page < totalPage - PAGE_ITEMS_AROUND_CURRENT && (
+              <>
+                <PageItem pageNum={page - 1} />
+                <PageItem pageNum={page} />
+                <PageItem pageNum={page + 1} />
+              </>
+            )}
+          {page >= totalPage - PAGE_ITEMS_AROUND_CURRENT && (
             <>
-              {[...Array(limit)].map((_, i) => (
-                <PageItem pageNum={totalPage - limit + i + 1} key={i} />
+              {[...Array(PAGE_ITEMS_DISPLAYED)].map((_, i) => (
+                <PageItem
+                  pageNum={totalPage - (PAGE_ITEMS_DISPLAYED - i - 1)}
+                  key={i}
+                />
               ))}
             </>
           )}
 
-          {page <= totalPage - limit + 1 && (
+          {page < totalPage - 3 && (
             <>
               ...
               <PageItem pageNum={totalPage} />

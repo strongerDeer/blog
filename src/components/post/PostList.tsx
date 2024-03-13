@@ -16,19 +16,25 @@ import {
 import { db } from "firebaseApp";
 import AuthContext from "contexts/AuthContext";
 import Pagination from "components/commons/pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-const LIMIT = 2;
+const LIMIT = 8;
 
 export default function PostList({ type }: { type?: string }) {
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page");
   const currentPage = page ? parseInt(page) : 1;
+  const navigate = useNavigate();
 
   const { user } = useContext(AuthContext);
   const [posts, setPosts] = useState<PostInterface[]>([]);
 
   const [totalPage, setTotalPage] = useState<number | null>(null);
+
+  if (totalPage && currentPage > totalPage) {
+    navigate(`/post?page=${totalPage}`);
+  }
+
   /* 
   useEffect(() => {
     let postsRef = collection(db, "posts");
